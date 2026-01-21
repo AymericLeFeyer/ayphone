@@ -1,0 +1,9 @@
+package fr.aylabs.ayphone
+
+class Greeting {
+    private val platform = getPlatform()
+
+    fun greet(): String {
+        return "Hello, ${platform.name}!"
+    }
+}
