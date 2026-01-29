@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
-import fr.aylabs.ayphone.resume.resumeGraph
+import fr.aylabs.ayphone.resume.ui.navigation.resumeGraph
 import kotlinx.serialization.Serializable
 
 sealed interface MainRoutes {

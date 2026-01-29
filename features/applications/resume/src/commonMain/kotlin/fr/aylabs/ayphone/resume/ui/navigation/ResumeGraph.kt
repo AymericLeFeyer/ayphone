@@ -1,17 +1,9 @@
-package fr.aylabs.ayphone.resume
+package fr.aylabs.ayphone.resume.ui.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import fr.aylabs.ayphone.resume.ui.ResumeScreen
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-
-sealed interface ResumeRoutes {
-    @Serializable
-    @SerialName("Resume")
-    data object Root : ResumeRoutes
-}
+import fr.aylabs.ayphone.resume.ui.screens.ResumeScreen
 
 fun NavGraphBuilder.resumeGraph(
     navController: NavController

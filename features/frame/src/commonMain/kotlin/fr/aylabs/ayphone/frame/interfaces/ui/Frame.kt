@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.application.data.Application
-import fr.aylabs.ayphone.resume.data.ResumeApp
+import fr.aylabs.ayphone.resume.domain.ResumeApp
 
 @Composable
 fun Frame(navController: NavHostController) {
