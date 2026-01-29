@@ -10,11 +10,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.ComposeViewport
 import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.bindToBrowserNavigation
+import co.touchlab.kermit.Logger
 import fr.aylabs.ayphone.di.initKoin
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
     initKoin()
+    Logger.setTag("AyPhone")
 
     ComposeViewport {
         Box(

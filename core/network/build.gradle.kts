@@ -34,10 +34,13 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.stdlib)
                 api(libs.ktor.client.core)
+                api(libs.ktor.client.cio)
+                api(libs.ktor.client.logging)
                 api(libs.ktor.client.content.negotiation)
                 api(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
+                implementation(libs.kermit)
             }
         }
 

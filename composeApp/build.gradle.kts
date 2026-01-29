@@ -45,6 +45,7 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.kermit)
         }
     }
 }

@@ -8,20 +8,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import fr.aylabs.ayphone.di.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        // Dependency injection
         initKoin {
             androidContext(this@MainActivity)
             androidLogger()
         }
 
+        // Logger
+        Logger.setTag("AyPhone")
+
+        // App
+        enableEdgeToEdge()
         setContent {
             Box(
                 modifier = Modifier
