@@ -1,5 +1,5 @@
 import fr.aylabs.ayphone.resume.data.dtos.ResumeDto
-import fr.aylabs.network.Client
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
@@ -8,10 +8,9 @@ import kotlinx.serialization.json.Json
 // It's temporary, because I'm using this url for testing purpose
 expect fun githubResumeUrl(): String
 
-class ResumeRemoteDatasource {
+class ResumeRemoteDatasource(val client: HttpClient) {
 
     suspend fun getResumeData(): ResumeDto {
-        val client = Client().client
         val response = client
             .get(githubResumeUrl())
 

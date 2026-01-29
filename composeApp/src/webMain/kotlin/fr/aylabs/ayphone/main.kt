@@ -10,9 +10,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.ComposeViewport
 import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.bindToBrowserNavigation
+import fr.aylabs.ayphone.di.initKoin
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalBrowserHistoryApi::class)
 fun main() {
+    initKoin()
+
     ComposeViewport {
         Box(
             modifier = Modifier

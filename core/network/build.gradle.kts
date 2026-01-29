@@ -36,6 +36,8 @@ kotlin {
                 api(libs.ktor.client.core)
                 api(libs.ktor.client.content.negotiation)
                 api(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
             }
         }
 
@@ -48,6 +50,7 @@ kotlin {
         androidMain {
             dependencies {
                 api(libs.ktor.client.android)
+                implementation(libs.koin.android)
             }
         }
 

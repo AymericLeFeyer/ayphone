@@ -48,6 +48,9 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.androidx.navigation.compose)
                 implementation(libs.kotlinx.datetime)
+
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
             }
         }
 
@@ -61,14 +64,11 @@ kotlin {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.koin.android)
             }
         }
 
         wasmJsMain {
-            dependencies {}
-        }
-
-        iosMain {
             dependencies {}
         }
     }
