@@ -1,9 +1,11 @@
 package fr.aylabs.ayphone.resume.data
 
+import androidx.navigation.NavController
 import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.resume.ResumeRoutes
 
-class ResumeApp : Application(title = "Resume") {
+class ResumeApp(private val navController: NavController) : Application(title = "Resume") {
     override fun onClick() {
-        TODO("Not yet implemented")
+        navController.navigate(ResumeRoutes.Root)
     }
 }

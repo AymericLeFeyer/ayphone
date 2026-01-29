@@ -2,11 +2,25 @@ package fr.aylabs.ayphone
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import fr.aylabs.ayphone.frame.interfaces.ui.Frame
+import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun App() {
+fun App(
+    onNavHostReady: suspend (NavController) -> Unit = {}
+) {
+    val navController: NavHostController = rememberNavController()
+
+    LaunchedEffect(navController) {
+        onNavHostReady(navController)
+    }
+
     MaterialTheme {
-        Frame()
+        MainNavHost(
+            navController = navController,
+            onBackClick = navController::popBackStack
+        )
     }
 }
