@@ -46,12 +46,6 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation(libs.kotlin.test)
-            }
-        }
-
         androidMain {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
@@ -60,10 +54,6 @@ kotlin {
         }
 
         wasmJsMain {
-            dependencies {}
-        }
-
-        iosMain {
             dependencies {}
         }
     }

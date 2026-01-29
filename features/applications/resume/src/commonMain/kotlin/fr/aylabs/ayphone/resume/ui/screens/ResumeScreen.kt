@@ -7,12 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
 import kotlinx.coroutines.launch
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ResumeScreen(
     onBackClick: () -> Unit,
-    vm: ResumeViewModel = koinInject()
+    vm: ResumeViewModel = koinViewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
 

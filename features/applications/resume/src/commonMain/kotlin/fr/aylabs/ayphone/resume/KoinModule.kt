@@ -5,6 +5,7 @@ import fr.aylabs.ayphone.resume.data.repositories.ResumeRepositoryImpl
 import fr.aylabs.ayphone.resume.domain.repositories.ResumeRepository
 import fr.aylabs.ayphone.resume.domain.usecases.GetResumeUseCase
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val RESUME_MODULE = module {
@@ -16,5 +17,5 @@ val RESUME_MODULE = module {
     single { GetResumeUseCase(repository = get()) }
 
     // UI
-    single { ResumeViewModel(getResumeUseCase = get()) }
+    viewModel { ResumeViewModel(getResumeUseCase = get()) }
 }

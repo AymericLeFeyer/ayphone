@@ -50,13 +50,9 @@ kotlin {
                 implementation(libs.kotlinx.datetime)
 
                 implementation(libs.koin.core)
+                implementation(libs.koin.core.viewmodel)
                 implementation(libs.koin.compose)
-            }
-        }
-
-        commonTest {
-            dependencies {
-                implementation(libs.kotlin.test)
+                implementation(libs.koin.compose.viewmodel)
             }
         }
 

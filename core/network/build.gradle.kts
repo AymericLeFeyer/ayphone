@@ -41,12 +41,6 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation(libs.kotlin.test)
-            }
-        }
-
         androidMain {
             dependencies {
                 api(libs.ktor.client.android)
@@ -57,15 +51,6 @@ kotlin {
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.wasm)
         }
-
-        getByName("androidDeviceTest") {
-            dependencies {
-                implementation(libs.androidx.runner)
-                implementation(libs.androidx.core)
-                implementation(libs.androidx.testExt.junit)
-            }
-        }
-
 
     }
 
