@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.kotlinParcelize)
 }
 
 kotlin {
@@ -54,6 +55,7 @@ kotlin {
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.kermit)
+                implementation(libs.multiplatform.settings)
             }
         }
 

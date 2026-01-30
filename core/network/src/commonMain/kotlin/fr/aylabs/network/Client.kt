@@ -1,7 +1,6 @@
 package fr.aylabs.network
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -13,7 +12,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 class Client() {
-    val client = HttpClient(CIO) {
+    val client = HttpClient {
         defaultRequest {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
