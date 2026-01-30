@@ -16,7 +16,6 @@ kotlin {
         }
     }
 
-
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
@@ -31,6 +30,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":core:network"))
+            implementation(project(":core:settings"))
             implementation(project(":features:frame"))
             implementation(project(":features:application"))
             implementation(project(":features:applications:resume"))

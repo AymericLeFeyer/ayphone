@@ -20,6 +20,7 @@ fun ResumeScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val uiState by vm.state.collectAsStateWithLifecycle()
+    val darkModeState by vm.darkModeState.collectAsStateWithLifecycle()
 
     Column {
         Text("I'm the resume screen !")
@@ -37,6 +38,14 @@ fun ResumeScreen(
                 is ResumeState.Success -> Text("Success: ${state.data.missions.size}")
                 is ResumeState.Error -> Text("Error: ${state.error.message}")
             }
+        }
+        Row {
+            Button(onClick = {
+                vm.toggleDarkMode()
+            }) {
+                Text("Dark mode from Settings")
+            }
+            Text("Currently $darkModeState")
         }
         Button(onClick = onBackClick) {
             Text("Go back")

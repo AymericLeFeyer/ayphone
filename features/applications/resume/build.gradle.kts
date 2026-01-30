@@ -37,6 +37,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":core:network"))
+                implementation(project(":core:settings"))
                 implementation(project(":features:application"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)

@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":core:network")
+include(":core:settings")
 include(":features:frame")
 include(":features:application")
 include(":features:applications:resume")
