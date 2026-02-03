@@ -24,8 +24,6 @@ val RESUME_MODULE = module {
     viewModel {
         ResumeViewModel(
             getResumeUseCase = get(),
-            getDarkModeUseCase = get(),
-            setDarkModeUseCase = get()
         )
     }
 }

@@ -57,6 +57,7 @@ kotlin {
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.kermit)
                 implementation(libs.multiplatform.settings)
+                implementation(libs.woowla.icons)
             }
         }
 
