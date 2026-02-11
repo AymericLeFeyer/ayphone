@@ -6,10 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,7 +26,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,6 +36,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
+import fr.aylabs.ayphone.resume.domain.models.Company
+import fr.aylabs.ayphone.resume.ui.components.SafeImage
 import fr.aylabs.ayphone.resume.ui.components.TechnologyChip
 import fr.aylabs.ayphone.resume.ui.states.ResumeState
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
@@ -75,13 +83,28 @@ fun MissionDetailScreen(
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(
-                        text = mission.company,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Company.fromLabel(mission.company)?.let { company ->
+                            SafeImage(
+                                resource = company.icon,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(RoundedCornerShape(4.dp)),
+                            )
+                            Spacer(Modifier.width(8.dp))
+                        }
+                        Text(
+                            text = mission.company,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     Text(
                         text = "${monthsBetween(mission.startDate, mission.endDate)} mois",
                         style = MaterialTheme.typography.labelMedium,

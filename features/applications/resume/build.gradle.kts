@@ -16,6 +16,7 @@ kotlin {
     androidLibrary {
         namespace = "fr.aylabs.ayphone.application.resume"
         compileSdk = 36
+        androidResources.enable = true
         minSdk = 24
 
         withHostTestBuilder {

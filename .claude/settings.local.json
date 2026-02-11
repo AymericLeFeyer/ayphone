@@ -17,7 +17,9 @@
       "Bash(del \"C:\\\\Users\\\\lefey\\\\Git\\\\ayphone\\\\features\\\\applications\\\\resume\\\\src\\\\commonMain\\\\kotlin\\\\fr\\\\aylabs\\\\ayphone\\\\resume\\\\ui\\\\components\\\\SkillItem.kt\")",
       "Bash(.gradlew.bat:*)",
       "Bash(./gradlew.bat :composeApp:assembleDebug:*)",
-      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew.bat:*)"
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew.bat:*)",
+      "WebFetch(domain:medium.com)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }
