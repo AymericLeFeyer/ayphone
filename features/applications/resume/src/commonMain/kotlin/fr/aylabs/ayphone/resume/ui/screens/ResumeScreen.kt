@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -19,22 +20,25 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.material3.Button
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
+import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
 import com.woowla.compose.icon.collections.remix.remix.system.LoopLeftFill
 import fr.aylabs.ayphone.resume.ui.states.ResumeState
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
 import kotlinx.coroutines.launch
-import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResumeScreen(
     onBackClick: () -> Unit,
-    vm: ResumeViewModel = koinViewModel()
+    onMissionClick: (Int) -> Unit,
+    vm: ResumeViewModel,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val uiState by vm.state.collectAsStateWithLifecycle()
@@ -84,13 +88,35 @@ fun ResumeScreen(
                 }
 
                 is ResumeState.Error -> {
-                    Text("An error occurred: ${state.error}")
-
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Icon(
+                            imageVector = Remix.System.ErrorWarningLine,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error,
+                        )
+                        Text(
+                            text = "Une erreur est survenue",
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(top = 8.dp),
+                        )
+                        Button(
+                            onClick = { coroutineScope.launch { vm.loadData() } },
+                            modifier = Modifier.padding(top = 16.dp),
+                        ) {
+                            Text("Réessayer")
+                        }
+                    }
                 }
 
                 is ResumeState.Success -> {
                     ResumeScreenReady(
-                        resume = state.data
+                        resume = state.data,
+                        vm = vm,
+                        onMissionClick = onMissionClick,
                     )
                 }
             }
