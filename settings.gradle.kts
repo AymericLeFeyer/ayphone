@@ -29,6 +29,8 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":core:dates")
+include(":core:design-system")
 include(":core:network")
 include(":core:settings")
 include(":features:frame")

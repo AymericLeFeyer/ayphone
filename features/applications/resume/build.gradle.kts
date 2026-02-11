@@ -36,20 +36,18 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":core:dates"))
+                implementation(project(":core:design-system"))
                 implementation(project(":core:network"))
                 implementation(project(":core:settings"))
                 implementation(project(":features:application"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
-                implementation(libs.compose.foundation)
-                implementation(libs.compose.material3)
-                implementation(libs.compose.ui)
-                implementation(libs.compose.components.resources)
-                implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.androidx.navigation.compose)
-                implementation(libs.kotlinx.datetime)
+                implementation(compose.components.resources)
+
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.core.viewmodel)
@@ -57,7 +55,6 @@ kotlin {
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.kermit)
                 implementation(libs.multiplatform.settings)
-                implementation(libs.woowla.icons)
             }
         }
 
@@ -73,4 +70,8 @@ kotlin {
             dependencies {}
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
 }

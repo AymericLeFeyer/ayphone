@@ -29,11 +29,12 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(project(":core:design-system"))
             implementation(project(":core:network"))
             implementation(project(":core:settings"))
             implementation(project(":features:frame"))
             implementation(project(":features:application"))
-            implementation(project(":features:applications:resume"))
+            api(project(":features:applications:resume"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)

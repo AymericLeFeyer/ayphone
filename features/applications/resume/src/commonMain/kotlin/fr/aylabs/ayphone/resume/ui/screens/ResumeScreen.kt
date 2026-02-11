@@ -19,7 +19,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
@@ -42,11 +41,11 @@ fun ResumeScreen(
 
     Scaffold(
         topBar = {
-            Surface(shadowElevation = 2.dp) {
+            Surface {
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Curriculum Vitæ",
+                            text = "Expériences",
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )

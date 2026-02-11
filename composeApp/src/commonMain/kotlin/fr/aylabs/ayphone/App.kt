@@ -17,7 +17,11 @@ fun App(
         onNavHostReady(navController)
     }
 
-    MaterialTheme {
+    MaterialTheme(
+        colorScheme = MaterialTheme.colorScheme.copy(
+            primary = AyColors.Primary
+        )
+    ) {
         MainNavHost(
             navController = navController,
             onBackClick = navController::popBackStack
