@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:remixicon.com)",
+      "WebFetch(domain:composeicons.com)",
+      "WebFetch(domain:composables.com)",
+      "WebFetch(domain:walter-juan.github.io)",
+      "WebFetch(domain:iconduck.com)",
+      "Bash(.\\\\gradlew.bat:*)",
+      "Bash(cmd.exe:*)",
+      "Bash(cmd /c \"gradlew.bat :composeApp:assembleDebug 2>&1\")",
+      "Bash(C:/Users/lefey/Git/ayphone/gradlew.bat :composeApp:assembleDebug)",
+      "Bash(JAVA_HOME=\"C:/Program Files/Android/Android Studio/jbr\" C:/Users/lefey/Git/ayphone/gradlew.bat:*)",
+      "Bash(del \"C:\\\\Users\\\\lefey\\\\Git\\\\ayphone\\\\features\\\\applications\\\\resume\\\\src\\\\commonMain\\\\kotlin\\\\fr\\\\aylabs\\\\ayphone\\\\resume\\\\ui\\\\components\\\\SkillItem.kt\")",
+      "Bash(.gradlew.bat:*)",
+      "Bash(./gradlew.bat :composeApp:assembleDebug:*)",
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew.bat:*)"
+    ]
+  }
+}

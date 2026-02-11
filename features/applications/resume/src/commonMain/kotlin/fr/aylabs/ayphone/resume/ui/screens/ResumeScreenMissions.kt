@@ -60,7 +60,7 @@ fun ResumeScreenMissions(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.padding(vertical = 4.dp),
         ) {
-            items(filteredMissions, key = { it.title + it.company }) { mission ->
+            items(filteredMissions, key = { it.title + it.startDate.toString() }) { mission ->
                 val originalIndex = resume.missions.indexOf(mission)
                 MissionItem(
                     mission = mission,

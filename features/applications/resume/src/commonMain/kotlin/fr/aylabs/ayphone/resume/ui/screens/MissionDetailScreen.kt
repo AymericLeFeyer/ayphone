@@ -1,0 +1,142 @@
+package fr.aylabs.ayphone.resume.ui.screens
+
+import AyColors
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.woowla.compose.icon.collections.remix.Remix
+import com.woowla.compose.icon.collections.remix.remix.Arrows
+import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
+import fr.aylabs.ayphone.resume.ui.components.TechnologyChip
+import fr.aylabs.ayphone.resume.ui.states.ResumeState
+import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
+import fr.aylabs.dates.monthsBetween
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+fun MissionDetailScreen(
+    missionIndex: Int,
+    vm: ResumeViewModel,
+    onBackClick: () -> Unit,
+) {
+    val uiState by vm.state.collectAsStateWithLifecycle()
+    val resume = (uiState as? ResumeState.Success)?.data
+    val mission = resume?.missions?.getOrNull(missionIndex)
+    val uriHandler = LocalUriHandler.current
+
+    Scaffold(
+        topBar = {
+            Surface {
+                TopAppBar(
+                    title = { Text(mission?.title ?: "") },
+                    navigationIcon = {
+                        IconButton(onClick = onBackClick) {
+                            Icon(
+                                imageVector = Remix.Arrows.ArrowLeftSLine,
+                                contentDescription = "Back",
+                            )
+                        }
+                    },
+                )
+            }
+        },
+    ) { padding ->
+        if (mission != null) {
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(
+                        text = mission.company,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = "${monthsBetween(mission.startDate, mission.endDate)} mois",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+
+                Text(
+                    text = mission.context,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+
+                if (mission.technologies.isNotEmpty()) {
+                    Text(
+                        text = "Technologies",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        mission.technologies.forEach { tech ->
+                            TechnologyChip(name = tech.name)
+                        }
+                    }
+                }
+
+                if (mission.tasks.isNotEmpty()) {
+                    Text(
+                        text = "Tâches réalisées",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Column {
+                        mission.tasks.forEach { task ->
+                            Text(
+                                text = "\u2022 $task",
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(start = 4.dp, top = 2.dp),
+                            )
+                        }
+                    }
+                }
+
+                mission.link?.let { link ->
+                    TextButton(onClick = { uriHandler.openUri(link.url) }) {
+                        Text(
+                            text = link.text,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = AyColors.Primary,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
