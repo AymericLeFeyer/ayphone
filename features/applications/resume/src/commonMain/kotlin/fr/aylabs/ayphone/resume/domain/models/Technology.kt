@@ -11,7 +11,6 @@ import ayphone.features.applications.resume.generated.resources.css
 import ayphone.features.applications.resume.generated.resources.dart
 import ayphone.features.applications.resume.generated.resources.django
 import ayphone.features.applications.resume.generated.resources.docker
-import ayphone.features.applications.resume.generated.resources.docusaurus
 import ayphone.features.applications.resume.generated.resources.dotnet
 import ayphone.features.applications.resume.generated.resources.express_js
 import ayphone.features.applications.resume.generated.resources.figma
@@ -25,7 +24,6 @@ import ayphone.features.applications.resume.generated.resources.google_cloud
 import ayphone.features.applications.resume.generated.resources.guerkin
 import ayphone.features.applications.resume.generated.resources.html
 import ayphone.features.applications.resume.generated.resources.jenkins
-import ayphone.features.applications.resume.generated.resources.jira
 import ayphone.features.applications.resume.generated.resources.js
 import ayphone.features.applications.resume.generated.resources.kafka
 import ayphone.features.applications.resume.generated.resources.koin
@@ -63,7 +61,6 @@ enum class Technology(
     DART("Dart", Res.drawable.dart),
     DJANGO("Django", Res.drawable.django),
     DOCKER("Docker", Res.drawable.docker),
-    DOCUSAURUS("Docusaurus", Res.drawable.docusaurus),
     DOTNET(".NET", Res.drawable.dotnet),
     EXPRESS_JS("Express.js", Res.drawable.express_js),
     FIGMA("Figma", Res.drawable.figma),
@@ -77,7 +74,6 @@ enum class Technology(
     GHERKIN("Gherkin", Res.drawable.guerkin),
     HTML("HTML", Res.drawable.html),
     JENKINS("Jenkins", Res.drawable.jenkins),
-    JIRA("Jira", Res.drawable.jira),
     JAVASCRIPT("JavaScript", Res.drawable.js),
     KAFKA("Kafka", Res.drawable.kafka),
     KOIN("Koin", Res.drawable.koin),
