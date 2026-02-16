@@ -2,7 +2,7 @@ package fr.aylabs.ayphone.resume.ui.components
 
 import AyColors
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,8 +16,8 @@ import fr.aylabs.ayphone.resume.domain.models.Technology
 
 @Composable
 fun TechnologyChip(name: String) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .background(
                 AyColors.Primary.copy(alpha = 0.15f),
@@ -29,7 +29,7 @@ fun TechnologyChip(name: String) {
             SafeImage(
                 resource = tech.icon,
                 contentDescription = null,
-                modifier = Modifier.size(14.dp).padding(end = 4.dp),
+                modifier = Modifier.size(32.dp),
             )
         }
         Text(

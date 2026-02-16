@@ -1,7 +1,7 @@
 package fr.aylabs.ayphone.resume.ui.components
 
 import AyColors
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,15 +27,15 @@ fun SkillChip(
         shape = RoundedCornerShape(8.dp),
         color = AyColors.ContainerQuiet,
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
             Technology.fromLabel(name)?.let { tech ->
                 SafeImage(
                     resource = tech.icon,
                     contentDescription = null,
-                    modifier = Modifier.size(16.dp),
+                    modifier = Modifier.size(32.dp),
                 )
                 Spacer(Modifier.width(6.dp))
             }
