@@ -45,7 +45,7 @@ fun MissionItem(
         ) {
             Company.fromLabel(mission.company)?.let { company ->
                 SafeImage(
-                    resource = company.icon,
+                    resourcePath = company.iconPath,
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp)

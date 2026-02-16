@@ -19,7 +19,8 @@
       "Bash(./gradlew.bat :composeApp:assembleDebug:*)",
       "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew.bat:*)",
       "WebFetch(domain:medium.com)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "WebFetch(domain:coil-kt.github.io)"
     ]
   }
 }

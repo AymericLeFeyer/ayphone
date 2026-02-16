@@ -4,17 +4,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.ayphone.resume.domain.models.ResumeMissionTechnology
+import fr.aylabs.ayphone.resume.domain.models.Technology
+import fr.aylabs.ayphone.resume.domain.models.TechnologyCategory
 import fr.aylabs.ayphone.resume.ui.components.SkillChip
 import fr.aylabs.ayphone.resume.ui.components.TechnologyDetailSheet
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
@@ -24,19 +30,27 @@ fun ResumeScreenSkills(
     resume: Resume,
     vm: ResumeViewModel,
 ) {
-    val skills = remember(resume) {
-        resume.missions
-            .flatMap { it.technologies }
-            .groupBy { it.name }
-            .map { (name, techs) ->
-                ResumeMissionTechnology(
-                    name = name,
-                    frequency = techs.maxOf { it.frequency },
-                    comments = techs.first().comments,
-                )
-            }
-            .sortedByDescending { it.frequency }
-    }
+    val skillsByCategory: List<Pair<TechnologyCategory, List<ResumeMissionTechnology>>> =
+        remember(resume) {
+            val skills = resume.missions
+                .flatMap { it.technologies }
+                .groupBy { it.name }
+                .map { (name, techs) ->
+                    ResumeMissionTechnology(
+                        name = name,
+                        frequency = techs.maxOf { it.frequency },
+                        comments = techs.first().comments,
+                    )
+                }
+
+            skills
+                .groupBy { skill ->
+                    Technology.fromLabel(skill.name)?.category ?: TechnologyCategory.TOOLS
+                }
+                .entries
+                .sortedBy { it.key.ordinal }
+                .map { (category, techs) -> category to techs.sortedByDescending { it.frequency } }
+        }
 
     var selectedTech by remember { mutableStateOf<ResumeMissionTechnology?>(null) }
 
@@ -48,11 +62,24 @@ fun ResumeScreenSkills(
             .fillMaxSize()
             .padding(8.dp),
     ) {
-        items(skills, key = { it.name }) { skill ->
-            SkillChip(
-                name = skill.name,
-                onClick = { selectedTech = skill },
-            )
+        skillsByCategory.forEach { (category, skills) ->
+            item(
+                key = "header_${category.name}",
+                span = { GridItemSpan(maxLineSpan) },
+            ) {
+                Text(
+                    text = category.label,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                )
+            }
+            items(skills, key = { it.name }) { skill ->
+                SkillChip(
+                    name = skill.name,
+                    onClick = { selectedTech = skill },
+                )
+            }
         }
     }
 

@@ -1,21 +1,20 @@
 package fr.aylabs.ayphone.resume.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
+import ayphone.features.applications.resume.generated.resources.Res
+import coil3.compose.AsyncImage
 
 @Composable
 fun SafeImage(
-    resource: DrawableResource,
+    resourcePath: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
 ) {
-    Image(
-        painter = painterResource(resource),
+    AsyncImage(
+        model = Res.getUri(resourcePath),
         contentDescription = contentDescription,
         modifier = modifier,
         contentScale = contentScale,

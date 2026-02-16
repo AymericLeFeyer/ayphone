@@ -27,7 +27,7 @@ fun TechnologyChip(name: String) {
     ) {
         Technology.fromLabel(name)?.let { tech ->
             SafeImage(
-                resource = tech.icon,
+                resourcePath = tech.iconPath,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
             )

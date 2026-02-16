@@ -42,7 +42,7 @@ fun TechnologyDetailSheet(
             ) {
                 Technology.fromLabel(technology.name)?.let { tech ->
                     SafeImage(
-                        resource = tech.icon,
+                        resourcePath = tech.iconPath,
                         contentDescription = null,
                         modifier = Modifier.size(28.dp),
                     )
