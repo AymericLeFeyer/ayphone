@@ -12,5 +12,5 @@ data class ResumeMissionDto(
     @SerialName("end_date") val endDate: String,
     @SerialName("tasks") val tasks: List<String>,
     @SerialName("link") val link: ResumeMissionLinkDto? = null,
-    @SerialName("technologies") val technologies: List<ResumeMissionTechnologyDto>,
+    @SerialName("technologies") val skills: List<ResumeMissionSkillDto>,
 )

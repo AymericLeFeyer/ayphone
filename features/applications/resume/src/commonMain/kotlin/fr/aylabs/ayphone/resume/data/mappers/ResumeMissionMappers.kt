@@ -12,7 +12,7 @@ fun ResumeMissionDto.toModel(): ResumeMission {
         startDate = YearMonth.parse(this.startDate),
         endDate = runCatching { YearMonth.parse(this.endDate) }.getOrNull(),
         link = this.link?.toModel(),
-        technologies = this.technologies.map { it.toModel() },
+        skills = this.skills.map { it.toModel() },
         tasks = this.tasks
     )
 }

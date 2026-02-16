@@ -26,6 +26,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,8 +40,10 @@ import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import fr.aylabs.ayphone.resume.domain.models.Company
+import fr.aylabs.ayphone.resume.domain.models.ResumeMissionSkill
 import fr.aylabs.ayphone.resume.ui.components.SafeImage
-import fr.aylabs.ayphone.resume.ui.components.TechnologyChip
+import fr.aylabs.ayphone.resume.ui.components.SkillChip
+import fr.aylabs.ayphone.resume.ui.components.SkillDetailSheet
 import fr.aylabs.ayphone.resume.ui.states.ResumeState
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
 import fr.aylabs.dates.monthsBetween
@@ -54,6 +59,8 @@ fun MissionDetailScreen(
     val resume = (uiState as? ResumeState.Success)?.data
     val mission = resume?.missions?.getOrNull(missionIndex)
     val uriHandler = LocalUriHandler.current
+
+    var selectedSkill by remember { mutableStateOf<ResumeMissionSkill?>(null) }
 
     Scaffold(
         topBar = {
@@ -117,9 +124,9 @@ fun MissionDetailScreen(
                     style = MaterialTheme.typography.bodyMedium,
                 )
 
-                if (mission.technologies.isNotEmpty()) {
+                if (mission.skills.isNotEmpty()) {
                     Text(
-                        text = "Technologies",
+                        text = "Compétences",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
                     )
@@ -127,8 +134,11 @@ fun MissionDetailScreen(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         verticalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        mission.technologies.forEach { tech ->
-                            TechnologyChip(name = tech.name)
+                        mission.skills.forEach { skill ->
+                            SkillChip(
+                                name = skill.name,
+                                onClick = { selectedSkill = skill },
+                            )
                         }
                     }
                 }
@@ -161,5 +171,13 @@ fun MissionDetailScreen(
                 }
             }
         }
+    }
+
+    selectedSkill?.let { skill ->
+        SkillDetailSheet(
+            skillName = skill.name,
+            description = skill.comments,
+            onDismiss = { selectedSkill = null },
+        )
     }
 }

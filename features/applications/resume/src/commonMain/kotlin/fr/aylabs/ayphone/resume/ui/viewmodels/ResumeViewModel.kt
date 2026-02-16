@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.aylabs.ayphone.resume.domain.models.ResumeMission
 import fr.aylabs.ayphone.resume.domain.usecases.GetResumeUseCase
-import fr.aylabs.ayphone.resume.ui.states.DurationFilter
 import fr.aylabs.ayphone.resume.ui.states.ResumeFilterState
 import fr.aylabs.ayphone.resume.ui.states.ResumeState
 import fr.aylabs.dates.monthsBetween
@@ -35,8 +34,8 @@ class ResumeViewModel(
         val resume = (state as? ResumeState.Success)?.data ?: return@combine emptyList()
         resume.missions.filter { mission ->
             matchesSearch(mission, filters.searchQuery) &&
-                matchesTechnologies(mission, filters.selectedTechnologies) &&
-                matchesDuration(mission, filters.selectedDurations) &&
+                matchesSkills(mission, filters.selectedSkills) &&
+                matchesDuration(mission, filters.durationRange) &&
                 matchesCompanies(mission, filters.selectedCompanies)
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
@@ -60,18 +59,19 @@ class ResumeViewModel(
         mutableFilterState.value = mutableFilterState.value.copy(searchQuery = query)
     }
 
-    fun toggleTechnology(tech: String) {
-        val current = mutableFilterState.value.selectedTechnologies
+    fun toggleSkill(skill: String) {
+        val current = mutableFilterState.value.selectedSkills
         mutableFilterState.value = mutableFilterState.value.copy(
-            selectedTechnologies = if (tech in current) current - tech else current + tech,
+            selectedSkills = if (skill in current) current - skill else current + skill,
         )
     }
 
-    fun toggleDuration(duration: DurationFilter) {
-        val current = mutableFilterState.value.selectedDurations
-        mutableFilterState.value = mutableFilterState.value.copy(
-            selectedDurations = if (duration in current) current - duration else current + duration,
-        )
+    fun updateDurationRange(range: IntRange?) {
+        mutableFilterState.value = mutableFilterState.value.copy(durationRange = range)
+    }
+
+    fun clearDurationFilter() {
+        mutableFilterState.value = mutableFilterState.value.copy(durationRange = null)
     }
 
     fun toggleCompany(company: String) {
@@ -85,15 +85,9 @@ class ResumeViewModel(
         mutableFilterState.value = ResumeFilterState()
     }
 
-    fun removeTechnologyFilter(tech: String) {
+    fun removeSkillFilter(skill: String) {
         mutableFilterState.value = mutableFilterState.value.copy(
-            selectedTechnologies = mutableFilterState.value.selectedTechnologies - tech,
-        )
-    }
-
-    fun removeDurationFilter(duration: DurationFilter) {
-        mutableFilterState.value = mutableFilterState.value.copy(
-            selectedDurations = mutableFilterState.value.selectedDurations - duration,
+            selectedSkills = mutableFilterState.value.selectedSkills - skill,
         )
     }
 
@@ -103,8 +97,8 @@ class ResumeViewModel(
         )
     }
 
-    fun navigateToMissionsWithTechFilter(techName: String) {
-        mutableFilterState.value = ResumeFilterState(selectedTechnologies = setOf(techName))
+    fun navigateToMissionsWithSkillFilter(skillName: String) {
+        mutableFilterState.value = ResumeFilterState(selectedSkills = setOf(skillName))
         mutableRequestedTabIndex.value = 0
     }
 
@@ -118,24 +112,18 @@ class ResumeViewModel(
         return mission.title.lowercase().contains(lowerQuery) ||
             mission.company.lowercase().contains(lowerQuery) ||
             mission.context.lowercase().contains(lowerQuery) ||
-            mission.technologies.any { it.name.lowercase().contains(lowerQuery) }
+            mission.skills.any { it.name.lowercase().contains(lowerQuery) }
     }
 
-    private fun matchesTechnologies(mission: ResumeMission, technologies: Set<String>): Boolean {
-        if (technologies.isEmpty()) return true
-        return mission.technologies.any { it.name in technologies }
+    private fun matchesSkills(mission: ResumeMission, skills: Set<String>): Boolean {
+        if (skills.isEmpty()) return true
+        return mission.skills.any { it.name in skills }
     }
 
-    private fun matchesDuration(mission: ResumeMission, durations: Set<DurationFilter>): Boolean {
-        if (durations.isEmpty()) return true
+    private fun matchesDuration(mission: ResumeMission, durationRange: IntRange?): Boolean {
+        if (durationRange == null) return true
         val months = monthsBetween(mission.startDate, mission.endDate)
-        return durations.any { filter ->
-            when (filter) {
-                DurationFilter.LESS_THAN_6 -> months < 6
-                DurationFilter.BETWEEN_6_AND_12 -> months in 6..12
-                DurationFilter.MORE_THAN_12 -> months > 12
-            }
-        }
+        return months in durationRange
     }
 
     private fun matchesCompanies(mission: ResumeMission, companies: Set<String>): Boolean {

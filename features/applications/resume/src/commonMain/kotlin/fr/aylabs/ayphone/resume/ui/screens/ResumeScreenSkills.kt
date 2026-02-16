@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Resume
-import fr.aylabs.ayphone.resume.domain.models.ResumeMissionTechnology
-import fr.aylabs.ayphone.resume.domain.models.Technology
-import fr.aylabs.ayphone.resume.domain.models.TechnologyCategory
+import fr.aylabs.ayphone.resume.domain.models.ResumeMissionSkill
+import fr.aylabs.ayphone.resume.domain.models.Skill
+import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.ayphone.resume.ui.components.SkillChip
-import fr.aylabs.ayphone.resume.ui.components.TechnologyDetailSheet
+import fr.aylabs.ayphone.resume.ui.components.SkillDetailSheet
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
 
 @Composable
@@ -30,29 +30,29 @@ fun ResumeScreenSkills(
     resume: Resume,
     vm: ResumeViewModel,
 ) {
-    val skillsByCategory: List<Pair<TechnologyCategory, List<ResumeMissionTechnology>>> =
+    val skillsByCategory: List<Pair<SkillCategory, List<ResumeMissionSkill>>> =
         remember(resume) {
             val skills = resume.missions
-                .flatMap { it.technologies }
+                .flatMap { it.skills }
                 .groupBy { it.name }
-                .map { (name, techs) ->
-                    ResumeMissionTechnology(
+                .map { (name, entries) ->
+                    ResumeMissionSkill(
                         name = name,
-                        frequency = techs.maxOf { it.frequency },
-                        comments = techs.first().comments,
+                        frequency = entries.maxOf { it.frequency },
+                        comments = Skill.fromLabel(name)?.description ?: "",
                     )
                 }
 
             skills
                 .groupBy { skill ->
-                    Technology.fromLabel(skill.name)?.category ?: TechnologyCategory.TOOLS
+                    Skill.fromLabel(skill.name)?.category ?: SkillCategory.TOOLS
                 }
                 .entries
                 .sortedBy { it.key.ordinal }
-                .map { (category, techs) -> category to techs.sortedByDescending { it.frequency } }
+                .map { (category, items) -> category to items.sortedByDescending { it.frequency } }
         }
 
-    var selectedTech by remember { mutableStateOf<ResumeMissionTechnology?>(null) }
+    var selectedSkill by remember { mutableStateOf<ResumeMissionSkill?>(null) }
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(100.dp),
@@ -77,20 +77,21 @@ fun ResumeScreenSkills(
             items(skills, key = { it.name }) { skill ->
                 SkillChip(
                     name = skill.name,
-                    onClick = { selectedTech = skill },
+                    onClick = { selectedSkill = skill },
                 )
             }
         }
     }
 
-    selectedTech?.let { tech ->
-        TechnologyDetailSheet(
-            technology = tech,
+    selectedSkill?.let { skill ->
+        SkillDetailSheet(
+            skillName = skill.name,
+            description = Skill.fromLabel(skill.name)?.description ?: "",
             onSeeRelatedMissions = {
-                vm.navigateToMissionsWithTechFilter(tech.name)
-                selectedTech = null
+                vm.navigateToMissionsWithSkillFilter(skill.name)
+                selectedSkill = null
             },
-            onDismiss = { selectedTech = null },
+            onDismiss = { selectedSkill = null },
         )
     }
 }

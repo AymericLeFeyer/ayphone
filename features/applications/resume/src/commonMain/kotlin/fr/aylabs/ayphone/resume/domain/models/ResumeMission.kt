@@ -9,6 +9,6 @@ data class ResumeMission(
     val startDate: YearMonth,
     val endDate: YearMonth?,
     val link: ResumeMissionLink?,
-    val technologies: List<ResumeMissionTechnology>,
+    val skills: List<ResumeMissionSkill>,
     val tasks: List<String>
 )

@@ -10,21 +10,19 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.system.CloseLine
-import fr.aylabs.ayphone.resume.ui.states.DurationFilter
 import fr.aylabs.ayphone.resume.ui.states.ResumeFilterState
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ActiveFilterChips(
     filterState: ResumeFilterState,
-    onRemoveTechnology: (String) -> Unit,
-    onRemoveDuration: (DurationFilter) -> Unit,
+    onRemoveSkill: (String) -> Unit,
+    onRemoveDuration: () -> Unit,
     onRemoveCompany: (String) -> Unit,
     onClearAll: () -> Unit,
 ) {
@@ -33,11 +31,11 @@ fun ActiveFilterChips(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
     ) {
-        filterState.selectedTechnologies.forEach { tech ->
+        filterState.selectedSkills.forEach { skill ->
             InputChip(
                 selected = true,
-                onClick = { onRemoveTechnology(tech) },
-                label = { Text(tech) },
+                onClick = { onRemoveSkill(skill) },
+                label = { Text(skill) },
                 trailingIcon = {
                     Icon(
                         imageVector = Remix.System.CloseLine,
@@ -47,11 +45,11 @@ fun ActiveFilterChips(
                 },
             )
         }
-        filterState.selectedDurations.forEach { duration ->
+        filterState.durationRange?.let { range ->
             InputChip(
                 selected = true,
-                onClick = { onRemoveDuration(duration) },
-                label = { Text(duration.label) },
+                onClick = onRemoveDuration,
+                label = { Text("${range.first} - ${range.last} mois") },
                 trailingIcon = {
                     Icon(
                         imageVector = Remix.System.CloseLine,

@@ -20,6 +20,7 @@ import fr.aylabs.ayphone.resume.ui.components.MissionFilterSheet
 import fr.aylabs.ayphone.resume.ui.components.MissionItem
 import fr.aylabs.ayphone.resume.ui.components.MissionSearchBar
 import fr.aylabs.ayphone.resume.ui.viewmodels.ResumeViewModel
+import fr.aylabs.dates.monthsBetween
 
 @Composable
 fun ResumeScreenMissions(
@@ -31,11 +32,15 @@ fun ResumeScreenMissions(
     val filteredMissions by vm.filteredMissions.collectAsStateWithLifecycle()
     var showFilterSheet by remember { mutableStateOf(false) }
 
-    val allTechnologies = remember(resume) {
-        resume.missions.flatMap { it.technologies }.map { it.name }.distinct().sorted()
+    val allSkills = remember(resume) {
+        resume.missions.flatMap { it.skills }.map { it.name }.distinct().sorted()
     }
     val allCompanies = remember(resume) {
         resume.missions.map { it.company }.distinct().sorted()
+    }
+    val allDurationRange = remember(resume) {
+        val durations = resume.missions.map { monthsBetween(it.startDate, it.endDate) }
+        (durations.minOrNull() ?: 0)..(durations.maxOrNull() ?: 24)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -49,8 +54,8 @@ fun ResumeScreenMissions(
         if (filterState.hasActiveFilters()) {
             ActiveFilterChips(
                 filterState = filterState,
-                onRemoveTechnology = vm::removeTechnologyFilter,
-                onRemoveDuration = vm::removeDurationFilter,
+                onRemoveSkill = vm::removeSkillFilter,
+                onRemoveDuration = vm::clearDurationFilter,
                 onRemoveCompany = vm::removeCompanyFilter,
                 onClearAll = vm::clearFilters,
             )
@@ -73,10 +78,11 @@ fun ResumeScreenMissions(
     if (showFilterSheet) {
         MissionFilterSheet(
             filterState = filterState,
-            allTechnologies = allTechnologies,
+            allSkills = allSkills,
             allCompanies = allCompanies,
-            onToggleTechnology = vm::toggleTechnology,
-            onToggleDuration = vm::toggleDuration,
+            allDurationRange = allDurationRange,
+            onToggleSkill = vm::toggleSkill,
+            onUpdateDurationRange = vm::updateDurationRange,
             onToggleCompany = vm::toggleCompany,
             onDismiss = { showFilterSheet = false },
         )

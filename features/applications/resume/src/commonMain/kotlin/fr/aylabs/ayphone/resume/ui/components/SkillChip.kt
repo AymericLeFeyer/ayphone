@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import fr.aylabs.ayphone.resume.domain.models.Technology
+import fr.aylabs.ayphone.resume.domain.models.Skill
 
 @Composable
 fun SkillChip(
@@ -31,9 +31,9 @@ fun SkillChip(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
-            Technology.fromLabel(name)?.let { tech ->
+            Skill.fromLabel(name)?.let { skill ->
                 SafeImage(
-                    resourcePath = tech.iconPath,
+                    resourcePath = skill.iconPath,
                     contentDescription = null,
                     modifier = Modifier.size(32.dp),
                 )
