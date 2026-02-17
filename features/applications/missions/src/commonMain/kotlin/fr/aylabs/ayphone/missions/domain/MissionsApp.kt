@@ -6,6 +6,6 @@ import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 
 class MissionsApp(private val navController: NavController) : Application(title = "Missions") {
     override fun onClick() {
-        navController.navigate(MissionsRoutes.Graph)
+        navController.navigate(MissionsRoutes.Root())
     }
 }

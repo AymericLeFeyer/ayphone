@@ -10,7 +10,7 @@ sealed interface MissionsRoutes {
 
     @Serializable
     @SerialName("Missions")
-    data object Root : MissionsRoutes
+    data class Root(val initialSkillFilter: String = "") : MissionsRoutes
 
     @Serializable
     @SerialName("MissionDetail")

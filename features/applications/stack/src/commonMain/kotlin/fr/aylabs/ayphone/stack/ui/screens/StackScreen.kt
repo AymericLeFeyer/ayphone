@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun StackScreen(
     onBackClick: () -> Unit,
+    onSeeRelatedMissions: (String) -> Unit,
     vm: StackViewModel,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -114,6 +115,7 @@ fun StackScreen(
                 is StackState.Success -> {
                     StackReadyScreen(
                         resume = state.data,
+                        onSeeRelatedMissions = onSeeRelatedMissions,
                     )
                 }
             }

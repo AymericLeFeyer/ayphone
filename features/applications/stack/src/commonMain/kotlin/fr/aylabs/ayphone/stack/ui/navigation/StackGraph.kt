@@ -9,13 +9,15 @@ import fr.aylabs.ayphone.stack.ui.viewmodels.StackViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.stackGraph(
-    navController: NavController
+    navController: NavController,
+    onSeeRelatedMissions: (String) -> Unit,
 ) {
     navigation<StackRoutes.Graph>(startDestination = StackRoutes.Root) {
         composable<StackRoutes.Root> {
             val vm: StackViewModel = koinViewModel()
             StackScreen(
                 onBackClick = navController::popBackStack,
+                onSeeRelatedMissions = onSeeRelatedMissions,
                 vm = vm,
             )
         }

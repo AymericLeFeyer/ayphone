@@ -27,6 +27,7 @@ import fr.aylabs.ayphone.stack.ui.components.SkillDetailSheet
 @Composable
 fun StackReadyScreen(
     resume: Resume,
+    onSeeRelatedMissions: (String) -> Unit,
 ) {
     val skillsByCategory: List<Pair<SkillCategory, List<ResumeMissionSkill>>> =
         remember(resume) {
@@ -85,6 +86,10 @@ fun StackReadyScreen(
         SkillDetailSheet(
             skillName = skill.name,
             description = Skill.fromLabel(skill.name)?.description ?: "",
+            onSeeRelatedMissions = {
+                onSeeRelatedMissions(skill.name)
+                selectedSkill = null
+            },
             onDismiss = { selectedSkill = null },
         )
     }

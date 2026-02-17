@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
+import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import kotlinx.serialization.Serializable
@@ -41,7 +42,12 @@ fun MainNavHost(
         }
 
         missionsGraph(navController)
-        stackGraph(navController)
+        stackGraph(
+            navController = navController,
+            onSeeRelatedMissions = { skillName ->
+                navController.navigate(MissionsRoutes.Root(initialSkillFilter = skillName))
+            },
+        )
         aboutGraph(navController)
     }
 }

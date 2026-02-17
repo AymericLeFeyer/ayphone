@@ -6,6 +6,6 @@ import fr.aylabs.ayphone.application.data.Application
 
 class AboutApp(private val navController: NavController) : Application(title = "About") {
     override fun onClick() {
-        navController.navigate(AboutRoutes.Graph)
+        navController.navigate(AboutRoutes.Root)
     }
 }

@@ -88,6 +88,12 @@ class MissionsViewModel(
         )
     }
 
+    fun setInitialSkillFilter(skillName: String) {
+        if (skillName.isNotBlank()) {
+            mutableFilterState.value = MissionsFilterState(selectedSkills = setOf(skillName))
+        }
+    }
+
     fun removeCompanyFilter(company: String) {
         mutableFilterState.value = mutableFilterState.value.copy(
             selectedCompanies = mutableFilterState.value.selectedCompanies - company,

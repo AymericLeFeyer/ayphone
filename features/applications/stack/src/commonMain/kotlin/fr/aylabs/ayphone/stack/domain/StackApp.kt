@@ -6,6 +6,6 @@ import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 
 class StackApp(private val navController: NavController) : Application(title = "Stack") {
     override fun onClick() {
-        navController.navigate(StackRoutes.Graph)
+        navController.navigate(StackRoutes.Root)
     }
 }
