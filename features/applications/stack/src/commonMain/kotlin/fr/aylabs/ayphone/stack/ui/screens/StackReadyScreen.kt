@@ -18,8 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Resume
-import fr.aylabs.ayphone.resume.domain.models.ResumeMissionSkill
-import fr.aylabs.ayphone.resume.domain.models.Skill
+import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.ayphone.stack.ui.components.SkillChip
 import fr.aylabs.ayphone.stack.ui.components.SkillDetailSheet
@@ -27,31 +26,41 @@ import fr.aylabs.ayphone.stack.ui.components.SkillDetailSheet
 @Composable
 fun StackReadyScreen(
     resume: Resume,
+    grouping: StackGrouping,
     onSeeRelatedMissions: (String) -> Unit,
 ) {
-    val skillsByCategory: List<Pair<SkillCategory, List<ResumeMissionSkill>>> =
-        remember(resume) {
-            val skills = resume.missions
-                .flatMap { it.skills }
-                .groupBy { it.name }
-                .map { (name, entries) ->
-                    ResumeMissionSkill(
-                        name = name,
-                        frequency = entries.maxOf { it.frequency },
-                        comments = Skill.fromLabel(name)?.description ?: "",
-                    )
-                }
-
-            skills
-                .groupBy { skill ->
-                    Skill.fromLabel(skill.name)?.category ?: SkillCategory.TOOLS
-                }
+    val skillsByCategory: List<Pair<SkillCategory, List<ResumeSkill>>> =
+        remember(resume.skills) {
+            resume.skills
+                .groupBy { it.skill.category }
                 .entries
                 .sortedBy { it.key.ordinal }
-                .map { (category, items) -> category to items.sortedByDescending { it.frequency } }
+                .map { (category, items) -> category to items.sortedByDescending { it.score } }
         }
 
-    var selectedSkill by remember { mutableStateOf<ResumeMissionSkill?>(null) }
+    val skillsByDuration: List<Pair<String, List<ResumeSkill>>> =
+        remember(resume.skills) {
+            val sorted = resume.skills.sortedByDescending { it.totalMonths }
+            val thresholds = listOf(
+                48 to "4 ans et plus",
+                36 to "3 ans et plus",
+                24 to "2 ans et plus",
+                12 to "1 an et plus",
+                0 to "Moins d'1 an",
+            )
+            val result = mutableListOf<Pair<String, List<ResumeSkill>>>()
+            val remaining = sorted.toMutableList()
+            for ((minMonths, label) in thresholds) {
+                val matching = remaining.filter { it.totalMonths >= minMonths }
+                if (matching.isNotEmpty()) {
+                    result.add(label to matching)
+                    remaining.removeAll(matching)
+                }
+            }
+            result
+        }
+
+    var selectedSkill by remember { mutableStateOf<ResumeSkill?>(null) }
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(100.dp),
@@ -61,33 +70,58 @@ fun StackReadyScreen(
             .fillMaxSize()
             .padding(8.dp),
     ) {
-        skillsByCategory.forEach { (category, skills) ->
-            item(
-                key = "header_${category.name}",
-                span = { GridItemSpan(maxLineSpan) },
-            ) {
-                Text(
-                    text = category.label,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
-                )
+        when (grouping) {
+            StackGrouping.CATEGORY -> {
+                skillsByCategory.forEach { (category, skills) ->
+                    item(
+                        key = "header_${category.name}",
+                        span = { GridItemSpan(maxLineSpan) },
+                    ) {
+                        Text(
+                            text = category.label,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                        )
+                    }
+                    items(skills, key = { it.skill.label }) { skill ->
+                        SkillChip(
+                            name = skill.skill.label,
+                            onClick = { selectedSkill = skill },
+                        )
+                    }
+                }
             }
-            items(skills, key = { it.name }) { skill ->
-                SkillChip(
-                    name = skill.name,
-                    onClick = { selectedSkill = skill },
-                )
+
+            StackGrouping.DURATION -> {
+                skillsByDuration.forEach { (label, skills) ->
+                    item(
+                        key = "header_duration_$label",
+                        span = { GridItemSpan(maxLineSpan) },
+                    ) {
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                        )
+                    }
+                    items(skills, key = { "${label}_${it.skill.label}" }) { skill ->
+                        SkillChip(
+                            name = skill.skill.label,
+                            onClick = { selectedSkill = skill },
+                        )
+                    }
+                }
             }
         }
     }
 
-    selectedSkill?.let { skill ->
+    selectedSkill?.let { resumeSkill ->
         SkillDetailSheet(
-            skillName = skill.name,
-            description = Skill.fromLabel(skill.name)?.description ?: "",
+            resumeSkill = resumeSkill,
             onSeeRelatedMissions = {
-                onSeeRelatedMissions(skill.name)
+                onSeeRelatedMissions(resumeSkill.skill.label)
                 selectedSkill = null
             },
             onDismiss = { selectedSkill = null },

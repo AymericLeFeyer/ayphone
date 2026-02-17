@@ -23,12 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
-import com.woowla.compose.icon.collections.remix.remix.system.LoopLeftFill
+import com.woowla.compose.icon.collections.remix.remix.system.FilterLine
 import fr.aylabs.ayphone.missions.ui.states.MissionsState
 import fr.aylabs.ayphone.missions.ui.viewmodels.MissionsViewModel
 import kotlinx.coroutines.launch
@@ -42,6 +45,7 @@ fun MissionsScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val uiState by vm.state.collectAsStateWithLifecycle()
+    var showFilterSheet by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -63,10 +67,10 @@ fun MissionsScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = { coroutineScope.launch { vm.loadData() } }) {
+                        IconButton(onClick = { showFilterSheet = true }) {
                             Icon(
-                                imageVector = Remix.System.LoopLeftFill,
-                                contentDescription = null,
+                                imageVector = Remix.System.FilterLine,
+                                contentDescription = "Filtrer",
                             )
                         }
                     },
@@ -117,6 +121,8 @@ fun MissionsScreen(
                         resume = state.data,
                         vm = vm,
                         onMissionClick = onMissionClick,
+                        showFilterSheet = showFilterSheet,
+                        onDismissFilterSheet = { showFilterSheet = false },
                     )
                 }
             }

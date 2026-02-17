@@ -4,4 +4,5 @@ data class ResumeMissionSkill(
     val name: String,
     val frequency: Double,
     val comments: String,
+    val skill: Skill? = null,
 )

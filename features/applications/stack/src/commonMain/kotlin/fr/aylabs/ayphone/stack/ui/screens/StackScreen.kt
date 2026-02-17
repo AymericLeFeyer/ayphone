@@ -17,7 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -28,10 +31,12 @@ import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
-import com.woowla.compose.icon.collections.remix.remix.system.LoopLeftFill
+import com.woowla.compose.icon.collections.remix.remix.system.FilterLine
 import fr.aylabs.ayphone.stack.ui.states.StackState
 import fr.aylabs.ayphone.stack.ui.viewmodels.StackViewModel
 import kotlinx.coroutines.launch
+
+enum class StackGrouping { CATEGORY, DURATION }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +47,7 @@ fun StackScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val uiState by vm.state.collectAsStateWithLifecycle()
+    var grouping by remember { mutableStateOf(StackGrouping.CATEGORY) }
 
     Scaffold(
         topBar = {
@@ -63,10 +69,15 @@ fun StackScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = { coroutineScope.launch { vm.loadData() } }) {
+                        IconButton(onClick = {
+                            grouping = when (grouping) {
+                                StackGrouping.CATEGORY -> StackGrouping.DURATION
+                                StackGrouping.DURATION -> StackGrouping.CATEGORY
+                            }
+                        }) {
                             Icon(
-                                imageVector = Remix.System.LoopLeftFill,
-                                contentDescription = null,
+                                imageVector = Remix.System.FilterLine,
+                                contentDescription = "Changer le groupement",
                             )
                         }
                     },
@@ -115,6 +126,7 @@ fun StackScreen(
                 is StackState.Success -> {
                     StackReadyScreen(
                         resume = state.data,
+                        grouping = grouping,
                         onSeeRelatedMissions = onSeeRelatedMissions,
                     )
                 }

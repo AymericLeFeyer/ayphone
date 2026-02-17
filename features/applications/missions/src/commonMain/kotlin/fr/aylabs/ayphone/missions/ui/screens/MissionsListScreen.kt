@@ -8,9 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,10 +25,11 @@ fun MissionsListScreen(
     resume: Resume,
     vm: MissionsViewModel,
     onMissionClick: (Int) -> Unit,
+    showFilterSheet: Boolean,
+    onDismissFilterSheet: () -> Unit,
 ) {
     val filterState by vm.filterState.collectAsStateWithLifecycle()
     val filteredMissions by vm.filteredMissions.collectAsStateWithLifecycle()
-    var showFilterSheet by remember { mutableStateOf(false) }
 
     val allSkills = remember(resume) {
         resume.missions.flatMap { it.skills }.map { it.name }.distinct().sorted()
@@ -47,8 +46,6 @@ fun MissionsListScreen(
         MissionSearchBar(
             query = filterState.searchQuery,
             onQueryChange = vm::updateSearchQuery,
-            hasActiveFilters = filterState.hasActiveFilters(),
-            onFilterClick = { showFilterSheet = true },
         )
 
         if (filterState.hasActiveFilters()) {
@@ -84,7 +81,7 @@ fun MissionsListScreen(
             onToggleSkill = vm::toggleSkill,
             onUpdateDurationRange = vm::updateDurationRange,
             onToggleCompany = vm::toggleCompany,
-            onDismiss = { showFilterSheet = false },
+            onDismiss = onDismissFilterSheet,
         )
     }
 }

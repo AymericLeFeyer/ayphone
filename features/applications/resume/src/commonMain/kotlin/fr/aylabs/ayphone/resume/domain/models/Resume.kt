@@ -7,4 +7,5 @@ data class Resume(
     val companies: List<ResumeCompany>,
     val missions: List<ResumeMission>,
     val education: List<ResumeEducation>,
+    val skills: List<ResumeSkill> = emptyList(),
 )

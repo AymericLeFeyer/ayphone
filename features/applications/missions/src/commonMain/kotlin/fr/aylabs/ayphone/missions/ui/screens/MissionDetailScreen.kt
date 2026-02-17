@@ -177,6 +177,7 @@ fun MissionDetailScreen(
         SkillDetailSheet(
             skillName = skill.name,
             description = skill.comments,
+            frequency = skill.frequency,
             onDismiss = { selectedSkill = null },
         )
     }

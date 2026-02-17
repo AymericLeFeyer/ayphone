@@ -17,16 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fr.aylabs.ayphone.resume.domain.models.Skill
+import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SkillDetailSheet(
-    skillName: String,
-    description: String,
+    resumeSkill: ResumeSkill,
     onSeeRelatedMissions: (() -> Unit)? = null,
     onDismiss: () -> Unit,
 ) {
+    val skill = resumeSkill.skill
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
@@ -39,22 +40,37 @@ fun SkillDetailSheet(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Skill.fromLabel(skillName)?.let { skill ->
-                    SafeImage(
-                        resourcePath = skill.iconPath,
-                        contentDescription = null,
-                        modifier = Modifier.size(28.dp),
-                    )
-                    Spacer(Modifier.width(8.dp))
-                }
-                Text(
-                    text = skillName,
-                    style = MaterialTheme.typography.titleLarge,
+                SafeImage(
+                    resourcePath = skill.iconPath,
+                    contentDescription = null,
+                    modifier = Modifier.size(28.dp),
                 )
-            }
-            if (description.isNotBlank()) {
+                Spacer(Modifier.width(8.dp))
                 Text(
-                    text = description,
+                    text = skill.label,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f),
+                )
+                val years = resumeSkill.totalMonths / 12
+                val months = resumeSkill.totalMonths % 12
+                val durationText = buildString {
+                    if (years > 0) append("${years} an${if (years > 1) "s" else ""}")
+                    if (years > 0 && months > 0) append(" et ")
+                    if (months > 0) append("$months mois")
+                    append(" d'utilisation")
+                }
+                if (durationText.isNotBlank()) {
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = durationText,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            if (skill.description.isNotBlank()) {
+                Text(
+                    text = skill.description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 8.dp),

@@ -22,6 +22,7 @@ import fr.aylabs.ayphone.resume.domain.models.Skill
 fun SkillDetailSheet(
     skillName: String,
     description: String,
+    frequency: Double = 0.0,
     onDismiss: () -> Unit,
 ) {
     ModalBottomSheet(
@@ -31,7 +32,7 @@ fun SkillDetailSheet(
         Column(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 24.dp),
+                .padding(top = 24.dp, bottom = 24.dp),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -47,14 +48,24 @@ fun SkillDetailSheet(
                 Text(
                     text = skillName,
                     style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f),
                 )
+                if (frequency > 0.0) {
+                    val percent = (frequency * 100).toInt()
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = "${percent}% du temps",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
             if (description.isNotBlank()) {
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 8.dp),
+                    modifier = Modifier.padding(top = 4.dp),
                 )
             }
         }

@@ -28,7 +28,6 @@ import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
-import com.woowla.compose.icon.collections.remix.remix.system.LoopLeftFill
 import fr.aylabs.ayphone.about.ui.states.AboutState
 import fr.aylabs.ayphone.about.ui.viewmodels.AboutViewModel
 import kotlinx.coroutines.launch
@@ -58,14 +57,6 @@ fun AboutScreen(
                             Icon(
                                 imageVector = Remix.Arrows.ArrowLeftSLine,
                                 contentDescription = "Back",
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { coroutineScope.launch { vm.loadData() } }) {
-                            Icon(
-                                imageVector = Remix.System.LoopLeftFill,
-                                contentDescription = null,
                             )
                         }
                     },
