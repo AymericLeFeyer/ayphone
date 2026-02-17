@@ -1,0 +1,18 @@
+package fr.aylabs.ayphone.missions.ui.navigation
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+sealed interface MissionsRoutes {
+    @Serializable
+    @SerialName("MissionsGraph")
+    data object Graph : MissionsRoutes
+
+    @Serializable
+    @SerialName("Missions")
+    data object Root : MissionsRoutes
+
+    @Serializable
+    @SerialName("MissionDetail")
+    data class MissionDetail(val missionIndex: Int) : MissionsRoutes
+}

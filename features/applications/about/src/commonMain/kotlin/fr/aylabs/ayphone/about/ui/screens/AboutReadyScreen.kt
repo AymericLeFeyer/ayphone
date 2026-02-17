@@ -1,0 +1,180 @@
+package fr.aylabs.ayphone.about.ui.screens
+
+import AyColors
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import ayphone.features.applications.resume.generated.resources.Res
+import coil3.compose.AsyncImage
+import com.woowla.compose.icon.collections.remix.Remix
+import com.woowla.compose.icon.collections.remix.remix.Business
+import com.woowla.compose.icon.collections.remix.remix.Device
+import com.woowla.compose.icon.collections.remix.remix.Logos
+import com.woowla.compose.icon.collections.remix.remix.business.MailLine
+import com.woowla.compose.icon.collections.remix.remix.device.PhoneLine
+import com.woowla.compose.icon.collections.remix.remix.logos.GithubLine
+import com.woowla.compose.icon.collections.remix.remix.logos.LinkedinLine
+import fr.aylabs.ayphone.resume.domain.models.Company
+import fr.aylabs.ayphone.resume.domain.models.Resume
+import fr.aylabs.dates.formatYearMonth
+
+@Composable
+fun AboutReadyScreen(
+    resume: Resume,
+) {
+    val uriHandler = LocalUriHandler.current
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        // Header: name + role
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(AyColors.ContainerQuiet, RoundedCornerShape(12.dp))
+                .padding(16.dp),
+        ) {
+            Text(
+                text = resume.name,
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Text(
+                text = resume.role,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(top = 8.dp),
+            ) {
+                IconButton(onClick = { uriHandler.openUri("mailto:${resume.contacts.email}") }) {
+                    Icon(Remix.Business.MailLine, contentDescription = "Email")
+                }
+                IconButton(onClick = { uriHandler.openUri("tel:${resume.contacts.phone}") }) {
+                    Icon(Remix.Device.PhoneLine, contentDescription = "Phone")
+                }
+                IconButton(onClick = { uriHandler.openUri(resume.contacts.linkedin) }) {
+                    Icon(Remix.Logos.LinkedinLine, contentDescription = "LinkedIn")
+                }
+                IconButton(onClick = { uriHandler.openUri(resume.contacts.github) }) {
+                    Icon(Remix.Logos.GithubLine, contentDescription = "GitHub")
+                }
+            }
+        }
+
+        // Education section
+        if (resume.education.isNotEmpty()) {
+            Text(
+                text = "Formation",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            resume.education.forEach { edu ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(AyColors.ContainerQuiet, RoundedCornerShape(8.dp))
+                        .padding(12.dp),
+                ) {
+                    Text(
+                        text = edu.institution,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        text = edu.degree,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Text(
+                        text = "${formatYearMonth(edu.startDate)} - ${edu.endDate?.let { formatYearMonth(it) } ?: "Présent"}",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
+
+        // Companies section
+        if (resume.companies.isNotEmpty()) {
+            Text(
+                text = "Entreprises",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            resume.companies.forEach { company ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(AyColors.ContainerQuiet, RoundedCornerShape(8.dp))
+                        .padding(12.dp),
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Company.fromLabel(company.name)?.let { c ->
+                            AsyncImage(
+                                model = Res.getUri(c.iconPath),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(RoundedCornerShape(4.dp)),
+                            )
+                            Spacer(Modifier.width(8.dp))
+                        }
+                        Text(
+                            text = company.name,
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                    Text(
+                        text = company.position,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Text(
+                        text = "${formatYearMonth(company.startDate)} - ${company.endDate?.let { formatYearMonth(it) } ?: "Présent"}",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    if (company.responsibilities.isNotEmpty()) {
+                        Spacer(Modifier.height(4.dp))
+                        company.responsibilities.forEach { resp ->
+                            Text(
+                                text = "\u2022 $resp",
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(start = 4.dp, top = 2.dp),
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
