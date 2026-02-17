@@ -10,10 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,13 +18,12 @@ import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.ayphone.stack.ui.components.SkillChip
-import fr.aylabs.ayphone.stack.ui.components.SkillDetailSheet
 
 @Composable
 fun StackReadyScreen(
     resume: Resume,
     grouping: StackGrouping,
-    onSeeRelatedMissions: (String) -> Unit,
+    onSkillClick: (String) -> Unit,
 ) {
     val skillsByCategory: List<Pair<SkillCategory, List<ResumeSkill>>> =
         remember(resume.skills) {
@@ -60,8 +56,6 @@ fun StackReadyScreen(
             result
         }
 
-    var selectedSkill by remember { mutableStateOf<ResumeSkill?>(null) }
-
     LazyVerticalGrid(
         columns = GridCells.Adaptive(100.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -87,7 +81,7 @@ fun StackReadyScreen(
                     items(skills, key = { it.skill.label }) { skill ->
                         SkillChip(
                             name = skill.skill.label,
-                            onClick = { selectedSkill = skill },
+                            onClick = { onSkillClick(skill.skill.label) },
                         )
                     }
                 }
@@ -109,7 +103,7 @@ fun StackReadyScreen(
                     items(skills, key = { "${label}_${it.skill.label}" }) { skill ->
                         SkillChip(
                             name = skill.skill.label,
-                            onClick = { selectedSkill = skill },
+                            onClick = { onSkillClick(skill.skill.label) },
                         )
                     }
                 }
@@ -117,14 +111,4 @@ fun StackReadyScreen(
         }
     }
 
-    selectedSkill?.let { resumeSkill ->
-        SkillDetailSheet(
-            resumeSkill = resumeSkill,
-            onSeeRelatedMissions = {
-                onSeeRelatedMissions(resumeSkill.skill.label)
-                selectedSkill = null
-            },
-            onDismiss = { selectedSkill = null },
-        )
-    }
 }

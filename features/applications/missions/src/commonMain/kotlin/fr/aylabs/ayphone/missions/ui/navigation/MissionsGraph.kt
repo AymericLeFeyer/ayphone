@@ -13,7 +13,8 @@ import fr.aylabs.ayphone.missions.ui.viewmodels.MissionsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.missionsGraph(
-    navController: NavController
+    navController: NavController,
+    onSeeSkillDetail: (String) -> Unit = {},
 ) {
     navigation<MissionsRoutes.Graph>(startDestination = MissionsRoutes.Root()) {
         composable<MissionsRoutes.Root> { backStackEntry ->
@@ -43,6 +44,7 @@ fun NavGraphBuilder.missionsGraph(
                 missionIndex = route.missionIndex,
                 vm = vm,
                 onBackClick = navController::popBackStack,
+                onSeeSkillDetail = onSeeSkillDetail,
             )
         }
     }

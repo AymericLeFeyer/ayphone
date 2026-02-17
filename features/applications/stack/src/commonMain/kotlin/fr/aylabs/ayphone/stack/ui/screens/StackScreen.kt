@@ -42,6 +42,7 @@ enum class StackGrouping { CATEGORY, DURATION }
 @Composable
 fun StackScreen(
     onBackClick: () -> Unit,
+    onSkillClick: (String) -> Unit,
     onSeeRelatedMissions: (String) -> Unit,
     vm: StackViewModel,
 ) {
@@ -127,7 +128,7 @@ fun StackScreen(
                     StackReadyScreen(
                         resume = state.data,
                         grouping = grouping,
-                        onSeeRelatedMissions = onSeeRelatedMissions,
+                        onSkillClick = onSkillClick,
                     )
                 }
             }

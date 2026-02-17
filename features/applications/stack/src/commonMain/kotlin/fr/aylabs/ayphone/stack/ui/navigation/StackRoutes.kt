@@ -11,4 +11,8 @@ sealed interface StackRoutes {
     @Serializable
     @SerialName("Stack")
     data object Root : StackRoutes
+
+    @Serializable
+    @SerialName("StackSkillDetail")
+    data class SkillDetail(val skillLabel: String) : StackRoutes
 }

@@ -54,6 +54,7 @@ fun MissionDetailScreen(
     missionIndex: Int,
     vm: MissionsViewModel,
     onBackClick: () -> Unit,
+    onSeeSkillDetail: (String) -> Unit = {},
 ) {
     val uiState by vm.state.collectAsStateWithLifecycle()
     val resume = (uiState as? MissionsState.Success)?.data
@@ -178,6 +179,10 @@ fun MissionDetailScreen(
             skillName = skill.name,
             description = skill.comments,
             frequency = skill.frequency,
+            onSeeSkillDetail = {
+                selectedSkill = null
+                onSeeSkillDetail(skill.name)
+            },
             onDismiss = { selectedSkill = null },
         )
     }

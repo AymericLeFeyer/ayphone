@@ -13,6 +13,7 @@ import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
+import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import kotlinx.serialization.Serializable
 
@@ -41,7 +42,12 @@ fun MainNavHost(
             Frame(navController)
         }
 
-        missionsGraph(navController)
+        missionsGraph(
+            navController = navController,
+            onSeeSkillDetail = { skillLabel ->
+                navController.navigate(StackRoutes.SkillDetail(skillLabel))
+            },
+        )
         stackGraph(
             navController = navController,
             onSeeRelatedMissions = { skillName ->
