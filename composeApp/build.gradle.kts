@@ -38,6 +38,7 @@ kotlin {
             api(project(":features:applications:missions"))
             api(project(":features:applications:stack"))
             api(project(":features:applications:about"))
+            api(project(":features:applications:clients"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)

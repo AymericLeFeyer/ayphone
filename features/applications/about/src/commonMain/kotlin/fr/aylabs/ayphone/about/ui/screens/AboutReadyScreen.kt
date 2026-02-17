@@ -39,6 +39,7 @@ import com.woowla.compose.icon.collections.remix.remix.logos.LinkedinLine
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.dates.formatYearMonth
+import fr.aylabs.dates.monthsBetween
 
 @Composable
 fun AboutReadyScreen(
@@ -91,12 +92,16 @@ fun AboutReadyScreen(
 
         // Education section
         if (resume.education.isNotEmpty()) {
+            val sortedEducation = resume.education.sortedByDescending { it.startDate }
+            val majorEducation = sortedEducation.filter { monthsBetween(it.startDate, it.endDate) > 6 }
+            val minorEducation = sortedEducation.filter { monthsBetween(it.startDate, it.endDate) <= 6 }
+
             Text(
                 text = "Formation",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
             )
-            resume.education.forEach { edu ->
+            majorEducation.forEach { edu ->
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -119,6 +124,39 @@ fun AboutReadyScreen(
                     )
                 }
             }
+            if (minorEducation.isNotEmpty()) {
+                Text(
+                    text = "Certifications & formations courtes",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 4.dp),
+                )
+                minorEducation.forEach { edu ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp, horizontal = 4.dp),
+                    ) {
+                        Text(
+                            text = "\u2022",
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(end = 8.dp),
+                        )
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = edu.degree,
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                            Text(
+                                text = "${edu.institution} \u2022 ${formatYearMonth(edu.startDate)}",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+            }
         }
 
         // Companies section
@@ -128,7 +166,7 @@ fun AboutReadyScreen(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
             )
-            resume.companies.forEach { company ->
+            resume.companies.sortedByDescending { it.startDate }.forEach { company ->
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()

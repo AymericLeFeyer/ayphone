@@ -15,6 +15,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NavGraphBuilder.missionsGraph(
     navController: NavController,
     onSeeSkillDetail: (String) -> Unit = {},
+    onCompanyClick: (String) -> Unit = {},
 ) {
     navigation<MissionsRoutes.Graph>(startDestination = MissionsRoutes.Root()) {
         composable<MissionsRoutes.Root> { backStackEntry ->
@@ -45,6 +46,7 @@ fun NavGraphBuilder.missionsGraph(
                 vm = vm,
                 onBackClick = navController::popBackStack,
                 onSeeSkillDetail = onSeeSkillDetail,
+                onCompanyClick = onCompanyClick,
             )
         }
     }

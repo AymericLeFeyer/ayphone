@@ -1,6 +1,7 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
 import AyColors
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -55,6 +56,7 @@ fun MissionDetailScreen(
     vm: MissionsViewModel,
     onBackClick: () -> Unit,
     onSeeSkillDetail: (String) -> Unit = {},
+    onCompanyClick: (String) -> Unit = {},
 ) {
     val uiState by vm.state.collectAsStateWithLifecycle()
     val resume = (uiState as? MissionsState.Success)?.data
@@ -96,6 +98,7 @@ fun MissionDetailScreen(
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable { onCompanyClick(mission.company) },
                     ) {
                         Company.fromLabel(mission.company)?.let { company ->
                             SafeImage(

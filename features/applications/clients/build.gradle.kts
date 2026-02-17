@@ -8,11 +8,12 @@ plugins {
     alias(libs.plugins.androidLint)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "fr.aylabs.ayphone.frame"
+        namespace = "fr.aylabs.ayphone.clients"
         compileSdk = 36
         minSdk = 24
 
@@ -34,21 +35,24 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":features:applications:resume"))
+                implementation(project(":core:design-system"))
+                implementation(project(":core:dates"))
                 implementation(project(":features:application"))
-                implementation(project(":features:applications:missions"))
-                implementation(project(":features:applications:stack"))
-                implementation(project(":features:applications:about"))
-                implementation(project(":features:applications:clients"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
                 implementation(libs.compose.material3)
                 implementation(libs.compose.ui)
-                implementation(libs.compose.components.resources)
-                implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.androidx.navigation.compose)
+                implementation(libs.koin.core)
+                implementation(libs.koin.core.viewmodel)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
+                implementation(libs.kermit)
+                implementation(libs.coil.compose)
             }
         }
 
@@ -56,6 +60,7 @@ kotlin {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.koin.android)
             }
         }
 

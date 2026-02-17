@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
+import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
+import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
@@ -47,6 +49,9 @@ fun MainNavHost(
             onSeeSkillDetail = { skillLabel ->
                 navController.navigate(StackRoutes.SkillDetail(skillLabel))
             },
+            onCompanyClick = { companyName ->
+                navController.navigate(ClientsRoutes.ClientDetail(companyName))
+            },
         )
         stackGraph(
             navController = navController,
@@ -55,5 +60,14 @@ fun MainNavHost(
             },
         )
         aboutGraph(navController)
+        clientsGraph(
+            navController = navController,
+            onSeeSkillDetail = { skillLabel ->
+                navController.navigate(StackRoutes.SkillDetail(skillLabel))
+            },
+            onSeeMission = { missionIndex ->
+                navController.navigate(MissionsRoutes.MissionDetail(missionIndex))
+            },
+        )
     }
 }

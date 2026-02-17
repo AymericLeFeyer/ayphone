@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.about.domain.AboutApp
 import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.clients.domain.ClientsApp
 import fr.aylabs.ayphone.missions.domain.MissionsApp
 import fr.aylabs.ayphone.stack.domain.StackApp
 
@@ -18,6 +19,7 @@ fun Frame(navController: NavHostController) {
         MissionsApp(navController),
         StackApp(navController),
         AboutApp(navController),
+        ClientsApp(navController),
     )
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
