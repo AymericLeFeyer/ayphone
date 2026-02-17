@@ -35,7 +35,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":features:application"))
-                implementation(project(":features:applications:resume"))
+                implementation(project(":features:applications:missions"))
+                implementation(project(":features:applications:stack"))
+                implementation(project(":features:applications:about"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

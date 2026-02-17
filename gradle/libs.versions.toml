@@ -13,7 +13,7 @@ composeMultiplatform = "1.10.1"
 junit = "4.13.2"
 kotlin = "2.3.10"
 material3 = "1.10.0-alpha05"
-kotlinStdlib = "2.3.0"
+kotlinStdlib = "2.3.10"
 runner = "1.7.0"
 core = "1.7.0"
 jetbrainsKotlinJvm = "2.3.10"
@@ -26,6 +26,7 @@ kermit = "2.0.8"
 multiplatform-settings = "1.3.0"
 woowla-icons = "4.9.0"
 coil = "3.3.0"
+sqldelight = "2.0.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -69,6 +70,9 @@ kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 woowla-icons = { module = "com.woowla.compose.icon.collections:remix", version.ref = "woowla-icons" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-web-worker-driver = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -81,3 +85,4 @@ androidLint = { id = "com.android.lint", version.ref = "agp" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

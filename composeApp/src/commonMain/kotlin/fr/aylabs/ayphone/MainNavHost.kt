@@ -9,15 +9,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
-import fr.aylabs.ayphone.resume.ui.navigation.resumeGraph
+import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
+import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import kotlinx.serialization.Serializable
 
 sealed interface MainRoutes {
     @Serializable
     data object Root : MainRoutes
 }
-
 
 @Composable
 fun MainNavHost(
@@ -39,6 +40,8 @@ fun MainNavHost(
             Frame(navController)
         }
 
-        resumeGraph(navController)
+        missionsGraph(navController)
+        stackGraph(navController)
+        aboutGraph(navController)
     }
 }

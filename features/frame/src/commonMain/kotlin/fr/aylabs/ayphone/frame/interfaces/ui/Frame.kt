@@ -7,13 +7,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import fr.aylabs.ayphone.about.domain.AboutApp
 import fr.aylabs.ayphone.application.data.Application
-import fr.aylabs.ayphone.resume.domain.ResumeApp
+import fr.aylabs.ayphone.missions.domain.MissionsApp
+import fr.aylabs.ayphone.stack.domain.StackApp
 
 @Composable
 fun Frame(navController: NavHostController) {
     val apps = listOf<Application>(
-        ResumeApp(navController),
+        MissionsApp(navController),
+        StackApp(navController),
+        AboutApp(navController),
     )
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
@@ -26,5 +30,4 @@ fun Frame(navController: NavHostController) {
             ApplicationLogo(app)
         }
     }
-
 }

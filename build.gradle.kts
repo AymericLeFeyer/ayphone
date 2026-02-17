@@ -11,4 +11,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.kotlinParcelize) apply false
+    alias(libs.plugins.sqldelight) apply false
 }

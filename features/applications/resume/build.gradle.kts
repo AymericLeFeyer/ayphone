@@ -37,25 +37,24 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":core:dates"))
-                implementation(project(":core:design-system"))
+                api(project(":core:dates"))
+                api(project(":core:design-system"))
                 implementation(project(":core:network"))
                 implementation(project(":core:settings"))
-                implementation(project(":features:application"))
+                api(project(":features:application"))
                 implementation(libs.kotlin.stdlib)
-                implementation(libs.compose.runtime)
+                api(libs.compose.runtime)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.androidx.navigation.compose)
                 implementation(compose.components.resources)
-
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.core.viewmodel)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.kermit)
-                implementation(libs.coil.compose)
+                api(libs.coil.compose)
                 implementation(libs.multiplatform.settings)
             }
         }
