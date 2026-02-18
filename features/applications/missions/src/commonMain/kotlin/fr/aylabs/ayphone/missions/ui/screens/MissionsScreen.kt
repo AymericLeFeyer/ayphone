@@ -42,6 +42,7 @@ fun MissionsScreen(
     onBackClick: () -> Unit,
     onMissionClick: (Int) -> Unit,
     vm: MissionsViewModel,
+    title: String = "Missions",
 ) {
     val coroutineScope = rememberCoroutineScope()
     val uiState by vm.state.collectAsStateWithLifecycle()
@@ -53,7 +54,7 @@ fun MissionsScreen(
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Missions",
+                            text = title,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )

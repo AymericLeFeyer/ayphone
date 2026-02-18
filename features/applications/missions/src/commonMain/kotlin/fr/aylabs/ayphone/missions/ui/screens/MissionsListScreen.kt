@@ -30,15 +30,16 @@ fun MissionsListScreen(
 ) {
     val filterState by vm.filterState.collectAsStateWithLifecycle()
     val filteredMissions by vm.filteredMissions.collectAsStateWithLifecycle()
+    val allMissions by vm.allMissions.collectAsStateWithLifecycle()
 
-    val allSkills = remember(resume) {
-        resume.missions.flatMap { it.skills }.map { it.name }.distinct().sorted()
+    val allSkills = remember(allMissions) {
+        allMissions.flatMap { it.skills }.map { it.name }.distinct().sorted()
     }
-    val allCompanies = remember(resume) {
-        resume.missions.map { it.company }.distinct().sorted()
+    val allCompanies = remember(allMissions) {
+        allMissions.map { it.company }.distinct().sorted()
     }
-    val allDurationRange = remember(resume) {
-        val durations = resume.missions.map { monthsBetween(it.startDate, it.endDate) }
+    val allDurationRange = remember(allMissions) {
+        val durations = allMissions.map { monthsBetween(it.startDate, it.endDate) }
         (durations.minOrNull() ?: 0)..(durations.maxOrNull() ?: 24)
     }
 

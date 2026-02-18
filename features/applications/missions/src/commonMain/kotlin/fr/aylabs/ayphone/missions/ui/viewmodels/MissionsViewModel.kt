@@ -11,11 +11,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class MissionsViewModel(
+open class MissionsViewModel(
     private val getResumeUseCase: GetResumeUseCase,
+    private val missionPredicate: (ResumeMission) -> Boolean = { !it.isSideProject },
 ) : ViewModel() {
 
     private val mutableState = MutableStateFlow<MissionsState>(MissionsState.Initial)
@@ -24,13 +26,19 @@ class MissionsViewModel(
     private val mutableFilterState = MutableStateFlow(MissionsFilterState())
     val filterState: StateFlow<MissionsFilterState> = mutableFilterState
 
+    val allMissions: StateFlow<List<ResumeMission>> = mutableState.map { state ->
+        val resume = (state as? MissionsState.Success)?.data ?: return@map emptyList()
+        resume.missions.filter(missionPredicate)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
     val filteredMissions: StateFlow<List<ResumeMission>> = combine(
         mutableState,
         mutableFilterState,
     ) { state, filters ->
         val resume = (state as? MissionsState.Success)?.data ?: return@combine emptyList()
         resume.missions.filter { mission ->
-            matchesSearch(mission, filters.searchQuery) &&
+            missionPredicate(mission) &&
+                matchesSearch(mission, filters.searchQuery) &&
                 matchesSkills(mission, filters.selectedSkills) &&
                 matchesDuration(mission, filters.durationRange) &&
                 matchesCompanies(mission, filters.selectedCompanies)

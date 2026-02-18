@@ -10,5 +10,6 @@ data class ResumeMission(
     val endDate: YearMonth?,
     val link: ResumeMissionLink?,
     val skills: List<ResumeMissionSkill>,
-    val tasks: List<String>
+    val tasks: List<String>,
+    val isSideProject: Boolean = false,
 )

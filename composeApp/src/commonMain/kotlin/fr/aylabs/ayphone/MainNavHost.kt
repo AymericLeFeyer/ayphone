@@ -15,6 +15,8 @@ import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
+import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
+import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import kotlinx.serialization.Serializable
@@ -45,6 +47,15 @@ fun MainNavHost(
         }
 
         missionsGraph(
+            navController = navController,
+            onSeeSkillDetail = { skillLabel ->
+                navController.navigate(StackRoutes.SkillDetail(skillLabel))
+            },
+            onCompanyClick = { companyName ->
+                navController.navigate(ClientsRoutes.ClientDetail(companyName))
+            },
+        )
+        sideProjectsGraph(
             navController = navController,
             onSeeSkillDetail = { skillLabel ->
                 navController.navigate(StackRoutes.SkillDetail(skillLabel))
