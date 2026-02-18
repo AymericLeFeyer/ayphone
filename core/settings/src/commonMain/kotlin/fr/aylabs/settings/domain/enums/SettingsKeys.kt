@@ -1,5 +1,6 @@
 package fr.aylabs.settings.domain.enums
 
 enum class SettingsKeys {
-    DARK_MODE_ENABLED
+    DARK_MODE_ENABLED,
+    SIDE_PROJECTS_INSTALLED,
 }

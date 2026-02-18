@@ -1,15 +1,22 @@
 package fr.aylabs.ayphone
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
+import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
+import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
@@ -20,11 +27,15 @@ import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import kotlinx.serialization.Serializable
+import org.koin.compose.koinInject
 
 sealed interface MainRoutes {
     @Serializable
     data object Root : MainRoutes
 }
+
+private val appOpenSpec = tween<Float>(durationMillis = 350, easing = FastOutSlowInEasing)
+private val appCloseSpec = tween<Float>(durationMillis = 280, easing = FastOutSlowInEasing)
 
 @Composable
 fun MainNavHost(
@@ -34,16 +45,48 @@ fun MainNavHost(
     onBackClick: () -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val installationRepository: InstallationRepository = koinInject()
+    val installedApps by installationRepository.installedApps.collectAsStateWithLifecycle()
 
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        enterTransition = { fadeIn() },
-        exitTransition = { fadeOut() },
+        enterTransition = {
+            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            if (crossGraph) {
+                scaleIn(initialScale = 0.88f, animationSpec = appOpenSpec) + fadeIn(appOpenSpec)
+            } else {
+                fadeIn(tween(220))
+            }
+        },
+        exitTransition = {
+            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            if (crossGraph) {
+                scaleOut(targetScale = 0.96f, animationSpec = appOpenSpec) + fadeOut(appOpenSpec)
+            } else {
+                fadeOut(tween(220))
+            }
+        },
+        popEnterTransition = {
+            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            if (crossGraph) {
+                scaleIn(initialScale = 0.96f, animationSpec = appCloseSpec) + fadeIn(appCloseSpec)
+            } else {
+                fadeIn(tween(220))
+            }
+        },
+        popExitTransition = {
+            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            if (crossGraph) {
+                scaleOut(targetScale = 0.88f, animationSpec = appCloseSpec) + fadeOut(appCloseSpec)
+            } else {
+                fadeOut(tween(220))
+            }
+        },
         modifier = modifier,
     ) {
         composable<MainRoutes.Root> {
-            Frame(navController)
+            Frame(navController = navController, installedApps = installedApps)
         }
 
         missionsGraph(
@@ -62,6 +105,14 @@ fun MainNavHost(
             },
             onCompanyClick = { companyName ->
                 navController.navigate(ClientsRoutes.ClientDetail(companyName))
+            },
+        )
+        ayshopGraph(
+            navController = navController,
+            onOpenApp = { appId ->
+                when (appId) {
+                    "sideprojects" -> navController.navigate(SideProjectsRoutes.Root())
+                }
             },
         )
         stackGraph(

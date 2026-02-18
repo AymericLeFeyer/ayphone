@@ -9,20 +9,22 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.about.domain.AboutApp
 import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.ayshop.domain.AyShopApp
 import fr.aylabs.ayphone.clients.domain.ClientsApp
 import fr.aylabs.ayphone.missions.domain.MissionsApp
 import fr.aylabs.ayphone.sideprojects.domain.SideProjectsApp
 import fr.aylabs.ayphone.stack.domain.StackApp
 
 @Composable
-fun Frame(navController: NavHostController) {
-    val apps = listOf<Application>(
-        MissionsApp(navController),
-        SideProjectsApp(navController),
-        StackApp(navController),
-        AboutApp(navController),
-        ClientsApp(navController),
-    )
+fun Frame(navController: NavHostController, installedApps: Set<String> = emptySet()) {
+    val apps = buildList<Application> {
+        add(MissionsApp(navController))
+        add(AyShopApp(navController))
+        add(StackApp(navController))
+        add(AboutApp(navController))
+        add(ClientsApp(navController))
+        if ("sideprojects" in installedApps) add(SideProjectsApp(navController))
+    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         userScrollEnabled = false,

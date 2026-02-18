@@ -4,7 +4,11 @@ import androidx.navigation.NavController
 import fr.aylabs.ayphone.application.data.Application
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 
-class StackApp(private val navController: NavController) : Application(title = "Stack") {
+class StackApp(private val navController: NavController) : Application(
+    title = "Stack",
+    iconEmoji = "💻",
+    iconColor = 0xFF065F46,
+) {
     override fun onClick() {
         navController.navigate(StackRoutes.Root)
     }
