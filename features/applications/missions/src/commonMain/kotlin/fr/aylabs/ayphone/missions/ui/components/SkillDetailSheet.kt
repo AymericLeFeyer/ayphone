@@ -1,5 +1,7 @@
 package fr.aylabs.ayphone.missions.ui.components
 
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +18,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Skill
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,8 +35,8 @@ fun SkillDetailSheet(
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(top = 24.dp, bottom = 24.dp),
+                .padding(horizontal = AySpacings.l)
+                .padding(top = AySpacings.xl, bottom = AySpacings.xl),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -44,9 +45,9 @@ fun SkillDetailSheet(
                     SafeImage(
                         resourcePath = skill.iconPath,
                         contentDescription = null,
-                        modifier = Modifier.size(28.dp),
+                        modifier = Modifier.size(AySizes.iconL),
                     )
-                    Spacer(Modifier.width(8.dp))
+                    Spacer(Modifier.width(AySpacings.s))
                 }
                 Text(
                     text = skillName,
@@ -55,7 +56,7 @@ fun SkillDetailSheet(
                 )
                 if (frequency > 0.0) {
                     val percent = (frequency * 100).toInt()
-                    Spacer(Modifier.width(8.dp))
+                    Spacer(Modifier.width(AySpacings.s))
                     Text(
                         text = "${percent}% du temps",
                         style = MaterialTheme.typography.bodyMedium,
@@ -68,7 +69,7 @@ fun SkillDetailSheet(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier.padding(top = AySpacings.xs),
                 )
             }
             onSeeSkillDetail?.let { onClick ->
@@ -76,7 +77,7 @@ fun SkillDetailSheet(
                     onClick = onClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp),
+                        .padding(top = AySpacings.l),
                 ) {
                     Text("Voir le détail")
                 }

@@ -1,5 +1,7 @@
 package fr.aylabs.ayphone.missions.ui.components
 
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -11,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.system.CloseLine
@@ -27,9 +28,9 @@ fun ActiveFilterChips(
     onClearAll: () -> Unit,
 ) {
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
+        verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
+        modifier = Modifier.padding(horizontal = AySpacings.s, vertical = AySpacings.xs),
     ) {
         filterState.selectedSkills.forEach { skill ->
             InputChip(
@@ -40,7 +41,7 @@ fun ActiveFilterChips(
                     Icon(
                         imageVector = Remix.System.CloseLine,
                         contentDescription = "Retirer",
-                        modifier = Modifier.size(16.dp),
+                        modifier = Modifier.size(AySizes.iconXs),
                     )
                 },
             )
@@ -54,7 +55,7 @@ fun ActiveFilterChips(
                     Icon(
                         imageVector = Remix.System.CloseLine,
                         contentDescription = "Retirer",
-                        modifier = Modifier.size(16.dp),
+                        modifier = Modifier.size(AySizes.iconXs),
                     )
                 },
             )
@@ -68,7 +69,7 @@ fun ActiveFilterChips(
                     Icon(
                         imageVector = Remix.System.CloseLine,
                         contentDescription = "Retirer",
-                        modifier = Modifier.size(16.dp),
+                        modifier = Modifier.size(AySizes.iconXs),
                     )
                 },
             )

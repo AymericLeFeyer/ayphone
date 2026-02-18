@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
@@ -88,8 +90,8 @@ fun MissionDetailScreen(
                     .padding(padding)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                    .padding(AySpacings.l),
+                verticalArrangement = Arrangement.spacedBy(AySpacings.m),
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -105,10 +107,10 @@ fun MissionDetailScreen(
                                 resourcePath = company.iconPath,
                                 contentDescription = null,
                                 modifier = Modifier
-                                    .size(24.dp)
-                                    .clip(RoundedCornerShape(4.dp)),
+                                    .size(AySizes.iconM)
+                                    .clip(RoundedCornerShape(AyCorners.xs)),
                             )
-                            Spacer(Modifier.width(8.dp))
+                            Spacer(Modifier.width(AySpacings.s))
                         }
                         Text(
                             text = mission.company,
@@ -135,8 +137,8 @@ fun MissionDetailScreen(
                         fontWeight = FontWeight.Bold,
                     )
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
+                        verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
                     ) {
                         mission.skills.forEach { skill ->
                             SkillChip(
@@ -158,7 +160,7 @@ fun MissionDetailScreen(
                             Text(
                                 text = "\u2022 $task",
                                 style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(start = 4.dp, top = 2.dp),
+                                modifier = Modifier.padding(start = AySpacings.xs, top = AySpacings.xxs),
                             )
                         }
                     }

@@ -1,5 +1,8 @@
 package fr.aylabs.ayphone.missions.ui.components
 
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -67,8 +70,8 @@ fun MissionFilterSheet(
             modifier = Modifier
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .padding(horizontal = AySpacings.l),
+            verticalArrangement = Arrangement.spacedBy(AySpacings.s),
         ) {
             Text(
                 text = "Filtres",
@@ -96,7 +99,7 @@ fun MissionFilterSheet(
                 )
 
                 AnimatedVisibility(visible = skillsExpanded) {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(AySpacings.s)) {
                         skillsByCategory.forEach { (category, skills) ->
                             Text(
                                 text = category.label,
@@ -104,8 +107,8 @@ fun MissionFilterSheet(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                             FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                verticalArrangement = Arrangement.spacedBy(4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
+                                verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
                             ) {
                                 skills.forEach { skillName ->
                                     FilterChip(
@@ -117,7 +120,7 @@ fun MissionFilterSheet(
                                                 SafeImage(
                                                     resourcePath = it.iconPath,
                                                     contentDescription = null,
-                                                    modifier = Modifier.size(18.dp),
+                                                    modifier = Modifier.size(AySizes.iconS),
                                                 )
                                             }
                                         },
@@ -203,9 +206,9 @@ fun MissionFilterSheet(
                                         contentDescription = null,
                                         modifier = Modifier
                                             .size(20.dp)
-                                            .clip(RoundedCornerShape(4.dp)),
+                                            .clip(RoundedCornerShape(AyCorners.xs)),
                                     )
-                                    Spacer(Modifier.width(8.dp))
+                                    Spacer(Modifier.width(AySpacings.s))
                                 }
                                 Text(
                                     text = companyName,
@@ -222,7 +225,7 @@ fun MissionFilterSheet(
             onClick = onDismiss,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp),
+                .padding(horizontal = AySpacings.l, vertical = AySpacings.l),
         ) {
             Text("Valider")
         }
@@ -240,7 +243,7 @@ private fun CollapsibleHeader(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onToggle)
-            .padding(vertical = 8.dp),
+            .padding(vertical = AySpacings.s),
     ) {
         Text(
             text = title,
@@ -251,7 +254,7 @@ private fun CollapsibleHeader(
         Icon(
             imageVector = if (expanded) Remix.Arrows.ArrowUpSLine else Remix.Arrows.ArrowDownSLine,
             contentDescription = if (expanded) "Réduire" else "Développer",
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(AySizes.iconM),
         )
     }
 }

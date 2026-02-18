@@ -1,5 +1,6 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
+import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import fr.aylabs.ayphone.missions.ui.components.ActiveFilterChips
 import fr.aylabs.ayphone.missions.ui.components.MissionFilterSheet
@@ -60,8 +60,8 @@ fun MissionsListScreen(
         }
 
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.padding(vertical = 4.dp),
+            verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
+            modifier = Modifier.padding(vertical = AySpacings.xs),
         ) {
             items(filteredMissions, key = { it.title + it.startDate.toString() }) { mission ->
                 val originalIndex = resume.missions.indexOf(mission)

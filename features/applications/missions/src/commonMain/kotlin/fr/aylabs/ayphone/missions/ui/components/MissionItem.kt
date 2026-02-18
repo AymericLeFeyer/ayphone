@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.missions.ui.components
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,11 +36,11 @@ fun MissionItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Top,
         modifier = Modifier
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = AySpacings.s)
             .fillMaxWidth()
-            .background(AyColors.ContainerQuiet, RoundedCornerShape(8.dp))
+            .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
             .clickable(onClick = onClick)
-            .padding(12.dp),
+            .padding(AySpacings.m),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -48,7 +51,7 @@ fun MissionItem(
                     resourcePath = company.iconPath,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(32.dp)
+                        .size(AySizes.iconXl)
                         .clip(RoundedCornerShape(6.dp)),
                 )
                 Spacer(Modifier.width(10.dp))

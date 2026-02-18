@@ -1,5 +1,6 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
+import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +22,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -106,11 +106,11 @@ fun MissionsScreen(
                         Text(
                             text = "Une erreur est survenue",
                             style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(top = 8.dp),
+                            modifier = Modifier.padding(top = AySpacings.s),
                         )
                         Button(
                             onClick = { coroutineScope.launch { vm.loadData() } },
-                            modifier = Modifier.padding(top = 16.dp),
+                            modifier = Modifier.padding(top = AySpacings.l),
                         ) {
                             Text("Réessayer")
                         }

@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.about.ui.screens
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import ayphone.features.applications.resume.generated.resources.Res
 import coil3.compose.AsyncImage
 import com.woowla.compose.icon.collections.remix.Remix
@@ -51,16 +53,16 @@ fun AboutReadyScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            .padding(AySpacings.l),
+        verticalArrangement = Arrangement.spacedBy(AySpacings.l),
     ) {
         // Header: name + role
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(AyColors.ContainerQuiet, RoundedCornerShape(12.dp))
-                .padding(16.dp),
+                .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.m))
+                .padding(AySpacings.l),
         ) {
             Text(
                 text = resume.name,
@@ -73,7 +75,7 @@ fun AboutReadyScreen(
             )
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = AySpacings.s),
             ) {
                 IconButton(onClick = { uriHandler.openUri("mailto:${resume.contacts.email}") }) {
                     Icon(Remix.Business.MailLine, contentDescription = "Email")
@@ -105,8 +107,8 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(8.dp))
-                        .padding(12.dp),
+                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
+                        .padding(AySpacings.m),
                 ) {
                     Text(
                         text = edu.institution,
@@ -129,19 +131,19 @@ fun AboutReadyScreen(
                     text = "Certifications & formations courtes",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier.padding(top = AySpacings.xs),
                 )
                 minorEducation.forEach { edu ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 4.dp, horizontal = 4.dp),
+                            .padding(vertical = AySpacings.xs, horizontal = AySpacings.xs),
                     ) {
                         Text(
                             text = "\u2022",
                             style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = AySpacings.s),
                         )
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
@@ -170,8 +172,8 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(8.dp))
-                        .padding(12.dp),
+                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
+                        .padding(AySpacings.m),
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -181,10 +183,10 @@ fun AboutReadyScreen(
                                 model = Res.getUri(c.iconPath),
                                 contentDescription = null,
                                 modifier = Modifier
-                                    .size(24.dp)
-                                    .clip(RoundedCornerShape(4.dp)),
+                                    .size(AySizes.iconM)
+                                    .clip(RoundedCornerShape(AyCorners.xs)),
                             )
-                            Spacer(Modifier.width(8.dp))
+                            Spacer(Modifier.width(AySpacings.s))
                         }
                         Text(
                             text = company.name,
@@ -202,12 +204,12 @@ fun AboutReadyScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     if (company.responsibilities.isNotEmpty()) {
-                        Spacer(Modifier.height(4.dp))
+                        Spacer(Modifier.height(AySpacings.xs))
                         company.responsibilities.forEach { resp ->
                             Text(
                                 text = "\u2022 $resp",
                                 style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(start = 4.dp, top = 2.dp),
+                                modifier = Modifier.padding(start = AySpacings.xs, top = AySpacings.xxs),
                             )
                         }
                     }

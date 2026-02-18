@@ -1,5 +1,7 @@
 package fr.aylabs.ayphone.stack.ui.components
 
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +18,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,8 +35,8 @@ fun SkillDetailSheet(
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 24.dp),
+                .padding(horizontal = AySpacings.l)
+                .padding(bottom = AySpacings.xl),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -43,9 +44,9 @@ fun SkillDetailSheet(
                 SafeImage(
                     resourcePath = skill.iconPath,
                     contentDescription = null,
-                    modifier = Modifier.size(28.dp),
+                    modifier = Modifier.size(AySizes.iconL),
                 )
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(AySpacings.s))
                 Text(
                     text = skill.label,
                     style = MaterialTheme.typography.titleLarge,
@@ -60,7 +61,7 @@ fun SkillDetailSheet(
                     append(" d'utilisation")
                 }
                 if (durationText.isNotBlank()) {
-                    Spacer(Modifier.width(8.dp))
+                    Spacer(Modifier.width(AySpacings.s))
                     Text(
                         text = durationText,
                         style = MaterialTheme.typography.bodyMedium,
@@ -73,7 +74,7 @@ fun SkillDetailSheet(
                     text = skill.description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 8.dp),
+                    modifier = Modifier.padding(top = AySpacings.s),
                 )
             }
             onSeeRelatedMissions?.let { onClick ->
@@ -81,7 +82,7 @@ fun SkillDetailSheet(
                     onClick = onClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp),
+                        .padding(top = AySpacings.l),
                 ) {
                     Text("Voir les missions associées")
                 }

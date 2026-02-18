@@ -34,6 +34,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":core:design-system"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

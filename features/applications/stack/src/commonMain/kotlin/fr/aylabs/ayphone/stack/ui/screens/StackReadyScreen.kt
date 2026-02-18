@@ -1,5 +1,7 @@
 package fr.aylabs.ayphone.stack.ui.screens
 
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.resume.domain.models.SkillCategory
@@ -57,12 +58,12 @@ fun StackReadyScreen(
         }
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(100.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        columns = GridCells.Adaptive(AySizes.skillGridCell),
+        horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
+        verticalArrangement = Arrangement.spacedBy(AySpacings.s),
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(AySpacings.s),
     ) {
         when (grouping) {
             StackGrouping.CATEGORY -> {
@@ -75,7 +76,7 @@ fun StackReadyScreen(
                             text = category.label,
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                            modifier = Modifier.padding(top = AySpacings.m, bottom = AySpacings.xs),
                         )
                     }
                     items(skills, key = { it.skill.label }) { skill ->
@@ -97,7 +98,7 @@ fun StackReadyScreen(
                             text = label,
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
+                            modifier = Modifier.padding(top = AySpacings.m, bottom = AySpacings.xs),
                         )
                     }
                     items(skills, key = { "${label}_${it.skill.label}" }) { skill ->

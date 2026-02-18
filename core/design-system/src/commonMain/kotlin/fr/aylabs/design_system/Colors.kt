@@ -7,5 +7,6 @@ class AyColors {
         val BackgroundGreen = Color(0xFFDAFFEF)
         val BackgroundNeutral = Color(0xFCFFFD)
         val ContentNeutral = Color(0xFF1E1E1E)
+        val IconFallback = Color(0xFF888888)
     }
 }

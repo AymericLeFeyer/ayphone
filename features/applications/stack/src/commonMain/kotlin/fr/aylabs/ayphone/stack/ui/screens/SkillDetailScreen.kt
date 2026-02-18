@@ -1,5 +1,7 @@
 package fr.aylabs.ayphone.stack.ui.screens
 
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +22,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
@@ -59,7 +60,7 @@ fun SkillDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp),
+                .padding(AySpacings.l),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -67,9 +68,9 @@ fun SkillDetailScreen(
                 SafeImage(
                     resourcePath = skill.iconPath,
                     contentDescription = null,
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(AySizes.iconXxxl),
                 )
-                Spacer(Modifier.width(12.dp))
+                Spacer(Modifier.width(AySpacings.m))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = skill.label,
@@ -95,7 +96,7 @@ fun SkillDetailScreen(
                 Text(
                     text = durationText,
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(top = 16.dp),
+                    modifier = Modifier.padding(top = AySpacings.l),
                 )
             }
 
@@ -104,7 +105,7 @@ fun SkillDetailScreen(
                     text = skill.description,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 12.dp),
+                    modifier = Modifier.padding(top = AySpacings.m),
                 )
             }
 
@@ -112,7 +113,7 @@ fun SkillDetailScreen(
                 onClick = onSeeRelatedMissions,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 24.dp),
+                    .padding(top = AySpacings.xl),
             ) {
                 Text("Voir les missions associées")
             }

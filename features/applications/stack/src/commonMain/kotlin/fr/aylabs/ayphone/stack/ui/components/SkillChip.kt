@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.stack.ui.components
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -24,18 +27,18 @@ fun SkillChip(
 ) {
     Surface(
         onClick = onClick,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(AyCorners.s),
         color = AyColors.ContainerQuiet,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = AySpacings.m, vertical = AySpacings.s),
         ) {
             Skill.fromLabel(name)?.let { skill ->
                 SafeImage(
                     resourcePath = skill.iconPath,
                     contentDescription = null,
-                    modifier = Modifier.size(32.dp),
+                    modifier = Modifier.size(AySizes.iconXl),
                 )
                 Spacer(Modifier.width(6.dp))
             }

@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.clients.ui.components.SafeImage
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Resume
@@ -81,13 +83,13 @@ fun ClientsReadyScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(horizontal = AySpacings.l),
+        verticalArrangement = Arrangement.spacedBy(AySpacings.m),
     ) {
         item {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
+                modifier = Modifier.padding(top = AySpacings.l),
             ) {
                 FilterChip(
                     selected = sortMode == SortMode.RECENT,
@@ -107,20 +109,20 @@ fun ClientsReadyScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(AyCorners.m))
                     .background(AyColors.ContainerQuiet)
                     .clickable { onClientClick(client.name) }
-                    .padding(12.dp),
+                    .padding(AySpacings.m),
             ) {
                 Company.fromLabel(client.name)?.let { c ->
                     SafeImage(
                         resourcePath = c.iconPath,
                         contentDescription = null,
                         modifier = Modifier
-                            .size(40.dp)
-                            .clip(RoundedCornerShape(8.dp)),
+                            .size(AySizes.iconXxl)
+                            .clip(RoundedCornerShape(AyCorners.s)),
                     )
-                    Spacer(Modifier.width(12.dp))
+                    Spacer(Modifier.width(AySpacings.m))
                 }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(

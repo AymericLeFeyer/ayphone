@@ -1,6 +1,9 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
 import AyColors
+import AyCorners
+import AySizes
+import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
@@ -92,30 +94,30 @@ fun ClientDetailScreen(
                     .padding(padding)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                    .padding(AySpacings.l),
+                verticalArrangement = Arrangement.spacedBy(AySpacings.l),
             ) {
                 // Header
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(12.dp))
-                        .padding(16.dp),
+                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.m))
+                        .padding(AySpacings.l),
                 ) {
                     Company.fromLabel(companyName)?.let { c ->
                         SafeImage(
                             resourcePath = c.iconPath,
                             contentDescription = null,
                             modifier = Modifier
-                                .size(48.dp)
-                                .clip(RoundedCornerShape(8.dp)),
+                                .size(AySizes.iconXxxl)
+                                .clip(RoundedCornerShape(AyCorners.s)),
                         )
                     }
                     Text(
                         text = companyName,
                         style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.padding(top = 8.dp),
+                        modifier = Modifier.padding(top = AySpacings.s),
                     )
                     company?.position?.let { position ->
                         Text(
@@ -133,7 +135,7 @@ fun ClientDetailScreen(
                         text = "$totalMonths mois",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 4.dp),
+                        modifier = Modifier.padding(top = AySpacings.xs),
                     )
                 }
 
@@ -147,10 +149,10 @@ fun ClientDetailScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
+                            .clip(RoundedCornerShape(AyCorners.s))
                             .background(AyColors.ContainerQuiet)
                             .clickable { onSeeMission(index) }
-                            .padding(12.dp),
+                            .padding(AySpacings.m),
                     ) {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -172,7 +174,7 @@ fun ClientDetailScreen(
                             text = mission.context,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(top = 4.dp),
+                            modifier = Modifier.padding(top = AySpacings.xs),
                         )
                     }
                 }
@@ -185,8 +187,8 @@ fun ClientDetailScreen(
                         fontWeight = FontWeight.Bold,
                     )
                     FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
+                        verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
                     ) {
                         skillNames.forEach { skillName ->
                             SkillChip(
