@@ -27,12 +27,12 @@ enum class AyApp(
         color = Color(0xFF1E40AF),
     ),
     STACK(
-        title = "Stack",
+        title = "Stack tech",
         iconEmoji = "💻",
         color = Color(0xFF065F46),
     ),
     ABOUT(
-        title = "About",
+        title = "A propos",
         iconEmoji = "🙋",
         color = Color(0xFF3730A3),
     ),
@@ -47,7 +47,7 @@ enum class AyApp(
         color = Color(0xFFBE185D),
     ),
     TIMELINE(
-        title = "Timeline",
+        title = "Timelife",
         iconEmoji = "⏳",
         color = Color(0xFF0369A1),
     ),
@@ -57,7 +57,7 @@ enum class AyApp(
         color = Color(0xFF374151),
     ),
     TRAVEL(
-        title = "Voyage",
+        title = "Voyages",
         iconEmoji = "✈️",
         color = Color(0xFF0284C7),
         id = "travel",
@@ -65,8 +65,8 @@ enum class AyApp(
         category = "Voyage & Lifestyle",
         shortDescription = "Retrace tes aventures à travers le monde",
         description = "Voyage est une carte interactive de tes explorations personnelles — une fenêtre sur tous les endroits que tu as visités, les souvenirs que tu as créés et les aventures qui t'attendent.\n\n" +
-            "Navigue à travers une timeline géographique de tes voyages, discover de nouveaux endroits et garde une trace de tes aventures passées et futures.\n\n" +
-            "Une façon unique de visualiser ta vie à travers le prisme du voyage.",
+                "Navigue à travers une timeline géographique de tes voyages, discover de nouveaux endroits et garde une trace de tes aventures passées et futures.\n\n" +
+                "Une façon unique de visualiser ta vie à travers le prisme du voyage.",
         features = listOf(
             "Timeline interactive de tes voyages",
             "Carte géographique de tes destinations",
@@ -95,12 +95,12 @@ enum class AyApp(
         category = "Outils développeur",
         shortDescription = "Explorez des expériences perso & projets créatifs",
         description = "Plongez dans une collection de projets personnels — expériences, " +
-            "outils créatifs et projets passion construits en dehors des missions professionnelles.\n\n" +
-            "Side Projects est votre fenêtre sur le côté créatif et exploratoire du développement. " +
-            "Découvrez des applications et outils nés de la curiosité, de défis d'apprentissage " +
-            "et du simple plaisir de construire quelque chose de nouveau.\n\n" +
-            "Filtrez par technologie, explorez les descriptions détaillées et naviguez directement " +
-            "vers les compétences et outils derrière chaque création.",
+                "outils créatifs et projets passion construits en dehors des missions professionnelles.\n\n" +
+                "Side Projects est votre fenêtre sur le côté créatif et exploratoire du développement. " +
+                "Découvrez des applications et outils nés de la curiosité, de défis d'apprentissage " +
+                "et du simple plaisir de construire quelque chose de nouveau.\n\n" +
+                "Filtrez par technologie, explorez les descriptions détaillées et naviguez directement " +
+                "vers les compétences et outils derrière chaque création.",
         features = listOf(
             "Parcourir les projets perso & expériences",
             "Filtrer par technologie et langage de programmation",

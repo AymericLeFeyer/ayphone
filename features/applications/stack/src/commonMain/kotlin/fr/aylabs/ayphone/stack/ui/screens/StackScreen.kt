@@ -21,9 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
+import com.woowla.compose.icon.collections.remix.remix.Design
 import com.woowla.compose.icon.collections.remix.remix.System
+import com.woowla.compose.icon.collections.remix.remix.design.LayoutLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
-import com.woowla.compose.icon.collections.remix.remix.system.FilterLine
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.stack.ui.states.StackState
 import fr.aylabs.ayphone.stack.ui.viewmodels.StackViewModel
@@ -38,7 +39,6 @@ enum class StackGrouping { CATEGORY, DURATION }
 fun StackScreen(
     onBackClick: () -> Unit,
     onSkillClick: (String) -> Unit,
-    onSeeRelatedMissions: (String) -> Unit,
     vm: StackViewModel,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -46,7 +46,7 @@ fun StackScreen(
     var grouping by remember { mutableStateOf(StackGrouping.CATEGORY) }
 
     AyAppScaffold(
-        title = "Stack",
+        title = "Stack technique",
         containerColor = AyApp.STACK.color,
         onBackClick = onBackClick,
         actions = {
@@ -57,7 +57,7 @@ fun StackScreen(
                 }
             }) {
                 Icon(
-                    imageVector = Remix.System.FilterLine,
+                    imageVector = Remix.Design.LayoutLine,
                     contentDescription = "Changer le groupement",
                 )
             }

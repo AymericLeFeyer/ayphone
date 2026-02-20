@@ -3,8 +3,8 @@ package fr.aylabs.ayphone.missions.ui.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.woowla.compose.icon.collections.remix.Remix
@@ -17,7 +17,7 @@ fun MissionSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
 ) {
-    OutlinedTextField(
+    TextField(
         value = query,
         onValueChange = onQueryChange,
         placeholder = { Text("Rechercher une mission…") },

@@ -24,7 +24,6 @@ fun NavGraphBuilder.stackGraph(
                 onSkillClick = { skillLabel ->
                     navController.navigate(StackRoutes.SkillDetail(skillLabel))
                 },
-                onSeeRelatedMissions = onSeeRelatedMissions,
                 vm = vm,
             )
         }
