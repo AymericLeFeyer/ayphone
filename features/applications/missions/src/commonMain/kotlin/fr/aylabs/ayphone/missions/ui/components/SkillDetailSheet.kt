@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AySizes
-import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import fr.aylabs.ayphone.resume.domain.models.Skill
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

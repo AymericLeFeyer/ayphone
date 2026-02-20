@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.settings.ui.screens
 
-import fr.aylabs.design_system.AyAppScaffold
-import AySpacings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +25,8 @@ import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.settings.AppTheme
 import fr.aylabs.ayphone.settings.ui.viewmodels.DevModeEvent
 import fr.aylabs.ayphone.settings.ui.viewmodels.SettingsViewModel
+import fr.aylabs.design_system.AyAppScaffold
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

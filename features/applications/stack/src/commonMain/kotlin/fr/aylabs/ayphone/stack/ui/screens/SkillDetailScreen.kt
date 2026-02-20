@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.stack.ui.screens
 
-import AySizes
-import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +18,8 @@ import androidx.compose.ui.Modifier
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.stack.ui.components.SafeImage
 import fr.aylabs.design_system.AyDetailScaffold
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

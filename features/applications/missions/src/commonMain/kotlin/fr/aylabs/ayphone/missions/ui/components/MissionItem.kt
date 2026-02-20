@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.ResumeMission
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun MissionItem(

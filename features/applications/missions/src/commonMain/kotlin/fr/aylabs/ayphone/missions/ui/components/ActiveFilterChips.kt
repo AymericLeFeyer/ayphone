@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AySizes
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -17,6 +15,8 @@ import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.system.CloseLine
 import fr.aylabs.ayphone.missions.ui.states.MissionsFilterState
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

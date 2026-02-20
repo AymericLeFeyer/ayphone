@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.frame.interfaces.ui
 
-import ApplicationLogo
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +14,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
@@ -24,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.about.ui.navigation.AboutRoutes
 import fr.aylabs.ayphone.application.data.AyApp
+import fr.aylabs.ayphone.application.ui.ApplicationLogo
 import fr.aylabs.ayphone.ayshop.ui.navigation.AyShopRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
@@ -35,6 +33,7 @@ import fr.aylabs.ayphone.timeline.TimelineConfig
 import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.widget.PhotoWidget
 import fr.aylabs.ayphone.widget.TextWidget
+import fr.aylabs.design_system.AySpacings
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -68,9 +67,6 @@ fun Frame(
                 if (AyApp.TRAVEL.id in state.installedApps) add(AyApp.TRAVEL)
                 if (AyApp.SIDE_PROJECTS.id in state.installedApps) add(AyApp.SIDE_PROJECTS)
             }
-            val photoWidget = remember { PhotoWidget() }
-            val textWidget = remember(state) { TextWidget(state.name, state.role) }
-
             val showAppTitles by appsPreferences.showAppTitles.collectAsStateWithLifecycle()
 
             LazyVerticalGrid(
@@ -83,14 +79,18 @@ fun Frame(
                 item(span = { GridItemSpan(4) }) {
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
                         Box(modifier = Modifier.weight(1f)) {
-                            photoWidget.Content()
+                            PhotoWidget(appTitleShown = showAppTitles)
                         }
                         Column(
                             modifier = Modifier.weight(1f),
                             verticalArrangement = Arrangement.spacedBy(AySpacings.s),
                         ) {
                             Box(modifier = Modifier.fillMaxWidth().aspectRatio(2f)) {
-                                textWidget.Content()
+                                TextWidget(
+                                    state.name,
+                                    state.role,
+                                    appTitleShown = showAppTitles
+                                )
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
                                 apps.take(2).forEach {

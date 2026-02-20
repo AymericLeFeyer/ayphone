@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +43,9 @@ import fr.aylabs.ayphone.missions.ui.states.MissionsFilterState
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Skill
 import fr.aylabs.ayphone.resume.domain.models.SkillCategory
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)

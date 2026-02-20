@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,9 +28,11 @@ import androidx.compose.ui.draw.clip
 import fr.aylabs.ayphone.clients.ui.components.SafeImage
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Resume
-import fr.aylabs.ayphone.resume.domain.models.ResumeMission
 import fr.aylabs.dates.formatYearMonth
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 import kotlinx.datetime.YearMonth
 
 private data class ClientSummary(
@@ -60,7 +59,7 @@ fun ClientsReadyScreen(
                 val company = resume.companies.find { it.name == companyName }
                 val startDate = missions.minOf { it.startDate }
                 val endDate = if (missions.any { it.endDate == null }) null
-                    else missions.maxOf { it.endDate!! }
+                else missions.maxOf { it.endDate!! }
                 val totalMonths = missions.sumOf { monthsBetween(it.startDate, it.endDate) }
                 ClientSummary(
                     name = companyName,
@@ -136,7 +135,13 @@ fun ClientsReadyScreen(
                         )
                     }
                     Text(
-                        text = "${formatYearMonth(client.startDate)} - ${client.endDate?.let { formatYearMonth(it) } ?: "Présent"}",
+                        text = "${formatYearMonth(client.startDate)} - ${
+                            client.endDate?.let {
+                                formatYearMonth(
+                                    it
+                                )
+                            } ?: "Présent"
+                        }",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

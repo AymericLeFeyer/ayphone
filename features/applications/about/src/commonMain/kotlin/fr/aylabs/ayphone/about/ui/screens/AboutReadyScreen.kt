@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.about.ui.screens
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,6 +38,9 @@ import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.dates.formatYearMonth
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun AboutReadyScreen(
@@ -60,7 +60,10 @@ fun AboutReadyScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.m))
+                .background(
+                    MaterialTheme.colorScheme.surfaceVariant,
+                    RoundedCornerShape(AyCorners.m)
+                )
                 .padding(AySpacings.l),
         ) {
             Text(
@@ -94,8 +97,10 @@ fun AboutReadyScreen(
         // Education section
         if (resume.education.isNotEmpty()) {
             val sortedEducation = resume.education.sortedByDescending { it.startDate }
-            val majorEducation = sortedEducation.filter { monthsBetween(it.startDate, it.endDate) > 6 }
-            val minorEducation = sortedEducation.filter { monthsBetween(it.startDate, it.endDate) <= 6 }
+            val majorEducation =
+                sortedEducation.filter { monthsBetween(it.startDate, it.endDate) > 6 }
+            val minorEducation =
+                sortedEducation.filter { monthsBetween(it.startDate, it.endDate) <= 6 }
 
             Text(
                 text = "Formation",
@@ -106,7 +111,10 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.s))
+                        .background(
+                            MaterialTheme.colorScheme.surfaceVariant,
+                            RoundedCornerShape(AyCorners.s)
+                        )
                         .padding(AySpacings.m),
                 ) {
                     Text(
@@ -119,7 +127,13 @@ fun AboutReadyScreen(
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
-                        text = "${formatYearMonth(edu.startDate)} - ${edu.endDate?.let { formatYearMonth(it) } ?: "Présent"}",
+                        text = "${formatYearMonth(edu.startDate)} - ${
+                            edu.endDate?.let {
+                                formatYearMonth(
+                                    it
+                                )
+                            } ?: "Présent"
+                        }",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -171,7 +185,10 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.s))
+                        .background(
+                            MaterialTheme.colorScheme.surfaceVariant,
+                            RoundedCornerShape(AyCorners.s)
+                        )
                         .padding(AySpacings.m),
                 ) {
                     Row(
@@ -198,7 +215,13 @@ fun AboutReadyScreen(
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
-                        text = "${formatYearMonth(company.startDate)} - ${company.endDate?.let { formatYearMonth(it) } ?: "Présent"}",
+                        text = "${formatYearMonth(company.startDate)} - ${
+                            company.endDate?.let {
+                                formatYearMonth(
+                                    it
+                                )
+                            } ?: "Présent"
+                        }",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -208,7 +231,10 @@ fun AboutReadyScreen(
                             Text(
                                 text = "\u2022 $resp",
                                 style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(start = AySpacings.xs, top = AySpacings.xxs),
+                                modifier = Modifier.padding(
+                                    start = AySpacings.xs,
+                                    top = AySpacings.xxs
+                                ),
                             )
                         }
                     }

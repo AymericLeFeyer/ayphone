@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +18,7 @@ import fr.aylabs.ayphone.missions.ui.components.MissionSearchBar
 import fr.aylabs.ayphone.missions.ui.viewmodels.MissionsViewModel
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun MissionsListScreen(

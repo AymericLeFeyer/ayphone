@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AySpacings
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -11,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.system.SearchLine
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun MissionSearchBar(

@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.stack.ui.screens
 
-import AySizes
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,6 +17,8 @@ import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.ayphone.stack.ui.components.SkillChip
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun StackReadyScreen(

@@ -1,6 +1,5 @@
-import AyCorners
-import AySizes
-import AySpacings
+package fr.aylabs.ayphone.application.ui
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +23,9 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import fr.aylabs.ayphone.application.data.AyApp
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun ApplicationLogo(
@@ -33,51 +36,52 @@ fun ApplicationLogo(
 ) {
     val cornerShape = RoundedCornerShape(AyCorners.l)
     val iconModifier = if (showTitle) {
-        Modifier.size(AySizes.appIcon).clip(cornerShape)
+        Modifier.size(AySizes.appIcon)
     } else {
-        Modifier.fillMaxWidth().aspectRatio(1f).clip(cornerShape)
-    }
-    val emojiStyle = if (showTitle) {
-        MaterialTheme.typography.headlineSmall
-    } else {
-        MaterialTheme.typography.displaySmall
-    }
+        Modifier.fillMaxWidth().aspectRatio(1f)
+    }.clip(cornerShape)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.clickable { onClick() },
+        modifier = modifier
     ) {
-        when {
-            app.logo != null -> {
-                Image(
-                    painter = rememberVectorPainter(app.logo),
-                    contentDescription = app.title,
-                    modifier = iconModifier,
-                )
-            }
-
-            app.iconEmoji != null -> {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = iconModifier.background(app.color),
-                ) {
-                    Text(
-                        text = app.iconEmoji!!,
-                        style = emojiStyle,
+        Surface(
+            modifier = Modifier
+                .clickable { onClick() }
+        ) {
+            when {
+                app.logo != null -> {
+                    Image(
+                        painter = rememberVectorPainter(app.logo),
+                        contentDescription = app.title,
+                        modifier = iconModifier,
                     )
                 }
-            }
 
-            else -> {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = iconModifier.background(app.color),
-                ) {
-                    Text(
-                        text = app.title.firstOrNull()?.toString() ?: "?",
-                        color = Color.White,
-                        style = emojiStyle,
-                    )
+                app.iconEmoji != null -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = iconModifier.background(app.color),
+                    ) {
+                        Text(
+                            text = app.iconEmoji,
+                            style = MaterialTheme.typography.displaySmall,
+                        )
+                    }
+                }
+
+                else -> {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = iconModifier
+                            .background(app.color),
+                    ) {
+                        Text(
+                            text = app.title.firstOrNull()?.toString() ?: "?",
+                            color = Color.White,
+                            style = MaterialTheme.typography.displaySmall,
+                        )
+                    }
                 }
             }
         }

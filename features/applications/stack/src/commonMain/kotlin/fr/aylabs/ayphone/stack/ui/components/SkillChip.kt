@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.stack.ui.components
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -18,6 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import fr.aylabs.ayphone.resume.domain.models.Skill
+import fr.aylabs.design_system.AyCorners
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @Composable
 fun SkillChip(

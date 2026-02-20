@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.stack.ui.screens
 
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,6 +28,7 @@ import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.stack.ui.states.StackState
 import fr.aylabs.ayphone.stack.ui.viewmodels.StackViewModel
 import fr.aylabs.design_system.AyAppScaffold
+import fr.aylabs.design_system.AySpacings
 import kotlinx.coroutines.launch
 
 enum class StackGrouping { CATEGORY, DURATION }

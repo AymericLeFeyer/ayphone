@@ -1,3 +1,5 @@
+package fr.aylabs.design_system
+
 import androidx.compose.ui.unit.dp
 
 class AySpacings {
@@ -29,7 +31,7 @@ class AySizes {
         val iconXl = 32.dp
         val iconXxl = 40.dp
         val iconXxxl = 48.dp
-        val appIcon = 64.dp
+        val appIcon = 80.dp
         val skillGridCell = 100.dp
     }
 }

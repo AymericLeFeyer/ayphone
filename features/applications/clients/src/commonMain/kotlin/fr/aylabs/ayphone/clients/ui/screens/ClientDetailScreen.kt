@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +31,10 @@ import fr.aylabs.ayphone.clients.ui.viewmodels.ClientsViewModel
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.dates.formatYearMonth
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AyCorners
 import fr.aylabs.design_system.AyDetailScaffold
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -81,7 +81,10 @@ fun ClientDetailScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.m))
+                        .background(
+                            MaterialTheme.colorScheme.surfaceVariant,
+                            RoundedCornerShape(AyCorners.m)
+                        )
                         .padding(AySpacings.l),
                 ) {
                     Company.fromLabel(companyName)?.let { c ->

@@ -1,7 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
-import fr.aylabs.design_system.AyAppScaffold
-import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +22,8 @@ import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.clients.ui.states.ClientsState
 import fr.aylabs.ayphone.clients.ui.viewmodels.ClientsViewModel
+import fr.aylabs.design_system.AyAppScaffold
+import fr.aylabs.design_system.AySpacings
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

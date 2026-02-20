@@ -1,8 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
-import AyCorners
-import AySizes
-import AySpacings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,7 +39,10 @@ import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.ResumeMissionSkill
 import fr.aylabs.dates.monthsBetween
 import fr.aylabs.design_system.AyColors
+import fr.aylabs.design_system.AyCorners
 import fr.aylabs.design_system.AyDetailScaffold
+import fr.aylabs.design_system.AySizes
+import fr.aylabs.design_system.AySpacings
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
