@@ -7,37 +7,28 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import fr.aylabs.ayphone.resume.domain.usecases.GetResumeUseCase
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.application.data.AyApp
-import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
 import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
-import androidx.compose.ui.platform.LocalUriHandler
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
-import fr.aylabs.ayphone.settings.AppPreferences
 import fr.aylabs.ayphone.settings.ui.navigation.settingsGraph
-import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
 import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
+import fr.aylabs.ayphone.travel.TravelConfig
 import kotlinx.serialization.Serializable
-import org.koin.compose.koinInject
 
 sealed interface MainRoutes {
     @Serializable
@@ -56,25 +47,13 @@ fun MainNavHost(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val uriHandler = LocalUriHandler.current
-    val installationRepository: InstallationRepository = koinInject()
-    val installedApps by installationRepository.installedApps.collectAsStateWithLifecycle()
-    val appPreferences: AppPreferences = koinInject()
-    val showAppTitles by appPreferences.showAppTitles.collectAsStateWithLifecycle()
-    val getResumeUseCase: GetResumeUseCase = koinInject()
-    var resumeName by remember { mutableStateOf("") }
-    var resumeRole by remember { mutableStateOf("") }
-    LaunchedEffect(Unit) {
-        runCatching { getResumeUseCase() }.onSuccess { resume ->
-            resumeName = resume.name
-            resumeRole = resume.role
-        }
-    }
 
     NavHost(
         navController = navController,
         startDestination = startDestination,
         enterTransition = {
-            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            val crossGraph =
+                initialState.destination.parent?.route != targetState.destination.parent?.route
             if (crossGraph) {
                 scaleIn(initialScale = 0.88f, animationSpec = appOpenSpec) + fadeIn(appOpenSpec)
             } else {
@@ -82,7 +61,8 @@ fun MainNavHost(
             }
         },
         exitTransition = {
-            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            val crossGraph =
+                initialState.destination.parent?.route != targetState.destination.parent?.route
             if (crossGraph) {
                 scaleOut(targetScale = 0.96f, animationSpec = appOpenSpec) + fadeOut(appOpenSpec)
             } else {
@@ -90,7 +70,8 @@ fun MainNavHost(
             }
         },
         popEnterTransition = {
-            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            val crossGraph =
+                initialState.destination.parent?.route != targetState.destination.parent?.route
             if (crossGraph) {
                 scaleIn(initialScale = 0.96f, animationSpec = appCloseSpec) + fadeIn(appCloseSpec)
             } else {
@@ -98,7 +79,8 @@ fun MainNavHost(
             }
         },
         popExitTransition = {
-            val crossGraph = initialState.destination.parent?.route != targetState.destination.parent?.route
+            val crossGraph =
+                initialState.destination.parent?.route != targetState.destination.parent?.route
             if (crossGraph) {
                 scaleOut(targetScale = 0.88f, animationSpec = appCloseSpec) + fadeOut(appCloseSpec)
             } else {
@@ -110,10 +92,6 @@ fun MainNavHost(
         composable<MainRoutes.Root> {
             Frame(
                 navController = navController,
-                installedApps = installedApps,
-                showAppTitles = showAppTitles,
-                name = resumeName,
-                role = resumeRole,
             )
         }
 
@@ -141,8 +119,8 @@ fun MainNavHost(
             navController = navController,
             onOpenApp = { appId ->
                 when (appId) {
-                    "sideprojects" -> navController.navigate(SideProjectsRoutes.Root())
-                    "travel" -> uriHandler.openUri(TravelConfig.URL)
+                    AyApp.SIDE_PROJECTS.id -> navController.navigate(SideProjectsRoutes.Root())
+                    AyApp.TRAVEL.id -> uriHandler.openUri(TravelConfig.URL)
                 }
             },
         )
