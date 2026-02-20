@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
+import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
 import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
@@ -91,6 +92,7 @@ fun MainNavHost(
 
         missionsGraph(
             navController = navController,
+            containerColor = AyApp.MISSIONS.color,
             onSeeSkillDetail = { skillLabel ->
                 navController.navigate(StackRoutes.SkillDetail(skillLabel))
             },
@@ -100,6 +102,7 @@ fun MainNavHost(
         )
         sideProjectsGraph(
             navController = navController,
+            containerColor = AyApp.SIDE_PROJECTS.color,
             onSeeSkillDetail = { skillLabel ->
                 navController.navigate(StackRoutes.SkillDetail(skillLabel))
             },

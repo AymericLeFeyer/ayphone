@@ -1,8 +1,7 @@
 package fr.aylabs.ayphone.ayshop.domain
 
-import fr.aylabs.ayphone.application.data.Application
-import fr.aylabs.ayphone.sideprojects.domain.SideProjectsApp
+import fr.aylabs.ayphone.application.data.AyApp
 
-val AVAILABLE_APPS: List<Application> = listOf(
-    SideProjectsApp(),
+val AVAILABLE_APPS: List<AyApp> = listOf(
+    AyApp.SIDE_PROJECTS,
 )

@@ -2,6 +2,7 @@ package fr.aylabs.ayphone.missions.ui.navigation
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -14,6 +15,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.missionsGraph(
     navController: NavController,
+    containerColor: Color,
     onSeeSkillDetail: (String) -> Unit = {},
     onCompanyClick: (String) -> Unit = {},
 ) {
@@ -33,6 +35,7 @@ fun NavGraphBuilder.missionsGraph(
                 onBackClick = navController::popBackStack,
                 onMissionClick = { index -> navController.navigate(MissionsRoutes.MissionDetail(index)) },
                 vm = vm,
+                containerColor = containerColor,
             )
         }
         composable<MissionsRoutes.MissionDetail> { backStackEntry ->

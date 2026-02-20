@@ -1,12 +1,12 @@
 package fr.aylabs.ayphone.ayshop.ui.states
 
-import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.application.data.AyApp
 
 sealed class AyShopState {
     data object Loading : AyShopState()
 
     data class Success(
-        val apps: List<Application>,
+        val apps: List<AyApp>,
         val installedApps: Set<String>,
         val installingApps: Set<String>,
     ) : AyShopState() {

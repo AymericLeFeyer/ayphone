@@ -9,7 +9,7 @@ import fr.aylabs.ayphone.about.ui.viewmodels.AboutViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.aboutGraph(
-    navController: NavController
+    navController: NavController,
 ) {
     navigation<AboutRoutes.Graph>(startDestination = AboutRoutes.Root) {
         composable<AboutRoutes.Root> {

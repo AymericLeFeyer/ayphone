@@ -14,24 +14,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import fr.aylabs.ayphone.about.domain.AboutApp
-import fr.aylabs.ayphone.application.data.Application
-import fr.aylabs.ayphone.ayshop.domain.AyShopApp
-import fr.aylabs.ayphone.clients.domain.ClientsApp
-import fr.aylabs.ayphone.missions.domain.MissionsApp
-import fr.aylabs.ayphone.sideprojects.domain.SideProjectsApp
-import fr.aylabs.ayphone.stack.domain.StackApp
+import fr.aylabs.ayphone.about.ui.navigation.AboutRoutes
+import fr.aylabs.ayphone.application.data.AyApp
+import fr.aylabs.ayphone.ayshop.ui.navigation.AyShopRoutes
+import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
+import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
+import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
+import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.widget.PhotoWidget
 
 @Composable
 fun Frame(navController: NavHostController, installedApps: Set<String> = emptySet()) {
-    val apps = buildList<Application> {
-        add(MissionsApp(navController))
-        add(AyShopApp(navController))
-        add(StackApp(navController))
-        add(AboutApp(navController))
-        add(ClientsApp(navController))
-        if ("sideprojects" in installedApps) add(SideProjectsApp(navController))
+    val apps = buildList<AyApp> {
+        add(AyApp.MISSIONS)
+        add(AyApp.AYSHOP)
+        add(AyApp.STACK)
+        add(AyApp.ABOUT)
+        add(AyApp.CLIENTS)
+        if (AyApp.SIDE_PROJECTS.id in installedApps) add(AyApp.SIDE_PROJECTS)
     }
     val headerApps = apps.take(4)
     val restApps = apps.drop(4)
@@ -53,18 +53,30 @@ fun Frame(navController: NavHostController, installedApps: Set<String> = emptySe
                     verticalArrangement = Arrangement.spacedBy(AySpacings.s),
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(0)?.let { ApplicationLogo(it, Modifier.weight(1f)) }
-                        headerApps.getOrNull(1)?.let { ApplicationLogo(it, Modifier.weight(1f)) }
+                        headerApps.getOrNull(0)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
+                        headerApps.getOrNull(1)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(2)?.let { ApplicationLogo(it, Modifier.weight(1f)) }
-                        headerApps.getOrNull(3)?.let { ApplicationLogo(it, Modifier.weight(1f)) }
+                        headerApps.getOrNull(2)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
+                        headerApps.getOrNull(3)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
                     }
                 }
             }
         }
         items(restApps.size) { index ->
-            ApplicationLogo(restApps[index])
+            val app = restApps[index]
+            ApplicationLogo(app, onClick = { navigateTo(navController, app) })
         }
+    }
+}
+
+private fun navigateTo(navController: NavHostController, app: AyApp) {
+    when (app) {
+        AyApp.MISSIONS -> navController.navigate(MissionsRoutes.Root())
+        AyApp.STACK -> navController.navigate(StackRoutes.Root)
+        AyApp.ABOUT -> navController.navigate(AboutRoutes.Root)
+        AyApp.CLIENTS -> navController.navigate(ClientsRoutes.Root)
+        AyApp.SIDE_PROJECTS -> navController.navigate(SideProjectsRoutes.Root())
+        AyApp.AYSHOP -> navController.navigate(AyShopRoutes.Root)
     }
 }

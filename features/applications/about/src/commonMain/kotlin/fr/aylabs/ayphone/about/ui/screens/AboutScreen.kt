@@ -13,14 +13,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
@@ -30,6 +31,7 @@ import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
 import fr.aylabs.ayphone.about.ui.states.AboutState
 import fr.aylabs.ayphone.about.ui.viewmodels.AboutViewModel
+import fr.aylabs.ayphone.application.data.AyApp
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,25 +45,28 @@ fun AboutScreen(
 
     Scaffold(
         topBar = {
-            Surface {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = "About",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "About",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Remix.Arrows.ArrowLeftSLine,
+                            contentDescription = "Back",
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                imageVector = Remix.Arrows.ArrowLeftSLine,
-                                contentDescription = "Back",
-                            )
-                        }
-                    },
-                )
-            }
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = AyApp.ABOUT.color,
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                ),
+            )
         },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {

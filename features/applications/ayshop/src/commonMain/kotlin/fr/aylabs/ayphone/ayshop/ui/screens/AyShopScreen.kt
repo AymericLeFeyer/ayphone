@@ -35,7 +35,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -46,7 +45,7 @@ import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.SearchLine
-import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.ayshop.ui.components.AppIcon
 import fr.aylabs.ayphone.ayshop.ui.components.InstallButtonOnCard
 import fr.aylabs.ayphone.ayshop.ui.components.RatingRow
@@ -165,7 +164,7 @@ fun AyShopScreen(
 
 @Composable
 private fun FeaturedAppCard(
-    app: Application,
+    app: AyApp,
     isInstalled: Boolean,
     isInstalling: Boolean,
     onInstall: () -> Unit,
@@ -248,7 +247,7 @@ private fun FeaturedAppCard(
 
 @Composable
 private fun AppListItem(
-    app: Application,
+    app: AyApp,
     isInstalled: Boolean,
     isInstalling: Boolean,
     onInstall: () -> Unit,
@@ -280,7 +279,7 @@ private fun AppListItem(
         leadingContent = {
             AppIcon(
                 emoji = app.iconEmoji ?: "📦",
-                color = app.iconColor ?: 0xFF888888,
+                color = app.color.value.toLong(),
                 size = 56.dp,
             )
         },

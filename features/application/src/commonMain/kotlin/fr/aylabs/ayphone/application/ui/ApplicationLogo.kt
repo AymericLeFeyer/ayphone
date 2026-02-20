@@ -1,4 +1,3 @@
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -23,13 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import fr.aylabs.ayphone.application.data.Application
+import fr.aylabs.ayphone.application.data.AyApp
 
 @Composable
 fun ApplicationLogo(
-    app: Application,
+    app: AyApp,
     modifier: Modifier = Modifier,
     showTitle: Boolean = false,
+    onClick: () -> Unit = {},
 ) {
     val cornerShape = RoundedCornerShape(AyCorners.l)
     val iconModifier = if (showTitle) {
@@ -45,7 +45,7 @@ fun ApplicationLogo(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.clickable { app.onClick() },
+        modifier = modifier.clickable { onClick() },
     ) {
         when {
             app.logo != null -> {
@@ -59,8 +59,7 @@ fun ApplicationLogo(
             app.iconEmoji != null -> {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = iconModifier
-                        .background(app.iconColor?.let { Color(it) } ?: AyColors.IconFallback),
+                    modifier = iconModifier.background(app.color),
                 ) {
                     Text(
                         text = app.iconEmoji!!,
@@ -72,8 +71,7 @@ fun ApplicationLogo(
             else -> {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = iconModifier
-                        .background(AyColors.IconFallback),
+                    modifier = iconModifier.background(app.color),
                 ) {
                     Text(
                         text = app.title.firstOrNull()?.toString() ?: "?",

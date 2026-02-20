@@ -13,19 +13,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
@@ -42,6 +43,7 @@ fun MissionsScreen(
     onBackClick: () -> Unit,
     onMissionClick: (Int) -> Unit,
     vm: MissionsViewModel,
+    containerColor: Color,
     title: String = "Missions",
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -50,33 +52,37 @@ fun MissionsScreen(
 
     Scaffold(
         topBar = {
-            Surface {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = title,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
+            TopAppBar(
+                title = {
+                    Text(
+                        text = title,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Remix.Arrows.ArrowLeftSLine,
+                            contentDescription = "Back",
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                imageVector = Remix.Arrows.ArrowLeftSLine,
-                                contentDescription = "Back",
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { showFilterSheet = true }) {
-                            Icon(
-                                imageVector = Remix.System.FilterLine,
-                                contentDescription = "Filtrer",
-                            )
-                        }
-                    },
-                )
-            }
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showFilterSheet = true }) {
+                        Icon(
+                            imageVector = Remix.System.FilterLine,
+                            contentDescription = "Filtrer",
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = containerColor,
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White,
+                ),
+            )
         },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {

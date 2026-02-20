@@ -103,7 +103,10 @@ fun InstallButtonOnCard(
                 enabled = false,
                 modifier = modifier,
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    Color.White.copy(alpha = 0.5f)
+                ),
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(14.dp),
