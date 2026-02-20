@@ -42,6 +42,7 @@ kotlin {
             api(project(":features:applications:sideprojects"))
             api(project(":features:applications:ayshop"))
             api(project(":features:applications:timeline"))
+            api(project(":features:applications:settings"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)

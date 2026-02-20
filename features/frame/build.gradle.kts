@@ -44,6 +44,7 @@ kotlin {
                 implementation(project(":features:applications:sideprojects"))
                 implementation(project(":features:applications:ayshop"))
                 implementation(project(":features:applications:timeline"))
+                implementation(project(":features:applications:settings"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

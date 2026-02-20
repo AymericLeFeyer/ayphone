@@ -23,6 +23,8 @@ import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
+import fr.aylabs.ayphone.settings.AppPreferences
+import fr.aylabs.ayphone.settings.ui.navigation.settingsGraph
 import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
 import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
@@ -48,6 +50,8 @@ fun MainNavHost(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val installationRepository: InstallationRepository = koinInject()
     val installedApps by installationRepository.installedApps.collectAsStateWithLifecycle()
+    val appPreferences: AppPreferences = koinInject()
+    val showAppTitles by appPreferences.showAppTitles.collectAsStateWithLifecycle()
 
     NavHost(
         navController = navController,
@@ -87,7 +91,11 @@ fun MainNavHost(
         modifier = modifier,
     ) {
         composable<MainRoutes.Root> {
-            Frame(navController = navController, installedApps = installedApps)
+            Frame(
+                navController = navController,
+                installedApps = installedApps,
+                showAppTitles = showAppTitles,
+            )
         }
 
         missionsGraph(
@@ -134,5 +142,6 @@ fun MainNavHost(
                 navController.navigate(MissionsRoutes.MissionDetail(missionIndex))
             },
         )
+        settingsGraph(navController)
     }
 }
