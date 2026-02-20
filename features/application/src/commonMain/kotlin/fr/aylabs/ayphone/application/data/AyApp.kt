@@ -46,6 +46,11 @@ enum class AyApp(
         iconEmoji = "🛍️",
         color = Color(0xFFBE185D),
     ),
+    TIMELINE(
+        title = "Timeline",
+        iconEmoji = "⏳",
+        color = Color(0xFF0369A1),
+    ),
     SIDE_PROJECTS(
         title = "Side Projects",
         iconEmoji = "🧪",

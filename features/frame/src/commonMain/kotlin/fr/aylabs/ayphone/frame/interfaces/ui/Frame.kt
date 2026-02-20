@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.about.ui.navigation.AboutRoutes
 import fr.aylabs.ayphone.application.data.AyApp
@@ -21,16 +23,19 @@ import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
+import fr.aylabs.ayphone.timeline.TimelineConfig
 import fr.aylabs.ayphone.widget.PhotoWidget
 
 @Composable
 fun Frame(navController: NavHostController, installedApps: Set<String> = emptySet()) {
+    val uriHandler = LocalUriHandler.current
     val apps = buildList<AyApp> {
         add(AyApp.MISSIONS)
         add(AyApp.AYSHOP)
         add(AyApp.STACK)
         add(AyApp.ABOUT)
         add(AyApp.CLIENTS)
+        add(AyApp.TIMELINE)
         if (AyApp.SIDE_PROJECTS.id in installedApps) add(AyApp.SIDE_PROJECTS)
     }
     val headerApps = apps.take(4)
@@ -53,24 +58,24 @@ fun Frame(navController: NavHostController, installedApps: Set<String> = emptySe
                     verticalArrangement = Arrangement.spacedBy(AySpacings.s),
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(0)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
-                        headerApps.getOrNull(1)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
+                        headerApps.getOrNull(0)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, uriHandler, it) }) }
+                        headerApps.getOrNull(1)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, uriHandler, it) }) }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(2)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
-                        headerApps.getOrNull(3)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, it) }) }
+                        headerApps.getOrNull(2)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, uriHandler, it) }) }
+                        headerApps.getOrNull(3)?.let { ApplicationLogo(it, Modifier.weight(1f), onClick = { navigateTo(navController, uriHandler, it) }) }
                     }
                 }
             }
         }
         items(restApps.size) { index ->
             val app = restApps[index]
-            ApplicationLogo(app, onClick = { navigateTo(navController, app) })
+            ApplicationLogo(app, onClick = { navigateTo(navController, uriHandler, app) })
         }
     }
 }
 
-private fun navigateTo(navController: NavHostController, app: AyApp) {
+private fun navigateTo(navController: NavHostController, uriHandler: UriHandler, app: AyApp) {
     when (app) {
         AyApp.MISSIONS -> navController.navigate(MissionsRoutes.Root())
         AyApp.STACK -> navController.navigate(StackRoutes.Root)
@@ -78,5 +83,6 @@ private fun navigateTo(navController: NavHostController, app: AyApp) {
         AyApp.CLIENTS -> navController.navigate(ClientsRoutes.Root)
         AyApp.SIDE_PROJECTS -> navController.navigate(SideProjectsRoutes.Root())
         AyApp.AYSHOP -> navController.navigate(AyShopRoutes.Root)
+        AyApp.TIMELINE -> uriHandler.openUri(TimelineConfig.URL)
     }
 }
