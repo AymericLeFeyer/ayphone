@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val SETTINGS_APP_MODULE = module {
     single { AppPreferences(getSettingUseCase = get(), setSettingUseCase = get()) }
-    viewModel { SettingsViewModel(appPreferences = get()) }
+    viewModel { SettingsViewModel(appPreferences = get(), installationRepository = get()) }
 }

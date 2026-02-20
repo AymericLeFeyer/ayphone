@@ -7,13 +7,18 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import fr.aylabs.ayphone.resume.domain.usecases.GetResumeUseCase
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
@@ -55,6 +60,15 @@ fun MainNavHost(
     val installedApps by installationRepository.installedApps.collectAsStateWithLifecycle()
     val appPreferences: AppPreferences = koinInject()
     val showAppTitles by appPreferences.showAppTitles.collectAsStateWithLifecycle()
+    val getResumeUseCase: GetResumeUseCase = koinInject()
+    var resumeName by remember { mutableStateOf("") }
+    var resumeRole by remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        runCatching { getResumeUseCase() }.onSuccess { resume ->
+            resumeName = resume.name
+            resumeRole = resume.role
+        }
+    }
 
     NavHost(
         navController = navController,
@@ -98,6 +112,8 @@ fun MainNavHost(
                 navController = navController,
                 installedApps = installedApps,
                 showAppTitles = showAppTitles,
+                name = resumeName,
+                role = resumeRole,
             )
         }
 

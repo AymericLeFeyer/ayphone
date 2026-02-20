@@ -38,6 +38,7 @@ kotlin {
                 implementation(project(":core:settings"))
                 implementation(project(":core:design-system"))
                 implementation(project(":features:application"))
+                implementation(project(":features:applications:ayshop"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)

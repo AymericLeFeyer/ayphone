@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -27,28 +29,32 @@ import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.timeline.TimelineConfig
 import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.widget.PhotoWidget
+import fr.aylabs.ayphone.widget.TextWidget
 
 @Composable
 fun Frame(
     navController: NavHostController,
     installedApps: Set<String> = emptySet(),
     showAppTitles: Boolean = false,
+    name: String = "",
+    role: String = "",
 ) {
     val uriHandler = LocalUriHandler.current
     val apps = buildList<AyApp> {
-        add(AyApp.MISSIONS)
-        add(AyApp.AYSHOP)
-        add(AyApp.STACK)
         add(AyApp.ABOUT)
+        add(AyApp.MISSIONS)
+        add(AyApp.STACK)
         add(AyApp.CLIENTS)
         add(AyApp.TIMELINE)
         add(AyApp.SETTINGS)
+        add(AyApp.AYSHOP)
         if (AyApp.TRAVEL.id in installedApps) add(AyApp.TRAVEL)
         if (AyApp.SIDE_PROJECTS.id in installedApps) add(AyApp.SIDE_PROJECTS)
     }
-    val headerApps = apps.take(4)
-    val restApps = apps.drop(4)
-    val widget = remember { PhotoWidget() }
+    val headerApps = apps.take(2)
+    val restApps = apps.drop(2)
+    val photoWidget = remember { PhotoWidget() }
+    val textWidget = remember(name, role) { TextWidget(name, role) }
     LazyVerticalGrid(
         modifier = Modifier.padding(AySpacings.s),
         columns = GridCells.Fixed(4),
@@ -59,26 +65,40 @@ fun Frame(
         item(span = { GridItemSpan(4) }) {
             Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
                 Box(modifier = Modifier.weight(1f)) {
-                    widget.Content()
+                    photoWidget.Content()
                 }
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(AySpacings.s),
                 ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(0)?.let { ApplicationLogo(it, Modifier.weight(1f), showTitle = showAppTitles, onClick = { navigateTo(navController, uriHandler, it) }) }
-                        headerApps.getOrNull(1)?.let { ApplicationLogo(it, Modifier.weight(1f), showTitle = showAppTitles, onClick = { navigateTo(navController, uriHandler, it) }) }
+                    Box(modifier = Modifier.fillMaxWidth().aspectRatio(2f)) {
+                        textWidget.Content()
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        headerApps.getOrNull(2)?.let { ApplicationLogo(it, Modifier.weight(1f), showTitle = showAppTitles, onClick = { navigateTo(navController, uriHandler, it) }) }
-                        headerApps.getOrNull(3)?.let { ApplicationLogo(it, Modifier.weight(1f), showTitle = showAppTitles, onClick = { navigateTo(navController, uriHandler, it) }) }
+                        headerApps.getOrNull(0)?.let {
+                            ApplicationLogo(
+                                it,
+                                Modifier.weight(1f),
+                                showTitle = showAppTitles,
+                                onClick = { navigateTo(navController, uriHandler, it) })
+                        }
+                        headerApps.getOrNull(1)?.let {
+                            ApplicationLogo(
+                                it,
+                                Modifier.weight(1f),
+                                showTitle = showAppTitles,
+                                onClick = { navigateTo(navController, uriHandler, it) })
+                        }
                     }
                 }
             }
         }
         items(restApps.size) { index ->
             val app = restApps[index]
-            ApplicationLogo(app, showTitle = showAppTitles, onClick = { navigateTo(navController, uriHandler, app) })
+            ApplicationLogo(
+                app,
+                showTitle = showAppTitles,
+                onClick = { navigateTo(navController, uriHandler, app) })
         }
     }
 }

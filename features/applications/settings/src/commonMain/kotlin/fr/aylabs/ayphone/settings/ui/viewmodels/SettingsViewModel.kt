@@ -2,6 +2,7 @@ package fr.aylabs.ayphone.settings.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
 import fr.aylabs.ayphone.settings.AppPreferences
 import fr.aylabs.ayphone.settings.AppTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,11 +18,15 @@ sealed class DevModeEvent {
     data object AlreadyActive : DevModeEvent()
 }
 
-class SettingsViewModel(private val appPreferences: AppPreferences) : ViewModel() {
+class SettingsViewModel(
+    private val appPreferences: AppPreferences,
+    private val installationRepository: InstallationRepository,
+) : ViewModel() {
 
     val theme: StateFlow<AppTheme> = appPreferences.theme
     val showAppTitles: StateFlow<Boolean> = appPreferences.showAppTitles
     val developerMode: StateFlow<Boolean> = appPreferences.developerMode
+    val installedApps: StateFlow<Set<String>> = installationRepository.installedApps
 
     private val _devTapCount = MutableStateFlow(0)
     private val _devModeEvents = MutableSharedFlow<DevModeEvent>()
@@ -32,6 +37,8 @@ class SettingsViewModel(private val appPreferences: AppPreferences) : ViewModel(
     fun setShowAppTitles(value: Boolean) = appPreferences.setShowAppTitles(value)
 
     fun disableDeveloperMode() = appPreferences.setDeveloperMode(false)
+
+    fun uninstallAllApps() = installationRepository.uninstallAll()
 
     fun onBuildTap() {
         viewModelScope.launch {

@@ -17,9 +17,8 @@ class InstallationRepository(
 
     init {
         val initial = mutableSetOf<String>()
-        if (getSettingUseCase(SettingsKeys.SIDE_PROJECTS_INSTALLED, false)) {
-            initial.add("sideprojects")
-        }
+        if (getSettingUseCase(SettingsKeys.SIDE_PROJECTS_INSTALLED, false)) initial.add("sideprojects")
+        if (getSettingUseCase(SettingsKeys.TRAVEL_INSTALLED, false)) initial.add("travel")
         _installedApps.value = initial
     }
 
@@ -33,9 +32,14 @@ class InstallationRepository(
         _installedApps.update { it - appId }
     }
 
+    fun uninstallAll() {
+        _installedApps.value.toSet().forEach { uninstall(it) }
+    }
+
     private fun persistInstallation(appId: String, installed: Boolean) {
         when (appId) {
             "sideprojects" -> setSettingUseCase(SettingsKeys.SIDE_PROJECTS_INSTALLED, installed)
+            "travel" -> setSettingUseCase(SettingsKeys.TRAVEL_INSTALLED, installed)
         }
     }
 }

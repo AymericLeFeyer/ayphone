@@ -37,6 +37,7 @@ fun SettingsScreen(
     val theme by vm.theme.collectAsStateWithLifecycle()
     val showAppTitles by vm.showAppTitles.collectAsStateWithLifecycle()
     val developerMode by vm.developerMode.collectAsStateWithLifecycle()
+    val installedApps by vm.installedApps.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
@@ -129,6 +130,24 @@ fun SettingsScreen(
                         Switch(checked = false, onCheckedChange = {}, enabled = false)
                     },
                 )
+            }
+
+            // ─── Applications ─────────────────────────────────────────────
+            if (installedApps.isNotEmpty()) {
+                item { HorizontalDivider() }
+                item { SettingsSectionHeader("Applications") }
+                item {
+                    ListItem(
+                        headlineContent = {
+                            Text(
+                                text = "Désinstaller toutes les applications",
+                                color = MaterialTheme.colorScheme.error,
+                            )
+                        },
+                        supportingContent = { Text("${installedApps.size} application${if (installedApps.size > 1) "s" else ""} installée${if (installedApps.size > 1) "s" else ""}") },
+                        modifier = Modifier.clickable { vm.uninstallAllApps() },
+                    )
+                }
             }
 
             // ─── Accessibilité ────────────────────────────────────────────
