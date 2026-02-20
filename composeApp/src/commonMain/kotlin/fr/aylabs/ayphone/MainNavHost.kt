@@ -20,11 +20,13 @@ import fr.aylabs.ayphone.ayshop.domain.InstallationRepository
 import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.clientsGraph
+import androidx.compose.ui.platform.LocalUriHandler
 import fr.aylabs.ayphone.frame.interfaces.ui.Frame
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.missionsGraph
 import fr.aylabs.ayphone.settings.AppPreferences
 import fr.aylabs.ayphone.settings.ui.navigation.settingsGraph
+import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
 import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
@@ -48,6 +50,7 @@ fun MainNavHost(
     onBackClick: () -> Unit,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val uriHandler = LocalUriHandler.current
     val installationRepository: InstallationRepository = koinInject()
     val installedApps by installationRepository.installedApps.collectAsStateWithLifecycle()
     val appPreferences: AppPreferences = koinInject()
@@ -123,6 +126,7 @@ fun MainNavHost(
             onOpenApp = { appId ->
                 when (appId) {
                     "sideprojects" -> navController.navigate(SideProjectsRoutes.Root())
+                    "travel" -> uriHandler.openUri(TravelConfig.URL)
                 }
             },
         )

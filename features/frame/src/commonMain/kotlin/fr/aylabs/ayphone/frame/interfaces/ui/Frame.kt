@@ -25,6 +25,7 @@ import fr.aylabs.ayphone.settings.ui.navigation.SettingsRoutes
 import fr.aylabs.ayphone.sideprojects.ui.navigation.SideProjectsRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.timeline.TimelineConfig
+import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.widget.PhotoWidget
 
 @Composable
@@ -42,6 +43,7 @@ fun Frame(
         add(AyApp.CLIENTS)
         add(AyApp.TIMELINE)
         add(AyApp.SETTINGS)
+        if (AyApp.TRAVEL.id in installedApps) add(AyApp.TRAVEL)
         if (AyApp.SIDE_PROJECTS.id in installedApps) add(AyApp.SIDE_PROJECTS)
     }
     val headerApps = apps.take(4)
@@ -90,6 +92,7 @@ private fun navigateTo(navController: NavHostController, uriHandler: UriHandler,
         AyApp.SIDE_PROJECTS -> navController.navigate(SideProjectsRoutes.Root())
         AyApp.AYSHOP -> navController.navigate(AyShopRoutes.Root)
         AyApp.TIMELINE -> uriHandler.openUri(TimelineConfig.URL)
+        AyApp.TRAVEL -> uriHandler.openUri(TravelConfig.URL)
         AyApp.SETTINGS -> navController.navigate(SettingsRoutes.Root)
     }
 }

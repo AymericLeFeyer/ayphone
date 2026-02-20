@@ -56,6 +56,36 @@ enum class AyApp(
         iconEmoji = "⚙️",
         color = Color(0xFF374151),
     ),
+    TRAVEL(
+        title = "Voyage",
+        iconEmoji = "✈️",
+        color = Color(0xFF0284C7),
+        id = "travel",
+        developer = "AyLabs",
+        category = "Voyage & Lifestyle",
+        shortDescription = "Retrace tes aventures à travers le monde",
+        description = "Voyage est une carte interactive de tes explorations personnelles — une fenêtre sur tous les endroits que tu as visités, les souvenirs que tu as créés et les aventures qui t'attendent.\n\n" +
+            "Navigue à travers une timeline géographique de tes voyages, discover de nouveaux endroits et garde une trace de tes aventures passées et futures.\n\n" +
+            "Une façon unique de visualiser ta vie à travers le prisme du voyage.",
+        features = listOf(
+            "Timeline interactive de tes voyages",
+            "Carte géographique de tes destinations",
+            "Photos et souvenirs associés à chaque lieu",
+            "Statistiques de voyage (pays, km, continents)",
+            "Planification de futures aventures",
+        ),
+        whatsNew = listOf(
+            "Première version sur AyShop",
+            "Timeline interactive de tes destinations",
+            "Visualisation cartographique",
+            "Intégration avec la galerie photo",
+        ),
+        rating = 4.7f,
+        reviewCount = "64",
+        downloads = "300+",
+        version = "1.0.0",
+        size = "2,4 Mo",
+    ),
     SIDE_PROJECTS(
         title = "Side Projects",
         iconEmoji = "🧪",
