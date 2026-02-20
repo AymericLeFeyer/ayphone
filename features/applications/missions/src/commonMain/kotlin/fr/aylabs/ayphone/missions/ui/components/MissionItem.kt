@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -38,7 +37,7 @@ fun MissionItem(
         modifier = Modifier
             .padding(horizontal = AySpacings.s)
             .fillMaxWidth()
-            .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
+            .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.s))
             .clickable(onClick = onClick)
             .padding(AySpacings.m),
     ) {

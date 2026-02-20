@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -110,7 +109,7 @@ fun ClientsReadyScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(AyCorners.m))
-                    .background(AyColors.ContainerQuiet)
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
                     .clickable { onClientClick(client.name) }
                     .padding(AySpacings.m),
             ) {

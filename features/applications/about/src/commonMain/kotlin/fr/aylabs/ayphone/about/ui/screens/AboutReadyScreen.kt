@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.about.ui.screens
 
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -61,7 +60,7 @@ fun AboutReadyScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.m))
+                .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.m))
                 .padding(AySpacings.l),
         ) {
             Text(
@@ -107,7 +106,7 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
+                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.s))
                         .padding(AySpacings.m),
                 ) {
                     Text(
@@ -172,7 +171,7 @@ fun AboutReadyScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.s))
+                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.s))
                         .padding(AySpacings.m),
                 ) {
                     Row(

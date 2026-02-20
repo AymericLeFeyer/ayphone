@@ -1,3 +1,5 @@
+package fr.aylabs.design_system
+
 import androidx.compose.ui.graphics.Color
 
 class AyColors {

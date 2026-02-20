@@ -1,10 +1,10 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
+import fr.aylabs.design_system.AyAppScaffold
 import AySpacings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -12,10 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,12 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.woowla.compose.icon.collections.remix.Remix
-import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
-import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import com.woowla.compose.icon.collections.remix.remix.system.ErrorWarningLine
 import com.woowla.compose.icon.collections.remix.remix.system.FilterLine
 import fr.aylabs.ayphone.missions.ui.states.MissionsState
@@ -50,39 +44,17 @@ fun MissionsScreen(
     val uiState by vm.state.collectAsStateWithLifecycle()
     var showFilterSheet by remember { mutableStateOf(false) }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = title,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Remix.Arrows.ArrowLeftSLine,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { showFilterSheet = true }) {
-                        Icon(
-                            imageVector = Remix.System.FilterLine,
-                            contentDescription = "Filtrer",
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = containerColor,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White,
-                    actionIconContentColor = Color.White,
-                ),
-            )
+    AyAppScaffold(
+        title = title,
+        containerColor = containerColor,
+        onBackClick = onBackClick,
+        actions = {
+            IconButton(onClick = { showFilterSheet = true }) {
+                Icon(
+                    imageVector = Remix.System.FilterLine,
+                    contentDescription = "Filtrer",
+                )
+            }
         },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {

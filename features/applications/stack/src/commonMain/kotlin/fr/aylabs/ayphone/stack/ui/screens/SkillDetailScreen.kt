@@ -12,21 +12,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.woowla.compose.icon.collections.remix.Remix
-import com.woowla.compose.icon.collections.remix.remix.Arrows
-import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
 import fr.aylabs.ayphone.stack.ui.components.SafeImage
+import fr.aylabs.design_system.AyDetailScaffold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,24 +30,9 @@ fun SkillDetailScreen(
 ) {
     val skill = resumeSkill.skill
 
-    Scaffold(
-        topBar = {
-            Surface {
-                TopAppBar(
-                    title = {
-                        Text(text = skill.label)
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                imageVector = Remix.Arrows.ArrowLeftSLine,
-                                contentDescription = "Back",
-                            )
-                        }
-                    },
-                )
-            }
-        },
+    AyDetailScaffold(
+        title = skill.label,
+        onBackClick = onBackClick,
     ) { padding ->
         Column(
             modifier = Modifier

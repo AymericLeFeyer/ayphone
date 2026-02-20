@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.screens
 
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -19,13 +18,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -33,9 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.woowla.compose.icon.collections.remix.Remix
-import com.woowla.compose.icon.collections.remix.remix.Arrows
-import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowLeftSLine
 import fr.aylabs.ayphone.clients.ui.components.SafeImage
 import fr.aylabs.ayphone.clients.ui.components.SkillChip
 import fr.aylabs.ayphone.clients.ui.states.ClientsState
@@ -43,6 +34,7 @@ import fr.aylabs.ayphone.clients.ui.viewmodels.ClientsViewModel
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.dates.formatYearMonth
 import fr.aylabs.dates.monthsBetween
+import fr.aylabs.design_system.AyDetailScaffold
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -68,25 +60,12 @@ fun ClientDetailScreen(
 
     val startDate = missions.minOfOrNull { it.value.startDate }
     val endDate = if (missions.any { it.value.endDate == null }) null
-        else missions.maxOfOrNull { it.value.endDate!! }
+    else missions.maxOfOrNull { it.value.endDate!! }
     val totalMonths = missions.sumOf { monthsBetween(it.value.startDate, it.value.endDate) }
 
-    Scaffold(
-        topBar = {
-            Surface {
-                TopAppBar(
-                    title = { Text(companyName) },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                imageVector = Remix.Arrows.ArrowLeftSLine,
-                                contentDescription = "Back",
-                            )
-                        }
-                    },
-                )
-            }
-        },
+    AyDetailScaffold(
+        title = companyName,
+        onBackClick = onBackClick,
     ) { padding ->
         if (missions.isNotEmpty() && startDate != null) {
             Column(
@@ -102,7 +81,7 @@ fun ClientDetailScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AyColors.ContainerQuiet, RoundedCornerShape(AyCorners.m))
+                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(AyCorners.m))
                         .padding(AySpacings.l),
                 ) {
                     Company.fromLabel(companyName)?.let { c ->
@@ -150,7 +129,7 @@ fun ClientDetailScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(AyCorners.s))
-                            .background(AyColors.ContainerQuiet)
+                            .background(MaterialTheme.colorScheme.surfaceVariant)
                             .clickable { onSeeMission(index) }
                             .padding(AySpacings.m),
                     ) {

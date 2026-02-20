@@ -1,18 +1,22 @@
 package fr.aylabs.ayphone
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import fr.aylabs.ayphone.settings.AppPreferences
 import fr.aylabs.ayphone.settings.AppTheme
+import fr.aylabs.design_system.AyColors
 import org.koin.compose.koinInject
 
 @Composable
@@ -38,9 +42,11 @@ fun App(
             primary = AyColors.Primary
         )
     ) {
-        MainNavHost(
-            navController = navController,
-            onBackClick = navController::popBackStack
-        )
+        Surface(modifier = Modifier.fillMaxSize()) {
+            MainNavHost(
+                navController = navController,
+                onBackClick = navController::popBackStack
+            )
+        }
     }
 }

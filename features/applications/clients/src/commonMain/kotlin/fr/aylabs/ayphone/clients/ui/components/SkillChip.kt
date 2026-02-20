@@ -1,6 +1,5 @@
 package fr.aylabs.ayphone.clients.ui.components
 
-import AyColors
 import AyCorners
 import AySizes
 import AySpacings
@@ -28,7 +27,7 @@ fun SkillChip(
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(AyCorners.s),
-        color = AyColors.ContainerQuiet,
+        color = MaterialTheme.colorScheme.surfaceVariant,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
