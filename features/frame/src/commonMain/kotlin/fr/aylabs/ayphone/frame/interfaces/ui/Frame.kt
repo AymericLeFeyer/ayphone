@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import fr.aylabs.ayphone.about.ui.navigation.AboutRoutes
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.application.ui.ApplicationLogo
+import fr.aylabs.ayphone.aylabs.ui.navigation.AyLabsRoutes
 import fr.aylabs.ayphone.ayshop.ui.navigation.AyShopRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
@@ -62,6 +63,7 @@ fun Frame(
                 add(AyApp.STACK)
                 add(AyApp.CLIENTS)
                 add(AyApp.TIMELINE)
+                add(AyApp.AYLABS)
                 add(AyApp.SETTINGS)
                 add(AyApp.AYSHOP)
                 if (AyApp.TRAVEL.id in state.installedApps) add(AyApp.TRAVEL)
@@ -123,6 +125,7 @@ private fun navigateTo(navController: NavHostController, uriHandler: UriHandler,
         AyApp.MISSIONS -> navController.navigate(MissionsRoutes.Root())
         AyApp.STACK -> navController.navigate(StackRoutes.Root)
         AyApp.ABOUT -> navController.navigate(AboutRoutes.Root)
+        AyApp.AYLABS -> navController.navigate(AyLabsRoutes.Root)
         AyApp.CLIENTS -> navController.navigate(ClientsRoutes.Root)
         AyApp.SIDE_PROJECTS -> navController.navigate(SideProjectsRoutes.Root())
         AyApp.AYSHOP -> navController.navigate(AyShopRoutes.Root)

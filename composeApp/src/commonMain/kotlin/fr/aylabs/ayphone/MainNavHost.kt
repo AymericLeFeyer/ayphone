@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
+import fr.aylabs.ayphone.aylabs.ui.navigation.ayLabsGraph
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
@@ -131,6 +132,7 @@ fun MainNavHost(
             },
         )
         aboutGraph(navController)
+        ayLabsGraph(navController)
         clientsGraph(
             navController = navController,
             onSeeSkillDetail = { skillLabel ->

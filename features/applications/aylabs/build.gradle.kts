@@ -8,11 +8,12 @@ plugins {
     alias(libs.plugins.androidLint)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "fr.aylabs.ayphone.frame"
+        namespace = "fr.aylabs.ayphone.aylabs"
         compileSdk = 36
         minSdk = 24
 
@@ -34,34 +35,24 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":core:network"))
                 implementation(project(":core:design-system"))
                 implementation(project(":features:application"))
-                implementation(project(":features:widget"))
-                implementation(project(":features:applications:missions"))
-                implementation(project(":features:applications:stack"))
-                implementation(project(":features:applications:about"))
-                implementation(project(":features:applications:aylabs"))
-                implementation(project(":features:applications:clients"))
-                implementation(project(":features:applications:sideprojects"))
-                implementation(project(":features:applications:ayshop"))
-                implementation(project(":features:applications:timeline"))
-                implementation(project(":features:applications:settings"))
-                implementation(project(":features:applications:travel"))
-                implementation(project(":features:applications:resume"))
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
                 implementation(libs.compose.material3)
                 implementation(libs.compose.ui)
+                implementation(libs.androidx.lifecycle.viewmodelCompose)
+                implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(libs.androidx.navigation.compose)
                 implementation(libs.koin.core)
                 implementation(libs.koin.core.viewmodel)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
-                implementation(libs.compose.components.resources)
-                implementation(libs.compose.uiToolingPreview)
-                implementation(libs.androidx.lifecycle.viewmodelCompose)
-                implementation(libs.androidx.lifecycle.runtimeCompose)
-                implementation(libs.androidx.navigation.compose)
+                implementation(libs.kermit)
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network.ktor)
             }
         }
 
@@ -69,6 +60,7 @@ kotlin {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.koin.android)
             }
         }
 

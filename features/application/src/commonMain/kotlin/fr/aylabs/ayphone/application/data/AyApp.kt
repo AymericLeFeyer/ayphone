@@ -86,6 +86,11 @@ enum class AyApp(
         version = "1.0.0",
         size = "2,4 Mo",
     ),
+    AYLABS(
+        title = "AyLabs",
+        iconEmoji = "🎬",
+        color = Color(0xFFB91C1C),
+    ),
     SIDE_PROJECTS(
         title = "Side Projects",
         iconEmoji = "🧪",
