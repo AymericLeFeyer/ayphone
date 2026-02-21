@@ -2,6 +2,7 @@ package fr.aylabs.ayphone
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
@@ -43,10 +44,12 @@ fun App(
         )
     ) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            MainNavHost(
-                navController = navController,
-                onBackClick = navController::popBackStack
-            )
+            SelectionContainer {
+                MainNavHost(
+                    navController = navController,
+                    onBackClick = navController::popBackStack
+                )
+            }
         }
     }
 }
