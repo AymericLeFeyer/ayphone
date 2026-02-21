@@ -33,6 +33,7 @@ kotlin {
             implementation(project(":core:network"))
             implementation(project(":core:settings"))
             implementation(project(":features:frame"))
+            implementation(project(":features:search"))
             implementation(project(":features:application"))
             api(project(":features:applications:resume"))
             api(project(":features:applications:missions"))

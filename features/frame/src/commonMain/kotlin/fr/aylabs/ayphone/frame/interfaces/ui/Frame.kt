@@ -4,8 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -35,6 +38,8 @@ import fr.aylabs.ayphone.timeline.TimelineConfig
 import fr.aylabs.ayphone.travel.TravelConfig
 import fr.aylabs.ayphone.widget.PhotoWidget
 import fr.aylabs.ayphone.widget.TextWidget
+import fr.aylabs.ayphone.search.ui.SpotlightSearch
+import androidx.compose.ui.unit.dp
 import fr.aylabs.design_system.AySpacings
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -75,50 +80,65 @@ fun Frame(
             }
             val showAppTitles by appsPreferences.showAppTitles.collectAsStateWithLifecycle()
 
-            LazyVerticalGrid(
-                modifier = Modifier.padding(AySpacings.s),
-                columns = GridCells.Fixed(4),
-                userScrollEnabled = false,
-                horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
-                verticalArrangement = Arrangement.spacedBy(AySpacings.s),
-            ) {
-                item(span = { GridItemSpan(4) }) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        Box(modifier = Modifier.weight(1f)) {
-                            PhotoWidget(appTitleShown = showAppTitles)
-                        }
-                        Column(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(AySpacings.s),
-                        ) {
-                            Box(modifier = Modifier.fillMaxWidth().aspectRatio(2f)) {
-                                TextWidget(
-                                    state.name,
-                                    state.role,
-                                    appTitleShown = showAppTitles
-                                )
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyVerticalGrid(
+                    modifier = Modifier.padding(AySpacings.s),
+                    columns = GridCells.Fixed(4),
+                    userScrollEnabled = false,
+                    horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
+                    verticalArrangement = Arrangement.spacedBy(AySpacings.s),
+                ) {
+                    item(span = { GridItemSpan(4) }) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
+                            Box(modifier = Modifier.weight(1f)) {
+                                PhotoWidget(appTitleShown = showAppTitles)
                             }
-                            Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                                apps.take(2).forEach {
-                                    ApplicationLogo(
-                                        it,
-                                        Modifier.weight(1f),
-                                        showTitle = showAppTitles,
-                                        onClick = { navigateTo(navController, uriHandler, it) })
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                verticalArrangement = Arrangement.spacedBy(AySpacings.s),
+                            ) {
+                                Box(modifier = Modifier.fillMaxWidth().aspectRatio(2f)) {
+                                    TextWidget(
+                                        state.name,
+                                        state.role,
+                                        appTitleShown = showAppTitles
+                                    )
+                                }
+                                Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
+                                    apps.take(2).forEach {
+                                        ApplicationLogo(
+                                            it,
+                                            Modifier.weight(1f),
+                                            showTitle = showAppTitles,
+                                            onClick = { navigateTo(navController, uriHandler, it) })
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                apps.drop(2).let { otherApps ->
-                    items(otherApps.size) { index ->
-                        val app = otherApps[index]
-                        ApplicationLogo(
-                            app,
-                            showTitle = showAppTitles,
-                            onClick = { navigateTo(navController, uriHandler, app) })
+                    apps.drop(2).let { otherApps ->
+                        items(otherApps.size) { index ->
+                            val app = otherApps[index]
+                            ApplicationLogo(
+                                app,
+                                showTitle = showAppTitles,
+                                onClick = { navigateTo(navController, uriHandler, app) })
+                        }
+                    }
+                    // Spacer to make room for the bottom search bar overlay
+                    item(span = { GridItemSpan(4) }) {
+                        Spacer(Modifier.height(72.dp))
                     }
                 }
+
+                SpotlightSearch(
+                    modifier = Modifier.fillMaxSize(),
+                    onOpenApp = { app -> navigateTo(navController, uriHandler, app) },
+                    onOpenMission = { index -> navController.navigate(MissionsRoutes.MissionDetail(index)) },
+                    onOpenSkill = { label -> navController.navigate(StackRoutes.SkillDetail(label)) },
+                    onOpenClient = { name -> navController.navigate(ClientsRoutes.ClientDetail(name)) },
+                    onOpenSideProject = { index -> navController.navigate(SideProjectsRoutes.MissionDetail(index)) },
+                )
             }
         }
     }
