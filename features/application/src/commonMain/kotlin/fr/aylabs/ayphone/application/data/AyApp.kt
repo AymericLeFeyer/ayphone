@@ -91,6 +91,36 @@ enum class AyApp(
         iconEmoji = "🎬",
         color = Color(0xFFB91C1C),
     ),
+    HOBBIES(
+        title = "Loisirs",
+        iconEmoji = "🎯",
+        color = Color(0xFF0D9488),
+        id = "hobbies",
+        developer = "AyLabs",
+        category = "Lifestyle & Gaming",
+        shortDescription = "Jeux vidéo, jeux de société, ciné et passion tech",
+        description = "Loisirs, c'est une fenêtre sur ce qui fait vibrer Aymeric en dehors du travail — des jeux vidéo cultes aux jeux de société du week-end, en passant par le cinéma, la domotique et l'impression 3D.\n\n" +
+                "Explore les licences qui ont marqué son parcours gaming (PS2, Nintendo DS, Steam, PS5), les jeux de société qu'il sort régulièrement, et les passions tech comme le homelab et la fabrication.\n\n" +
+                "Une façon ludique de découvrir la personne derrière le développeur.",
+        features = listOf(
+            "Gaming : PC/Steam, Nintendo, PlayStation",
+            "Jeux de société favoris avec liens BGG",
+            "Passions tech : homelab, domotique, impression 3D",
+            "Liens directs vers profils PSN et MyLudo",
+            "Sections dépliables pour explorer à ton rythme",
+        ),
+        whatsNew = listOf(
+            "Première version sur AyShop",
+            "Sections collapsibles par univers",
+            "Lien vers le profil PSN",
+            "Collection MyLudo intégrée",
+        ),
+        rating = 4.8f,
+        reviewCount = "37",
+        downloads = "150+",
+        version = "1.0.0",
+        size = "1,6 Mo",
+    ),
     SIDE_PROJECTS(
         title = "Side Projects",
         iconEmoji = "🧪",

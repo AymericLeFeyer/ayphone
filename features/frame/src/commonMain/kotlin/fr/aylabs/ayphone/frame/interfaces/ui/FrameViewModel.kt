@@ -20,12 +20,14 @@ class FrameViewModel(
             runCatching {
                 mutableState.value = FrameState.Loading
                 getResumeUseCase()
-            }.onSuccess {
-                mutableState.value = FrameState.Success(
-                    name = it.name,
-                    role = it.role,
-                    installedApps = installationRepository.installedApps.value
-                )
+            }.onSuccess { resume ->
+                installationRepository.installedApps.collect { installedApps ->
+                    mutableState.value = FrameState.Success(
+                        name = resume.name,
+                        role = resume.role,
+                        installedApps = installedApps,
+                    )
+                }
             }.onFailure {
                 mutableState.value = FrameState.Error(it)
             }

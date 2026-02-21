@@ -2,6 +2,7 @@ package fr.aylabs.ayphone.di
 
 import fr.aylabs.ayphone.about.ABOUT_MODULE
 import fr.aylabs.ayphone.aylabs.AYLABS_MODULE
+import fr.aylabs.ayphone.hobbies.HOBBIES_MODULE
 import fr.aylabs.ayphone.ayshop.AYSHOP_MODULE
 import fr.aylabs.ayphone.clients.CLIENTS_MODULE
 import fr.aylabs.ayphone.frame.interfaces.ui.FRAME_MODULE
@@ -23,6 +24,7 @@ val SHARED_MODULES = listOf(
     STACK_MODULE,
     ABOUT_MODULE,
     AYLABS_MODULE,
+    HOBBIES_MODULE,
     CLIENTS_MODULE,
     SETTINGS_MODULE,
     createSettingsModule(),

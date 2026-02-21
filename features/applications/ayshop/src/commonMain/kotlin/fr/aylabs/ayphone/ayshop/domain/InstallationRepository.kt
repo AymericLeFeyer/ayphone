@@ -19,6 +19,7 @@ class InstallationRepository(
         val initial = mutableSetOf<String>()
         if (getSettingUseCase(SettingsKeys.SIDE_PROJECTS_INSTALLED, false)) initial.add("sideprojects")
         if (getSettingUseCase(SettingsKeys.TRAVEL_INSTALLED, false)) initial.add("travel")
+        if (getSettingUseCase(SettingsKeys.HOBBIES_INSTALLED, false)) initial.add("hobbies")
         _installedApps.value = initial
     }
 
@@ -40,6 +41,7 @@ class InstallationRepository(
         when (appId) {
             "sideprojects" -> setSettingUseCase(SettingsKeys.SIDE_PROJECTS_INSTALLED, installed)
             "travel" -> setSettingUseCase(SettingsKeys.TRAVEL_INSTALLED, installed)
+            "hobbies" -> setSettingUseCase(SettingsKeys.HOBBIES_INSTALLED, installed)
         }
     }
 }

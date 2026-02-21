@@ -25,6 +25,7 @@ import fr.aylabs.ayphone.application.ui.ApplicationLogo
 import fr.aylabs.ayphone.aylabs.ui.navigation.AyLabsRoutes
 import fr.aylabs.ayphone.ayshop.ui.navigation.AyShopRoutes
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
+import fr.aylabs.ayphone.hobbies.ui.navigation.HobbiesRoutes
 import fr.aylabs.ayphone.missions.ui.navigation.MissionsRoutes
 import fr.aylabs.ayphone.settings.AppPreferences
 import fr.aylabs.ayphone.settings.ui.navigation.SettingsRoutes
@@ -66,8 +67,11 @@ fun Frame(
                 add(AyApp.AYLABS)
                 add(AyApp.SETTINGS)
                 add(AyApp.AYSHOP)
-                if (AyApp.TRAVEL.id in state.installedApps) add(AyApp.TRAVEL)
-                if (AyApp.SIDE_PROJECTS.id in state.installedApps) add(AyApp.SIDE_PROJECTS)
+
+                AyApp.entries.forEach { app ->
+                    if (app.id in state.installedApps) add(app)
+                }
+
             }
             val showAppTitles by appsPreferences.showAppTitles.collectAsStateWithLifecycle()
 
@@ -126,6 +130,7 @@ private fun navigateTo(navController: NavHostController, uriHandler: UriHandler,
         AyApp.STACK -> navController.navigate(StackRoutes.Root)
         AyApp.ABOUT -> navController.navigate(AboutRoutes.Root)
         AyApp.AYLABS -> navController.navigate(AyLabsRoutes.Root)
+        AyApp.HOBBIES -> navController.navigate(HobbiesRoutes.Root)
         AyApp.CLIENTS -> navController.navigate(ClientsRoutes.Root)
         AyApp.SIDE_PROJECTS -> navController.navigate(SideProjectsRoutes.Root())
         AyApp.AYSHOP -> navController.navigate(AyShopRoutes.Root)

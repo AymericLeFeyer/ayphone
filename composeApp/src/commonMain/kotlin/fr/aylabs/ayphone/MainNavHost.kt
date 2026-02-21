@@ -16,6 +16,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import fr.aylabs.ayphone.about.ui.navigation.aboutGraph
 import fr.aylabs.ayphone.aylabs.ui.navigation.ayLabsGraph
+import fr.aylabs.ayphone.aylabs.ui.navigation.AyLabsRoutes
+import fr.aylabs.ayphone.hobbies.ui.navigation.HobbiesRoutes
+import fr.aylabs.ayphone.hobbies.ui.navigation.hobbiesGraph
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.ayphone.ayshop.ui.navigation.ayshopGraph
 import fr.aylabs.ayphone.clients.ui.navigation.ClientsRoutes
@@ -122,6 +125,7 @@ fun MainNavHost(
                 when (appId) {
                     AyApp.SIDE_PROJECTS.id -> navController.navigate(SideProjectsRoutes.Root())
                     AyApp.TRAVEL.id -> uriHandler.openUri(TravelConfig.URL)
+                    AyApp.HOBBIES.id -> navController.navigate(HobbiesRoutes.Root)
                 }
             },
         )
@@ -133,6 +137,10 @@ fun MainNavHost(
         )
         aboutGraph(navController)
         ayLabsGraph(navController)
+        hobbiesGraph(
+            navController = navController,
+            onOpenAyLabs = { navController.navigate(AyLabsRoutes.Root) },
+        )
         clientsGraph(
             navController = navController,
             onSeeSkillDetail = { skillLabel ->

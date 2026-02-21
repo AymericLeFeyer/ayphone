@@ -39,6 +39,7 @@ kotlin {
             api(project(":features:applications:stack"))
             api(project(":features:applications:about"))
             api(project(":features:applications:aylabs"))
+            api(project(":features:applications:hobbies"))
             api(project(":features:applications:clients"))
             api(project(":features:applications:sideprojects"))
             api(project(":features:applications:ayshop"))
