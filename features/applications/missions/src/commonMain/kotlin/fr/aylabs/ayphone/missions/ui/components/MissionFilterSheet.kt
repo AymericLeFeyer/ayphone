@@ -1,13 +1,17 @@
 package fr.aylabs.ayphone.missions.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,14 +21,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.woowla.compose.icon.collections.remix.Remix
@@ -48,7 +50,7 @@ import fr.aylabs.design_system.AySizes
 import fr.aylabs.design_system.AySpacings
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MissionFilterSheet(
     filterState: MissionsFilterState,
@@ -60,89 +62,118 @@ fun MissionFilterSheet(
     onToggleCompany: (String) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = sheetState,
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.4f))
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+            ) { onDismiss() },
     ) {
         Column(
             modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = AySpacings.l),
-            verticalArrangement = Arrangement.spacedBy(AySpacings.s),
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .fillMaxHeight(0.85f)
+                .clip(RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp))
+                .background(MaterialTheme.colorScheme.surface)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() },
+                ) {},
         ) {
-            Text(
-                text = "Filtres",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-            )
+            // Drag handle
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(width = 32.dp, height = 4.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)),
+                )
+            }
 
-            if (allSkills.isNotEmpty()) {
-                var skillsExpanded by remember { mutableStateOf(false) }
-                val skillsByCategory: List<Pair<SkillCategory, List<String>>> =
-                    remember(allSkills) {
-                        allSkills
-                            .groupBy { name ->
-                                Skill.fromLabel(name)?.category ?: SkillCategory.TOOLS
-                            }
-                            .entries
-                            .sortedBy { it.key.ordinal }
-                            .map { (category, skills) -> category to skills }
-                    }
-
-                CollapsibleHeader(
-                    title = "Compétences",
-                    expanded = skillsExpanded,
-                    onToggle = { skillsExpanded = !skillsExpanded },
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = AySpacings.l),
+                verticalArrangement = Arrangement.spacedBy(AySpacings.s),
+            ) {
+                Text(
+                    text = "Filtres",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
                 )
 
-                AnimatedVisibility(visible = skillsExpanded) {
-                    Column(verticalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                        skillsByCategory.forEach { (category, skills) ->
-                            Text(
-                                text = category.label,
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                            FlowRow(
-                                horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
-                                verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
-                            ) {
-                                skills.forEach { skillName ->
-                                    FilterChip(
-                                        selected = skillName in filterState.selectedSkills,
-                                        onClick = { onToggleSkill(skillName) },
-                                        label = { Text(skillName) },
-                                        leadingIcon = {
-                                            Skill.fromLabel(skillName)?.let {
-                                                SafeImage(
-                                                    resourcePath = it.iconPath,
-                                                    contentDescription = null,
-                                                    modifier = Modifier.size(AySizes.iconS),
-                                                )
-                                            }
-                                        },
-                                    )
+                if (allSkills.isNotEmpty()) {
+                    var skillsExpanded by remember { mutableStateOf(false) }
+                    val skillsByCategory: List<Pair<SkillCategory, List<String>>> =
+                        remember(allSkills) {
+                            allSkills
+                                .groupBy { name ->
+                                    Skill.fromLabel(name)?.category ?: SkillCategory.TOOLS
+                                }
+                                .entries
+                                .sortedBy { it.key.ordinal }
+                                .map { (category, skills) -> category to skills }
+                        }
+
+                    CollapsibleHeader(
+                        title = "Compétences",
+                        expanded = skillsExpanded,
+                        onToggle = { skillsExpanded = !skillsExpanded },
+                    )
+
+                    if (skillsExpanded) {
+                        Column(verticalArrangement = Arrangement.spacedBy(AySpacings.s)) {
+                            skillsByCategory.forEach { (category, skills) ->
+                                Text(
+                                    text = category.label,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                                FlowRow(
+                                    horizontalArrangement = Arrangement.spacedBy(AySpacings.xs),
+                                    verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
+                                ) {
+                                    skills.forEach { skillName ->
+                                        FilterChip(
+                                            selected = skillName in filterState.selectedSkills,
+                                            onClick = { onToggleSkill(skillName) },
+                                            label = { Text(skillName) },
+                                            leadingIcon = {
+                                                Skill.fromLabel(skillName)?.let {
+                                                    SafeImage(
+                                                        resourcePath = it.iconPath,
+                                                        contentDescription = null,
+                                                        modifier = Modifier.size(AySizes.iconS),
+                                                    )
+                                                }
+                                            },
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            if (allDurationRange.first < allDurationRange.last) {
-                var durationExpanded by remember { mutableStateOf(false) }
+                if (allDurationRange.first < allDurationRange.last) {
+                    var durationExpanded by remember { mutableStateOf(false) }
 
-                CollapsibleHeader(
-                    title = "Durée",
-                    expanded = durationExpanded,
-                    onToggle = { durationExpanded = !durationExpanded },
-                )
+                    CollapsibleHeader(
+                        title = "Durée",
+                        expanded = durationExpanded,
+                        onToggle = { durationExpanded = !durationExpanded },
+                    )
 
-                AnimatedVisibility(visible = durationExpanded) {
-                    Column {
+                    if (durationExpanded) {
                         val currentStart =
                             (filterState.durationRange?.first ?: allDurationRange.first).toFloat()
                         val currentEnd =
@@ -178,56 +209,56 @@ fun MissionFilterSheet(
                         )
                     }
                 }
-            }
 
-            if (allCompanies.isNotEmpty()) {
-                var companiesExpanded by remember { mutableStateOf(false) }
+                if (allCompanies.isNotEmpty()) {
+                    var companiesExpanded by remember { mutableStateOf(false) }
 
-                CollapsibleHeader(
-                    title = "Entreprises",
-                    expanded = companiesExpanded,
-                    onToggle = { companiesExpanded = !companiesExpanded },
-                )
+                    CollapsibleHeader(
+                        title = "Entreprises",
+                        expanded = companiesExpanded,
+                        onToggle = { companiesExpanded = !companiesExpanded },
+                    )
 
-                AnimatedVisibility(visible = companiesExpanded) {
-                    Column {
-                        allCompanies.forEach { companyName ->
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.fillMaxWidth(),
-                            ) {
-                                Checkbox(
-                                    checked = companyName in filterState.selectedCompanies,
-                                    onCheckedChange = { onToggleCompany(companyName) },
-                                )
-                                Company.fromLabel(companyName)?.let { company ->
-                                    SafeImage(
-                                        resourcePath = company.iconPath,
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(20.dp)
-                                            .clip(RoundedCornerShape(AyCorners.xs)),
+                    if (companiesExpanded) {
+                        Column {
+                            allCompanies.forEach { companyName ->
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) {
+                                    Checkbox(
+                                        checked = companyName in filterState.selectedCompanies,
+                                        onCheckedChange = { onToggleCompany(companyName) },
                                     )
-                                    Spacer(Modifier.width(AySpacings.s))
+                                    Company.fromLabel(companyName)?.let { company ->
+                                        SafeImage(
+                                            resourcePath = company.iconPath,
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .size(20.dp)
+                                                .clip(RoundedCornerShape(AyCorners.xs)),
+                                        )
+                                        Spacer(Modifier.width(AySpacings.s))
+                                    }
+                                    Text(
+                                        text = companyName,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                    )
                                 }
-                                Text(
-                                    text = companyName,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                )
                             }
                         }
                     }
                 }
             }
-        }
 
-        Button(
-            onClick = onDismiss,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AySpacings.l, vertical = AySpacings.l),
-        ) {
-            Text("Valider")
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AySpacings.l, vertical = AySpacings.l),
+            ) {
+                Text("Valider")
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 package fr.aylabs.ayphone.application.ui
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -15,24 +18,42 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import fr.aylabs.ayphone.application.data.AyApp
 import fr.aylabs.design_system.AyCorners
 import fr.aylabs.design_system.AySizes
 import fr.aylabs.design_system.AySpacings
+import kotlinx.coroutines.delay
 
 @Composable
 fun ApplicationLogo(
     app: AyApp,
     modifier: Modifier = Modifier,
     showTitle: Boolean = false,
+    animationDelayMs: Int = 0,
     onClick: () -> Unit = {},
 ) {
+    val scale = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
+        delay(animationDelayMs.toLong())
+        scale.animateTo(
+            targetValue = 1f,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMedium,
+            )
+        )
+    }
+
     val cornerShape = RoundedCornerShape(AyCorners.l)
     val iconModifier = if (showTitle) {
         Modifier.size(AySizes.appIcon)
@@ -42,7 +63,10 @@ fun ApplicationLogo(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.graphicsLayer {
+            scaleX = scale.value
+            scaleY = scale.value
+        }
     ) {
         Surface(
             modifier = Modifier

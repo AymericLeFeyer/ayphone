@@ -105,12 +105,13 @@ fun Frame(
                                     )
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.s)) {
-                                    apps.take(2).forEach {
+                                    apps.take(2).forEachIndexed { index, app ->
                                         ApplicationLogo(
-                                            it,
+                                            app,
                                             Modifier.weight(1f),
                                             showTitle = showAppTitles,
-                                            onClick = { navigateTo(navController, uriHandler, it) })
+                                            animationDelayMs = index * 60,
+                                            onClick = { navigateTo(navController, uriHandler, app) })
                                     }
                                 }
                             }
@@ -122,6 +123,7 @@ fun Frame(
                             ApplicationLogo(
                                 app,
                                 showTitle = showAppTitles,
+                                animationDelayMs = (index + 2) * 60,
                                 onClick = { navigateTo(navController, uriHandler, app) })
                         }
                     }

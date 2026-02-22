@@ -90,9 +90,11 @@ private fun SectionCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
             ) {
-                Text(
-                    text = section.emoji,
-                    style = MaterialTheme.typography.headlineSmall,
+                Icon(
+                    imageVector = section.icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(AySizes.iconL),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
                     text = section.title,
@@ -205,10 +207,21 @@ private fun LinkRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
-            text = link.label,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
+        ) {
+            Icon(
+                imageVector = link.icon,
+                contentDescription = null,
+                modifier = Modifier.size(AySizes.iconM),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = link.label,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
         Icon(
             imageVector = Remix.Arrows.ArrowRightLine,
             contentDescription = null,

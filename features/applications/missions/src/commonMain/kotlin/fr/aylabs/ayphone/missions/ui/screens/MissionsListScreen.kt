@@ -8,16 +8,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import fr.aylabs.ayphone.missions.ui.components.ActiveFilterChips
-import fr.aylabs.ayphone.missions.ui.components.MissionFilterSheet
 import fr.aylabs.ayphone.missions.ui.components.MissionItem
 import fr.aylabs.ayphone.missions.ui.components.MissionSearchBar
 import fr.aylabs.ayphone.missions.ui.viewmodels.MissionsViewModel
 import fr.aylabs.ayphone.resume.domain.models.Resume
-import fr.aylabs.dates.monthsBetween
 import fr.aylabs.design_system.AySpacings
 
 @Composable
@@ -25,23 +22,9 @@ fun MissionsListScreen(
     resume: Resume,
     vm: MissionsViewModel,
     onMissionClick: (Int) -> Unit,
-    showFilterSheet: Boolean,
-    onDismissFilterSheet: () -> Unit,
 ) {
     val filterState by vm.filterState.collectAsStateWithLifecycle()
     val filteredMissions by vm.filteredMissions.collectAsStateWithLifecycle()
-    val allMissions by vm.allMissions.collectAsStateWithLifecycle()
-
-    val allSkills = remember(allMissions) {
-        allMissions.flatMap { it.skills }.map { it.name }.distinct().sorted()
-    }
-    val allCompanies = remember(allMissions) {
-        allMissions.map { it.company }.distinct().sorted()
-    }
-    val allDurationRange = remember(allMissions) {
-        val durations = allMissions.map { monthsBetween(it.startDate, it.endDate) }
-        (durations.minOrNull() ?: 0)..(durations.maxOrNull() ?: 24)
-    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         MissionSearchBar(
@@ -71,18 +54,5 @@ fun MissionsListScreen(
                 )
             }
         }
-    }
-
-    if (showFilterSheet) {
-        MissionFilterSheet(
-            filterState = filterState,
-            allSkills = allSkills,
-            allCompanies = allCompanies,
-            allDurationRange = allDurationRange,
-            onToggleSkill = vm::toggleSkill,
-            onUpdateDurationRange = vm::updateDurationRange,
-            onToggleCompany = vm::toggleCompany,
-            onDismiss = onDismissFilterSheet,
-        )
     }
 }
