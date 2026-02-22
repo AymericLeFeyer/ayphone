@@ -10,6 +10,7 @@ import com.woowla.compose.icon.collections.remix.remix.Logos
 import com.woowla.compose.icon.collections.remix.remix.Map
 import com.woowla.compose.icon.collections.remix.remix.Media
 import com.woowla.compose.icon.collections.remix.remix.Others
+import com.woowla.compose.icon.collections.remix.remix.System
 import com.woowla.compose.icon.collections.remix.remix.UserAndFaces
 import com.woowla.compose.icon.collections.remix.remix.buildings.HomeLine
 import com.woowla.compose.icon.collections.remix.remix.development.CodeSSlashLine
@@ -19,13 +20,17 @@ import com.woowla.compose.icon.collections.remix.remix.device.GamepadLine
 import com.woowla.compose.icon.collections.remix.remix.device.ServerLine
 import com.woowla.compose.icon.collections.remix.remix.finance.DiamondLine
 import com.woowla.compose.icon.collections.remix.remix.gameandsports.Dice5Line
+import com.woowla.compose.icon.collections.remix.remix.gameandsports.TargetLine
 import com.woowla.compose.icon.collections.remix.remix.logos.GithubLine
 import com.woowla.compose.icon.collections.remix.remix.logos.PlaystationLine
 import com.woowla.compose.icon.collections.remix.remix.map.RocketLine
 import com.woowla.compose.icon.collections.remix.remix.media.FilmLine
+import com.woowla.compose.icon.collections.remix.remix.media.VideoLine
 import com.woowla.compose.icon.collections.remix.remix.others.FlowerLine
 import com.woowla.compose.icon.collections.remix.remix.others.SwordLine
+import com.woowla.compose.icon.collections.remix.remix.system.EyeLine
 import com.woowla.compose.icon.collections.remix.remix.userandfaces.SpyLine
+import com.woowla.compose.icon.collections.remix.remix.userandfaces.UserLine
 import fr.aylabs.ayphone.hobbies.domain.models.HobbiesAction
 import fr.aylabs.ayphone.hobbies.domain.models.HobbiesLink
 import fr.aylabs.ayphone.hobbies.domain.models.HobbiesSection
@@ -43,19 +48,19 @@ class HobbiesRepositoryImpl : HobbiesRepository {
                 HomelabTool(
                     name = "Cuphead",
                     description = "Run & gun en animation années 30. Difficile mais magnifique.",
-                    logoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/268910/header.jpg",
+                    logo = Remix.GameAndSports.TargetLine,
                     action = HobbiesAction.OpenUrl("https://store.steampowered.com/app/268910/Cuphead/"),
                 ),
                 HomelabTool(
                     name = "The Binding of Isaac",
                     description = "Roguelite sombre et addictif. Une run de plus, toujours.",
-                    logoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/250900/header.jpg",
+                    logo = Remix.Others.SwordLine,
                     action = HobbiesAction.OpenUrl("https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth/"),
                 ),
                 HomelabTool(
                     name = "Stardew Valley",
                     description = "Jeu de ferme et de vie, parfait pour se détendre.",
-                    logoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/413150/header.jpg",
+                    logo = Remix.Others.FlowerLine,
                     action = HobbiesAction.OpenUrl("https://store.steampowered.com/app/413150/Stardew_Valley/"),
                 ),
             ),
@@ -68,19 +73,19 @@ class HobbiesRepositoryImpl : HobbiesRepository {
                 HomelabTool(
                     name = "Pokémon",
                     description = "Ma première licence. Des centaines d'heures à attraper, dresser, échanger.",
-                    logoUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+                    logo = Remix.Device.GamepadLine,
                     action = HobbiesAction.OpenUrl("https://www.pokemon.com/fr/"),
                 ),
                 HomelabTool(
                     name = "Mario Galaxy",
                     description = "La gravité revisitée. L'un des jeux les plus créatifs jamais faits.",
-                    logoUrl = "https://www.123-stickers.com/5007-thickbox_default/sticker-vehicule-super-mario-galaxy.jpg",
+                    logo = Remix.Map.RocketLine,
                     action = HobbiesAction.OpenUrl("https://mario.nintendo.com/"),
                 ),
                 HomelabTool(
                     name = "Animal Crossing",
                     description = "Le jeu parfait pour souffler. Ma petite île me manque.",
-                    logoUrl = "https://upload.wikimedia.org/wikipedia/commons/5/58/Animal_Crossing_Leaf.png",
+                    logo = Remix.Others.FlowerLine,
                     action = HobbiesAction.OpenUrl("https://www.animal-crossing.com/new-horizons/"),
                 ),
             ),
@@ -93,13 +98,13 @@ class HobbiesRepositoryImpl : HobbiesRepository {
                 HomelabTool(
                     name = "God of War",
                     description = "Épopée nordique entre un père et son fils. Un chef-d'œuvre.",
-                    logoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg",
+                    logo = Remix.Others.SwordLine,
                     action = HobbiesAction.OpenUrl("https://store.steampowered.com/app/1593500/God_of_War/"),
                 ),
                 HomelabTool(
                     name = "Marvel's Spider-Man",
                     description = "La meilleure adaptation du super-héros en jeu vidéo.",
-                    logoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/header.jpg",
+                    logo = Remix.UserAndFaces.UserLine,
                     action = HobbiesAction.OpenUrl("https://store.steampowered.com/app/1817070/Marvels_SpiderMan_Remastered/"),
                 ),
             ),
@@ -190,19 +195,19 @@ class HobbiesRepositoryImpl : HobbiesRepository {
                 HomelabTool(
                     name = "Frigate",
                     description = "NVR open-source avec détection d'objets par IA en temps réel.",
-                    logoUrl = "https://play-lh.googleusercontent.com/zbKThGbTllt98HF5gYlJlBpFNqamx2Pprwz6jabByR44kSKA5WzLhua66oV9T7sj1WA",
+                    logo = Remix.System.EyeLine,
                     action = HobbiesAction.OpenUrl("https://frigate.video"),
                 ),
                 HomelabTool(
                     name = "Immich",
                     description = "Solution de sauvegarde et de gestion de photos auto-hébergée.",
-                    logoUrl = "https://github.com/immich-app.png",
+                    logo = Remix.Media.VideoLine,
                     action = HobbiesAction.OpenUrl("https://immich.app"),
                 ),
                 HomelabTool(
                     name = "Plex",
                     description = "Serveur multimédia pour streamer films, séries et musique.",
-                    logoUrl = "https://github.com/plexinc.png",
+                    logo = Remix.Media.FilmLine,
                     action = HobbiesAction.OpenUrl("https://www.plex.tv"),
                 ),
             ),

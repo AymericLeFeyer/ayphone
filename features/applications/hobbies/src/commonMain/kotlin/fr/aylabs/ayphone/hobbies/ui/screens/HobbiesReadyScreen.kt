@@ -26,9 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import coil3.compose.AsyncImage
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Arrows
 import com.woowla.compose.icon.collections.remix.remix.System
@@ -160,13 +158,11 @@ private fun ToolCard(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AySpacings.m),
     ) {
-        AsyncImage(
-            model = tool.logoUrl,
+        Icon(
+            imageVector = tool.logo,
             contentDescription = tool.name,
-            modifier = Modifier
-                .size(AySizes.iconXxxl)
-                .clip(RoundedCornerShape(AyCorners.xs)),
-            contentScale = ContentScale.Fit,
+            modifier = Modifier.size(AySizes.iconXxxl),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Column(
             modifier = Modifier.weight(1f),
