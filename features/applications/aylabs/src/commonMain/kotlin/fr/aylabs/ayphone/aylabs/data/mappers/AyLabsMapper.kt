@@ -1,5 +1,6 @@
 package fr.aylabs.ayphone.aylabs.data.mappers
 
+import fr.aylabs.ayphone.aylabs.data.datasources.proxyImageUrl
 import fr.aylabs.ayphone.aylabs.data.dtos.AyLabsStatsDto
 import fr.aylabs.ayphone.aylabs.domain.models.AyLabsChannel
 import fr.aylabs.ayphone.aylabs.domain.models.AyLabsInfo
@@ -11,7 +12,7 @@ fun mapToAyLabsInfo(dto: AyLabsStatsDto?): AyLabsInfo {
     val channel = AyLabsChannel(
         channelTitle = dto.stats.channelTitle,
         channelDescription = dto.stats.channelDescription,
-        avatarUrl = dto.stats.thumbnails?.medium?.url ?: dto.stats.thumbnails?.default?.url,
+        avatarUrl = proxyImageUrl(dto.stats.thumbnails?.medium?.url ?: dto.stats.thumbnails?.default?.url),
         subscriberCount = dto.stats.subscriberCount,
         viewCount = dto.stats.viewCount,
         videoCount = dto.stats.videoCount,
@@ -22,10 +23,12 @@ fun mapToAyLabsInfo(dto: AyLabsStatsDto?): AyLabsInfo {
         AyLabsVideo(
             videoId = wrapper.json.id,
             title = wrapper.json.title,
-            thumbnailUrl = wrapper.json.thumbnails?.maxres?.url
-                ?: wrapper.json.thumbnails?.standard?.url
-                ?: wrapper.json.thumbnails?.high?.url
-                ?: wrapper.json.thumbnails?.medium?.url,
+            thumbnailUrl = proxyImageUrl(
+                wrapper.json.thumbnails?.maxres?.url
+                    ?: wrapper.json.thumbnails?.standard?.url
+                    ?: wrapper.json.thumbnails?.high?.url
+                    ?: wrapper.json.thumbnails?.medium?.url
+            ),
             publishedAt = wrapper.json.publishedAt,
             viewCount = wrapper.json.viewCount,
             likeCount = wrapper.json.likeCount,

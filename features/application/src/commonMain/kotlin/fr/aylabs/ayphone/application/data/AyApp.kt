@@ -2,12 +2,31 @@ package fr.aylabs.ayphone.application.data
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.woowla.compose.icon.collections.remix.Remix
+import com.woowla.compose.icon.collections.remix.remix.Development
+import com.woowla.compose.icon.collections.remix.remix.Finance
+import com.woowla.compose.icon.collections.remix.remix.GameAndSports
+import com.woowla.compose.icon.collections.remix.remix.HealthAndMedical
+import com.woowla.compose.icon.collections.remix.remix.Map
+import com.woowla.compose.icon.collections.remix.remix.Media
+import com.woowla.compose.icon.collections.remix.remix.System
+import com.woowla.compose.icon.collections.remix.remix.UserAndFaces
+import com.woowla.compose.icon.collections.remix.remix.development.CodeSSlashLine
+import com.woowla.compose.icon.collections.remix.remix.finance.ShoppingBag3Line
+import com.woowla.compose.icon.collections.remix.remix.gameandsports.TargetLine
+import com.woowla.compose.icon.collections.remix.remix.healthandmedical.FlaskLine
+import com.woowla.compose.icon.collections.remix.remix.map.PlaneLine
+import com.woowla.compose.icon.collections.remix.remix.map.RocketLine
+import com.woowla.compose.icon.collections.remix.remix.media.FilmLine
+import com.woowla.compose.icon.collections.remix.remix.system.HourglassLine
+import com.woowla.compose.icon.collections.remix.remix.system.Settings3Line
+import com.woowla.compose.icon.collections.remix.remix.userandfaces.TeamLine
+import com.woowla.compose.icon.collections.remix.remix.userandfaces.UserLine
 
 enum class AyApp(
     val title: String,
     val color: Color,
-    val iconEmoji: String? = null,
-    val logo: ImageVector? = null,
+    val logo: ImageVector,
     val id: String? = null,
     val developer: String? = null,
     val category: String? = null,
@@ -23,42 +42,42 @@ enum class AyApp(
 ) {
     MISSIONS(
         title = "Missions",
-        iconEmoji = "🚀",
+        logo = Remix.Map.RocketLine,
         color = Color(0xFF1E40AF),
     ),
     STACK(
         title = "Stack tech",
-        iconEmoji = "💻",
+        logo = Remix.Development.CodeSSlashLine,
         color = Color(0xFF065F46),
     ),
     ABOUT(
         title = "A propos",
-        iconEmoji = "🙋",
+        logo = Remix.UserAndFaces.UserLine,
         color = Color(0xFF3730A3),
     ),
     CLIENTS(
         title = "Clients",
-        iconEmoji = "🤝",
+        logo = Remix.UserAndFaces.TeamLine,
         color = Color(0xFFB45309),
     ),
     AYSHOP(
         title = "AyShop",
-        iconEmoji = "🛍️",
+        logo = Remix.Finance.ShoppingBag3Line,
         color = Color(0xFFBE185D),
     ),
     TIMELINE(
         title = "Timelife",
-        iconEmoji = "⏳",
+        logo = Remix.System.HourglassLine,
         color = Color(0xFF0369A1),
     ),
     SETTINGS(
         title = "Réglages",
-        iconEmoji = "⚙️",
+        logo = Remix.System.Settings3Line,
         color = Color(0xFF374151),
     ),
     TRAVEL(
         title = "Voyages",
-        iconEmoji = "✈️",
+        logo = Remix.Map.PlaneLine,
         color = Color(0xFF0284C7),
         id = "travel",
         developer = "AyLabs",
@@ -88,12 +107,12 @@ enum class AyApp(
     ),
     AYLABS(
         title = "AyLabs",
-        iconEmoji = "🎬",
+        logo = Remix.Media.FilmLine,
         color = Color(0xFFB91C1C),
     ),
     HOBBIES(
         title = "Loisirs",
-        iconEmoji = "🎯",
+        logo = Remix.GameAndSports.TargetLine,
         color = Color(0xFF0D9488),
         id = "hobbies",
         developer = "AyLabs",
@@ -123,7 +142,7 @@ enum class AyApp(
     ),
     SIDE_PROJECTS(
         title = "Side Projects",
-        iconEmoji = "🧪",
+        logo = Remix.HealthAndMedical.FlaskLine,
         color = Color(0xFF7C3AED),
         id = "sideprojects",
         developer = "AyLabs",

@@ -195,7 +195,7 @@ private fun FeaturedAppCard(
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    AppIcon(emoji = app.iconEmoji ?: "📦", color = 0xFFFFFFFF, size = 64.dp)
+                    AppIcon(logo = app.logo, color = app.color.value.toLong(), size = 64.dp)
                     Spacer(Modifier.width(16.dp))
                     Column {
                         Text(
@@ -278,7 +278,7 @@ private fun AppListItem(
         },
         leadingContent = {
             AppIcon(
-                emoji = app.iconEmoji ?: "📦",
+                logo = app.logo,
                 color = app.color.value.toLong(),
                 size = 56.dp,
             )

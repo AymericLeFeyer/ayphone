@@ -210,9 +210,11 @@ private fun SearchResultRow(
                 .background(result.backgroundColor),
             contentAlignment = Alignment.Center,
         ) {
-            Text(
-                text = result.emoji,
-                style = MaterialTheme.typography.bodyLarge,
+            Icon(
+                imageVector = result.icon,
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(22.dp),
             )
         }
         Spacer(Modifier.width(AySpacings.m))

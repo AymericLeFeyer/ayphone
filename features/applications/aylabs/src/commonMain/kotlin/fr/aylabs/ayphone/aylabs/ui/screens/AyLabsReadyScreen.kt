@@ -3,6 +3,7 @@ package fr.aylabs.ayphone.aylabs.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
@@ -34,8 +36,32 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.woowla.compose.icon.collections.remix.Remix
+import com.woowla.compose.icon.collections.remix.remix.Buildings
+import com.woowla.compose.icon.collections.remix.remix.Communication
+import com.woowla.compose.icon.collections.remix.remix.Device
+import com.woowla.compose.icon.collections.remix.remix.Document
+import com.woowla.compose.icon.collections.remix.remix.Logos
+import com.woowla.compose.icon.collections.remix.remix.Map
+import com.woowla.compose.icon.collections.remix.remix.Media
 import com.woowla.compose.icon.collections.remix.remix.System
+import com.woowla.compose.icon.collections.remix.remix.UserAndFaces
+import com.woowla.compose.icon.collections.remix.remix.buildings.HomeLine
+import com.woowla.compose.icon.collections.remix.remix.communication.MessageLine
+import com.woowla.compose.icon.collections.remix.remix.device.CpuLine
+import com.woowla.compose.icon.collections.remix.remix.device.ServerLine
+import com.woowla.compose.icon.collections.remix.remix.document.BookLine
+import com.woowla.compose.icon.collections.remix.remix.logos.DiscordLine
+import com.woowla.compose.icon.collections.remix.remix.logos.GithubLine
+import com.woowla.compose.icon.collections.remix.remix.logos.InstagramLine
+import com.woowla.compose.icon.collections.remix.remix.logos.YoutubeLine
+import com.woowla.compose.icon.collections.remix.remix.map.GlobeLine
+import com.woowla.compose.icon.collections.remix.remix.media.FilmLine
+import com.woowla.compose.icon.collections.remix.remix.media.VideoLine
+import com.woowla.compose.icon.collections.remix.remix.system.EyeLine
 import com.woowla.compose.icon.collections.remix.remix.system.ExternalLinkLine
+import com.woowla.compose.icon.collections.remix.remix.system.ThumbUpLine
+import com.woowla.compose.icon.collections.remix.remix.system.TimerLine
+import com.woowla.compose.icon.collections.remix.remix.userandfaces.GroupLine
 import fr.aylabs.ayphone.aylabs.AyLabsConfig
 import fr.aylabs.ayphone.aylabs.domain.models.AyLabsChannel
 import fr.aylabs.ayphone.aylabs.domain.models.AyLabsInfo
@@ -98,9 +124,9 @@ fun AyLabsReadyScreen(info: AyLabsInfo) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
             ) {
-                TopicChip(Modifier.weight(1f), "🏠", "Domotique")
-                TopicChip(Modifier.weight(1f), "🖥️", "Homelab")
-                TopicChip(Modifier.weight(1f), "🖨️", "3D Print")
+                TopicChip(Modifier.weight(1f), Remix.Buildings.HomeLine, "Domotique")
+                TopicChip(Modifier.weight(1f), Remix.Device.ServerLine, "Homelab")
+                TopicChip(Modifier.weight(1f), Remix.Device.CpuLine, "3D Print")
             }
         }
 
@@ -110,15 +136,15 @@ fun AyLabsReadyScreen(info: AyLabsInfo) {
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
             )
-            LinkItem("🎬 Chaîne YouTube", AyLabsConfig.YOUTUBE_CHANNEL_URL, uriHandler)
-            LinkItem("🌐 Site web", AyLabsConfig.WEBSITE_URL, uriHandler)
-            LinkItem("📖 Documentation", AyLabsConfig.DOCS_URL, uriHandler)
-            LinkItem("💻 GitHub", AyLabsConfig.GITHUB_URL, uriHandler)
+            LinkItem(Remix.Logos.YoutubeLine, "Chaîne YouTube", AyLabsConfig.YOUTUBE_CHANNEL_URL, uriHandler)
+            LinkItem(Remix.Map.GlobeLine, "Site web", AyLabsConfig.WEBSITE_URL, uriHandler)
+            LinkItem(Remix.Document.BookLine, "Documentation", AyLabsConfig.DOCS_URL, uriHandler)
+            LinkItem(Remix.Logos.GithubLine, "GitHub", AyLabsConfig.GITHUB_URL, uriHandler)
             if (AyLabsConfig.DISCORD_URL.isNotEmpty()) {
-                LinkItem("💬 Discord", AyLabsConfig.DISCORD_URL, uriHandler)
+                LinkItem(Remix.Logos.DiscordLine, "Discord", AyLabsConfig.DISCORD_URL, uriHandler)
             }
             if (AyLabsConfig.INSTAGRAM_URL.isNotEmpty()) {
-                LinkItem("📸 Instagram", AyLabsConfig.INSTAGRAM_URL, uriHandler)
+                LinkItem(Remix.Logos.InstagramLine, "Instagram", AyLabsConfig.INSTAGRAM_URL, uriHandler)
             }
         }
 
@@ -149,7 +175,20 @@ private fun HeaderCard(channel: AyLabsChannel?, uriHandler: UriHandler) {
                 contentScale = ContentScale.Crop,
             )
         } else {
-            Text(text = "🎬", style = MaterialTheme.typography.displaySmall)
+            Box(
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primaryContainer),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector = Remix.Media.FilmLine,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.size(AySizes.iconXxl),
+                )
+            }
         }
 
         Text(
@@ -216,14 +255,14 @@ private fun StatsRow(channel: AyLabsChannel) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
     ) {
-        StatCard(Modifier.weight(1f), "👥", "Abonnés", formatCount(channel.subscriberCount))
-        StatCard(Modifier.weight(1f), "📹", "Vidéos", formatCount(channel.videoCount))
-        StatCard(Modifier.weight(1f), "👁️", "Vues", formatCount(channel.viewCount))
+        StatCard(Modifier.weight(1f), Remix.UserAndFaces.GroupLine, "Abonnés", formatCount(channel.subscriberCount))
+        StatCard(Modifier.weight(1f), Remix.Media.VideoLine, "Vidéos", formatCount(channel.videoCount))
+        StatCard(Modifier.weight(1f), Remix.System.EyeLine, "Vues", formatCount(channel.viewCount))
     }
 }
 
 @Composable
-private fun StatCard(modifier: Modifier, emoji: String, label: String, value: String) {
+private fun StatCard(modifier: Modifier, icon: ImageVector, label: String, value: String) {
     Column(
         modifier = modifier
             .background(
@@ -234,7 +273,11 @@ private fun StatCard(modifier: Modifier, emoji: String, label: String, value: St
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(AySpacings.xxs),
     ) {
-        Text(text = emoji, style = MaterialTheme.typography.titleLarge)
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(AySizes.iconL),
+        )
         Text(
             text = value,
             style = MaterialTheme.typography.titleSmall,
@@ -288,17 +331,55 @@ private fun LatestVideoCard(video: AyLabsVideo, uriHandler: UriHandler) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 formatDuration(video.duration)?.let { duration ->
-                    Text(
-                        text = "⏱ $duration",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xxs),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            imageVector = Remix.System.TimerLine,
+                            contentDescription = null,
+                            modifier = Modifier.size(AySizes.iconXs),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            text = duration,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(AySpacings.m)) {
-                video.viewCount?.let { Text("👁 ${formatCount(it)}", style = MaterialTheme.typography.labelSmall) }
-                video.likeCount?.let { Text("👍 ${formatCount(it)}", style = MaterialTheme.typography.labelSmall) }
-                video.commentCount?.let { Text("💬 ${formatCount(it)}", style = MaterialTheme.typography.labelSmall) }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(AySpacings.m),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                video.viewCount?.let {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xxs),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(imageVector = Remix.System.EyeLine, contentDescription = null, modifier = Modifier.size(AySizes.iconXs))
+                        Text(formatCount(it), style = MaterialTheme.typography.labelSmall)
+                    }
+                }
+                video.likeCount?.let {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xxs),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(imageVector = Remix.System.ThumbUpLine, contentDescription = null, modifier = Modifier.size(AySizes.iconXs))
+                        Text(formatCount(it), style = MaterialTheme.typography.labelSmall)
+                    }
+                }
+                video.commentCount?.let {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(AySpacings.xxs),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(imageVector = Remix.Communication.MessageLine, contentDescription = null, modifier = Modifier.size(AySizes.iconXs))
+                        Text(formatCount(it), style = MaterialTheme.typography.labelSmall)
+                    }
+                }
             }
         }
     }
@@ -353,17 +434,28 @@ private fun CompactVideoRow(video: AyLabsVideo, uriHandler: UriHandler) {
             }
         }
         video.viewCount?.let {
-            Text(
-                text = "👁 ${formatCount(it)}",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(AySpacings.xxs),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = Remix.System.EyeLine,
+                    contentDescription = null,
+                    modifier = Modifier.size(AySizes.iconXs),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = formatCount(it),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun TopicChip(modifier: Modifier, emoji: String, label: String) {
+private fun TopicChip(modifier: Modifier, icon: ImageVector, label: String) {
     Column(
         modifier = modifier
             .background(
@@ -374,7 +466,11 @@ private fun TopicChip(modifier: Modifier, emoji: String, label: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(AySpacings.xs),
     ) {
-        Text(text = emoji, style = MaterialTheme.typography.headlineSmall)
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(AySizes.iconXl),
+        )
         Text(
             text = label,
             style = MaterialTheme.typography.labelMedium,
@@ -384,7 +480,7 @@ private fun TopicChip(modifier: Modifier, emoji: String, label: String) {
 }
 
 @Composable
-private fun LinkItem(label: String, url: String, uriHandler: UriHandler) {
+private fun LinkItem(icon: ImageVector, label: String, url: String, uriHandler: UriHandler) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -395,7 +491,17 @@ private fun LinkItem(label: String, url: String, uriHandler: UriHandler) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(text = label, style = MaterialTheme.typography.bodyMedium)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(AySpacings.s),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(AySizes.iconM),
+            )
+            Text(text = label, style = MaterialTheme.typography.bodyMedium)
+        }
         Icon(
             imageVector = Remix.System.ExternalLinkLine,
             contentDescription = null,

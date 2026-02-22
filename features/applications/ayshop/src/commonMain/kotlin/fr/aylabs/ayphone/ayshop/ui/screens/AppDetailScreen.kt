@@ -90,7 +90,7 @@ fun AppDetailScreen(
                     contentAlignment = Alignment.Center,
                 ) {
                     AppIcon(
-                        emoji = app.iconEmoji ?: "📦",
+                        logo = app.logo,
                         color = app.color.value.toLong(),
                         size = 72.dp,
                     )
