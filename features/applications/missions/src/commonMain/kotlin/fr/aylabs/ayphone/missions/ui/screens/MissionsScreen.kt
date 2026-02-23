@@ -1,7 +1,6 @@
 package fr.aylabs.ayphone.missions.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -60,80 +59,78 @@ fun MissionsScreen(
         (durations.minOrNull() ?: 0)..(durations.maxOrNull() ?: 24)
     }
 
-    Box {
-        AyAppScaffold(
-            title = title,
-            containerColor = containerColor,
-            onBackClick = onBackClick,
-            actions = {
-                IconButton(onClick = { showFilterSheet = true }) {
-                    Icon(
-                        imageVector = Remix.System.FilterLine,
-                        contentDescription = "Filtrer",
-                    )
+    AyAppScaffold(
+        title = title,
+        containerColor = containerColor,
+        onBackClick = onBackClick,
+        actions = {
+            IconButton(onClick = { showFilterSheet = true }) {
+                Icon(
+                    imageVector = Remix.System.FilterLine,
+                    contentDescription = "Filtrer",
+                )
+            }
+        },
+    ) { padding ->
+        Column(modifier = Modifier.padding(padding)) {
+            when (val state = uiState) {
+                is MissionsState.Initial,
+                is MissionsState.Loading -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
-            },
-        ) { padding ->
-            Column(modifier = Modifier.padding(padding)) {
-                when (val state = uiState) {
-                    is MissionsState.Initial,
-                    is MissionsState.Loading -> {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
 
-                    is MissionsState.Error -> {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center,
-                        ) {
-                            Icon(
-                                imageVector = Remix.System.ErrorWarningLine,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.error,
-                            )
-                            Text(
-                                text = "Une erreur est survenue",
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(top = AySpacings.s),
-                            )
-                            Button(
-                                onClick = { coroutineScope.launch { vm.loadData() } },
-                                modifier = Modifier.padding(top = AySpacings.l),
-                            ) {
-                                Text("Réessayer")
-                            }
-                        }
-                    }
-
-                    is MissionsState.Success -> {
-                        MissionsListScreen(
-                            resume = state.data,
-                            vm = vm,
-                            onMissionClick = onMissionClick,
+                is MissionsState.Error -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Icon(
+                            imageVector = Remix.System.ErrorWarningLine,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error,
                         )
+                        Text(
+                            text = "Une erreur est survenue",
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(top = AySpacings.s),
+                        )
+                        Button(
+                            onClick = { coroutineScope.launch { vm.loadData() } },
+                            modifier = Modifier.padding(top = AySpacings.l),
+                        ) {
+                            Text("Réessayer")
+                        }
                     }
+                }
+
+                is MissionsState.Success -> {
+                    MissionsListScreen(
+                        resume = state.data,
+                        vm = vm,
+                        onMissionClick = onMissionClick,
+                    )
                 }
             }
         }
+    }
 
-        if (showFilterSheet) {
-            MissionFilterSheet(
-                filterState = filterState,
-                allSkills = allSkills,
-                allCompanies = allCompanies,
-                allDurationRange = allDurationRange,
-                onToggleSkill = vm::toggleSkill,
-                onUpdateDurationRange = vm::updateDurationRange,
-                onToggleCompany = vm::toggleCompany,
-                onDismiss = { showFilterSheet = false },
-            )
-        }
+    if (showFilterSheet) {
+        MissionFilterSheet(
+            filterState = filterState,
+            allSkills = allSkills,
+            allCompanies = allCompanies,
+            allDurationRange = allDurationRange,
+            onToggleSkill = vm::toggleSkill,
+            onUpdateDurationRange = vm::updateDurationRange,
+            onToggleCompany = vm::toggleCompany,
+            onDismiss = { showFilterSheet = false },
+        )
     }
 }

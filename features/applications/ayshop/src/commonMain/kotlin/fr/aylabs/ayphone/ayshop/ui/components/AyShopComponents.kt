@@ -30,6 +30,7 @@ fun AppIcon(
     logo: ImageVector?,
     color: Long,
     size: Dp = 56.dp,
+    iconTint: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     Box(
         modifier = Modifier
@@ -42,7 +43,7 @@ fun AppIcon(
             Icon(
                 imageVector = logo,
                 contentDescription = null,
-                tint = Color.White,
+                tint = iconTint,
                 modifier = Modifier.fillMaxSize(0.6f),
             )
         }

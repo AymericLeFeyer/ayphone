@@ -195,7 +195,7 @@ private fun FeaturedAppCard(
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    AppIcon(logo = app.logo, color = app.color.value.toLong(), size = 64.dp)
+                    AppIcon(logo = app.logo, color = app.color.value.toLong(), size = 64.dp, iconTint = Color.White)
                     Spacer(Modifier.width(16.dp))
                     Column {
                         Text(

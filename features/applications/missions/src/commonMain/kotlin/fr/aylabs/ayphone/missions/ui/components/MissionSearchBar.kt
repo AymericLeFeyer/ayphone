@@ -38,7 +38,7 @@ fun MissionSearchBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = AySpacings.s, vertical = AySpacings.xs)
+            .padding(horizontal = AySpacings.m, vertical = AySpacings.m)
             .clip(RoundedCornerShape(percent = 50))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(horizontal = AySpacings.m, vertical = 14.dp),

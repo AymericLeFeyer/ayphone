@@ -93,6 +93,7 @@ fun AppDetailScreen(
                         logo = app.logo,
                         color = app.color.value.toLong(),
                         size = 72.dp,
+                        iconTint = Color.White
                     )
                 }
             }
