@@ -1,0 +1,31 @@
+name: Update profile.json
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Sync profile.json from timelife
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download profile.json
+        run: bash scripts/update-profile.sh
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes, skipping commit"
+          else
+            git add composeApp/src/webMain/resources/profile.json
+            git add composeApp/src/webMain/resources/youtube-stats.json
+            git commit -m "chore(data): sync static data files"
+            git push
+          fi
