@@ -1,6 +1,6 @@
 package fr.aylabs.ayphone.resume
 
-import ResumeRemoteDatasource
+import fr.aylabs.ayphone.resume.data.datasources.ResumeRemoteDatasource
 import fr.aylabs.ayphone.resume.data.datasources.ResumeLocalDatasource
 import fr.aylabs.ayphone.resume.data.repositories.ResumeRepositoryImpl
 import fr.aylabs.ayphone.resume.domain.repositories.ResumeRepository
@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val RESUME_MODULE = module {
     // Data
-    single { ResumeRemoteDatasource(client = get()) }
+    single { ResumeRemoteDatasource() }
     single { ResumeLocalDatasource(settings = get()) }
     single<ResumeRepository> { ResumeRepositoryImpl(remoteDatasource = get(), localDatasource = get()) }
 

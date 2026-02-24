@@ -17,3 +17,5 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
+# Data files: committed as placeholders, real data downloaded by scripts/update-profile.sh
+# Run: git update-index --skip-worktree features/applications/resume/src/commonMain/composeResources/files/profile.json features/applications/aylabs/src/commonMain/composeResources/files/youtube-stats.json

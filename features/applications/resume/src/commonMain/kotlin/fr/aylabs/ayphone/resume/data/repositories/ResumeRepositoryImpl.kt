@@ -1,6 +1,6 @@
 package fr.aylabs.ayphone.resume.data.repositories
 
-import ResumeRemoteDatasource
+import fr.aylabs.ayphone.resume.data.datasources.ResumeRemoteDatasource
 import fr.aylabs.ayphone.resume.data.datasources.ResumeLocalDatasource
 import fr.aylabs.ayphone.resume.data.dtos.ResumeDto
 import fr.aylabs.ayphone.resume.data.mappers.toModel

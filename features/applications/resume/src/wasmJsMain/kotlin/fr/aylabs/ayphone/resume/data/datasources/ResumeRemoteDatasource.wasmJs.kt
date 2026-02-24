@@ -1,1 +1,0 @@
-actual fun githubResumeUrl(): String = "/profile.json"

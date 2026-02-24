@@ -9,7 +9,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val AYLABS_MODULE = module {
-    single { AyLabsDatasource(client = get()) }
+    single { AyLabsDatasource() }
     single<AyLabsRepository> { AyLabsRepositoryImpl(datasource = get()) }
     single { GetAyLabsInfoUseCase(repository = get()) }
     viewModel { AyLabsViewModel(getAyLabsInfoUseCase = get()) }

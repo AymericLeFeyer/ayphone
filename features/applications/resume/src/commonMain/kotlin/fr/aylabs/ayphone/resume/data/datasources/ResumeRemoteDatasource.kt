@@ -1,27 +1,17 @@
+package fr.aylabs.ayphone.resume.data.datasources
+
+import ayphone.features.applications.resume.generated.resources.Res
 import fr.aylabs.ayphone.resume.data.dtos.ResumeDto
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.readBytes
 
-// It's temporary, because I'm using this url for testing purpose
-expect fun githubResumeUrl(): String
+class ResumeRemoteDatasource {
 
-class ResumeRemoteDatasource(val client: HttpClient) {
-
+    @OptIn(ExperimentalResourceApi::class)
     suspend fun getResumeData(): ResumeDto {
-        val response = client
-            .get(githubResumeUrl())
-
-        return when (response.status) {
-            HttpStatusCode.OK -> {
-                val rawJson = response.body<String>()
-                val jsonParser = Json { ignoreUnknownKeys = true }
-                jsonParser.decodeFromString(ResumeDto.serializer(), rawJson)
-            }
-
-            else -> throw Exception("Error fetching resume data: ${response.status}")
-        }
+        val rawJson = readBytes(Res.files.profile_json).decodeToString()
+        val jsonParser = Json { ignoreUnknownKeys = true }
+        return jsonParser.decodeFromString(ResumeDto.serializer(), rawJson)
     }
 }

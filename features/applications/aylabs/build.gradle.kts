@@ -52,6 +52,7 @@ kotlin {
                 implementation(libs.kermit)
                 implementation(libs.coil.compose)
                 implementation(libs.coil.network.ktor)
+                implementation(compose.components.resources)
             }
         }
 
@@ -67,4 +68,8 @@ kotlin {
             dependencies {}
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
 }
