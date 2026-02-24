@@ -29,7 +29,6 @@ kotlin {
 
     wasmJs {
         browser()
-        binaries.executable()
     }
 
     sourceSets {
