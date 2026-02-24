@@ -14,7 +14,7 @@ class AyLabsDatasource {
     @OptIn(ExperimentalResourceApi::class)
     suspend fun getStats(): AyLabsStatsDto? {
         return runCatching {
-            val rawJson = Res.readBytes("files/youtube_stats.json").decodeToString()
+            val rawJson = Res.readBytes("files/youtube-stats.json").decodeToString()
             json.decodeFromString(AyLabsStatsDto.serializer(), rawJson)
         }.getOrNull()
     }
