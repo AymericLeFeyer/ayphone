@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResumeContactDto(
     @SerialName("email") val email: String,
-    @SerialName("phone") val phone: String,
     @SerialName("linkedin") val linkedin: String,
     @SerialName("github") val github: String,
 )

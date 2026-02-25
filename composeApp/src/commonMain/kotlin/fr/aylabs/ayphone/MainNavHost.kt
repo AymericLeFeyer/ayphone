@@ -32,10 +32,12 @@ import fr.aylabs.ayphone.sideprojects.ui.navigation.sideProjectsGraph
 import fr.aylabs.ayphone.stack.ui.navigation.StackRoutes
 import fr.aylabs.ayphone.stack.ui.navigation.stackGraph
 import fr.aylabs.ayphone.travel.TravelConfig
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 sealed interface MainRoutes {
     @Serializable
+    @SerialName("home")
     data object Root : MainRoutes
 }
 
@@ -133,6 +135,9 @@ fun MainNavHost(
             navController = navController,
             onSeeRelatedMissions = { skillName ->
                 navController.navigate(MissionsRoutes.Root(initialSkillFilter = skillName))
+            },
+            onSeeRelatedSideProjects = { skillName ->
+                navController.navigate(SideProjectsRoutes.Root(initialSkillFilter = skillName))
             },
         )
         aboutGraph(navController)

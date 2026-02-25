@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 
 sealed interface MissionsRoutes {
     @Serializable
-    @SerialName("MissionsGraph")
+    @SerialName("missions-graph")
     data object Graph : MissionsRoutes
 
     @Serializable
-    @SerialName("Missions")
+    @SerialName("missions")
     data class Root(val initialSkillFilter: String = "") : MissionsRoutes
 
     @Serializable
-    @SerialName("MissionDetail")
+    @SerialName("mission-detail")
     data class MissionDetail(val missionIndex: Int) : MissionsRoutes
 }

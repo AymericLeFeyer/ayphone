@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 sealed interface HobbiesRoutes {
     @Serializable
-    @SerialName("HobbiesGraph")
+    @SerialName("hobbies-graph")
     data object Graph : HobbiesRoutes
 
     @Serializable
-    @SerialName("Hobbies")
+    @SerialName("hobbies")
     data object Root : HobbiesRoutes
 }

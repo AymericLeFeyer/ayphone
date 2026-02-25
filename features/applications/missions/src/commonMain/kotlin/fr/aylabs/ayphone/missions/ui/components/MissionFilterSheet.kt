@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RangeSlider
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -58,10 +59,11 @@ fun MissionFilterSheet(
     onUpdateDurationRange: (IntRange?) -> Unit,
     onToggleCompany: (String) -> Unit,
     onDismiss: () -> Unit,
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        sheetState = sheetState,
     ) {
         Column(
             modifier = Modifier
@@ -213,15 +215,15 @@ fun MissionFilterSheet(
                     }
                 }
             }
-        }
 
-        Button(
-            onClick = onDismiss,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AySpacings.l, vertical = AySpacings.l),
-        ) {
-            Text("Valider")
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = AySpacings.l),
+            ) {
+                Text("Valider")
+            }
         }
     }
 }

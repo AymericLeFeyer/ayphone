@@ -19,11 +19,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,6 +62,8 @@ fun MissionDetailScreen(
     val uriHandler = LocalUriHandler.current
 
     var selectedSkill by remember { mutableStateOf<ResumeMissionSkill?>(null) }
+    val skillSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val coroutineScope = rememberCoroutineScope()
 
     AyDetailScaffold(
         title = mission?.title ?: "",
@@ -163,15 +168,22 @@ fun MissionDetailScreen(
     }
 
     selectedSkill?.let { skill ->
+        val dismissSkillSheet = {
+            coroutineScope.launch { skillSheetState.hide() }.invokeOnCompletion {
+                if (!skillSheetState.isVisible) selectedSkill = null
+            }
+            Unit
+        }
         SkillDetailSheet(
             skillName = skill.name,
             description = skill.comments,
             frequency = skill.frequency,
+            sheetState = skillSheetState,
             onSeeSkillDetail = {
-                selectedSkill = null
+                dismissSkillSheet()
                 onSeeSkillDetail(skill.name)
             },
-            onDismiss = { selectedSkill = null },
+            onDismiss = { dismissSkillSheet() },
         )
     }
 }

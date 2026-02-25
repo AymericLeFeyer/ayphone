@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 
 sealed interface StackRoutes {
     @Serializable
-    @SerialName("StackGraph")
+    @SerialName("stack-graph")
     data object Graph : StackRoutes
 
     @Serializable
-    @SerialName("Stack")
+    @SerialName("stack")
     data object Root : StackRoutes
 
     @Serializable
-    @SerialName("StackSkillDetail")
+    @SerialName("skill-detail")
     data class SkillDetail(val skillLabel: String) : StackRoutes
 }

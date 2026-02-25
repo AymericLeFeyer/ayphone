@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 
 sealed interface AyShopRoutes {
     @Serializable
-    @SerialName("AyShopGraph")
+    @SerialName("shop-graph")
     data object Graph : AyShopRoutes
 
     @Serializable
-    @SerialName("AyShop")
+    @SerialName("shop")
     data object Root : AyShopRoutes
 
     @Serializable
-    @SerialName("AppDetail")
+    @SerialName("app-detail")
     data class AppDetail(val appId: String) : AyShopRoutes
 }

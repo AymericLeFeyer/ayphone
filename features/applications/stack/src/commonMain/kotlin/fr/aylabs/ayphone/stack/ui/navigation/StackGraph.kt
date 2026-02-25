@@ -15,6 +15,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NavGraphBuilder.stackGraph(
     navController: NavController,
     onSeeRelatedMissions: (String) -> Unit,
+    onSeeRelatedSideProjects: (String) -> Unit,
 ) {
     navigation<StackRoutes.Graph>(startDestination = StackRoutes.Root) {
         composable<StackRoutes.Root> {
@@ -40,6 +41,9 @@ fun NavGraphBuilder.stackGraph(
                     onBackClick = navController::popBackStack,
                     onSeeRelatedMissions = {
                         onSeeRelatedMissions(resumeSkill.skill.label)
+                    },
+                    onSeeRelatedSideProjects = {
+                        onSeeRelatedSideProjects(resumeSkill.skill.label)
                     },
                 )
             }

@@ -27,6 +27,7 @@ fun SkillDetailScreen(
     resumeSkill: ResumeSkill,
     onBackClick: () -> Unit,
     onSeeRelatedMissions: () -> Unit,
+    onSeeRelatedSideProjects: () -> Unit,
 ) {
     val skill = resumeSkill.skill
 
@@ -94,6 +95,15 @@ fun SkillDetailScreen(
                     .padding(top = AySpacings.xl),
             ) {
                 Text("Voir les missions associées")
+            }
+
+            Button(
+                onClick = onSeeRelatedSideProjects,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = AySpacings.s),
+            ) {
+                Text("Voir les side projects associés")
             }
         }
     }

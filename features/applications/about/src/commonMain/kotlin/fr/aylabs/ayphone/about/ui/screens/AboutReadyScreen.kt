@@ -28,10 +28,8 @@ import ayphone.features.applications.resume.generated.resources.Res
 import coil3.compose.AsyncImage
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Business
-import com.woowla.compose.icon.collections.remix.remix.Device
 import com.woowla.compose.icon.collections.remix.remix.Logos
 import com.woowla.compose.icon.collections.remix.remix.business.MailLine
-import com.woowla.compose.icon.collections.remix.remix.device.PhoneLine
 import com.woowla.compose.icon.collections.remix.remix.logos.GithubLine
 import com.woowla.compose.icon.collections.remix.remix.logos.LinkedinLine
 import fr.aylabs.ayphone.resume.domain.models.Company
@@ -81,9 +79,6 @@ fun AboutReadyScreen(
             ) {
                 IconButton(onClick = { uriHandler.openUri("mailto:${resume.contacts.email}") }) {
                     Icon(Remix.Business.MailLine, contentDescription = "Email")
-                }
-                IconButton(onClick = { uriHandler.openUri("tel:${resume.contacts.phone}") }) {
-                    Icon(Remix.Device.PhoneLine, contentDescription = "Phone")
                 }
                 IconButton(onClick = { uriHandler.openUri(resume.contacts.linkedin) }) {
                     Icon(Remix.Logos.LinkedinLine, contentDescription = "LinkedIn")

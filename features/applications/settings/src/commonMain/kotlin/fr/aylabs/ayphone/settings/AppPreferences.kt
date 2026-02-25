@@ -17,7 +17,7 @@ class AppPreferences(
     val theme: StateFlow<AppTheme> = _theme.asStateFlow()
 
     private val _showAppTitles = MutableStateFlow(
-        getSettingUseCase(SettingsKeys.SHOW_APP_TITLES, false)
+        getSettingUseCase(SettingsKeys.SHOW_APP_TITLES, true)
     )
     val showAppTitles: StateFlow<Boolean> = _showAppTitles.asStateFlow()
 
