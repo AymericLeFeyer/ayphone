@@ -35,7 +35,7 @@ fun SkillChip(
         ) {
             Skill.fromLabel(name)?.let { skill ->
                 SafeImage(
-                    resourcePath = skill.iconPath,
+                    url = skill.iconUrl,
                     contentDescription = null,
                     modifier = Modifier.size(AySizes.iconXl),
                 )

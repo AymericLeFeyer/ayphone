@@ -45,7 +45,7 @@ fun SkillDetailScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 SafeImage(
-                    resourcePath = skill.iconPath,
+                    url = skill.iconUrl,
                     contentDescription = null,
                     modifier = Modifier.size(AySizes.iconXxxl),
                 )

@@ -114,7 +114,7 @@ fun ClientsReadyScreen(
             ) {
                 Company.fromLabel(client.name)?.let { c ->
                     SafeImage(
-                        resourcePath = c.iconPath,
+                        url = c.iconUrl,
                         contentDescription = null,
                         modifier = Modifier
                             .size(AySizes.iconXxl)

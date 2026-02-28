@@ -45,7 +45,7 @@ fun SkillDetailSheet(
             ) {
                 Skill.fromLabel(skillName)?.let { skill ->
                     SafeImage(
-                        resourcePath = skill.iconPath,
+                        url = skill.iconUrl,
                         contentDescription = null,
                         modifier = Modifier.size(AySizes.iconL),
                     )

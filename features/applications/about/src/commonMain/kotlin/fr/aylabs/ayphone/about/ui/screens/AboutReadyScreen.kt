@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import ayphone.features.applications.resume.generated.resources.Res
 import coil3.compose.AsyncImage
 import com.woowla.compose.icon.collections.remix.Remix
 import com.woowla.compose.icon.collections.remix.remix.Business
@@ -191,7 +190,7 @@ fun AboutReadyScreen(
                     ) {
                         Company.fromLabel(company.name)?.let { c ->
                             AsyncImage(
-                                model = Res.getUri(c.iconPath),
+                                model = c.iconUrl,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(AySizes.iconM)

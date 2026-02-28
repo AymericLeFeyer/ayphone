@@ -116,7 +116,7 @@ fun MissionFilterSheet(
                                         leadingIcon = {
                                             Skill.fromLabel(skillName)?.let {
                                                 SafeImage(
-                                                    resourcePath = it.iconPath,
+                                                    url = it.iconUrl,
                                                     contentDescription = null,
                                                     modifier = Modifier.size(AySizes.iconS),
                                                 )
@@ -198,7 +198,7 @@ fun MissionFilterSheet(
                                 )
                                 Company.fromLabel(companyName)?.let { company ->
                                     SafeImage(
-                                        resourcePath = company.iconPath,
+                                        url = company.iconUrl,
                                         contentDescription = null,
                                         modifier = Modifier
                                             .size(20.dp)

@@ -89,7 +89,7 @@ fun ClientDetailScreen(
                 ) {
                     Company.fromLabel(companyName)?.let { c ->
                         SafeImage(
-                            resourcePath = c.iconPath,
+                            url = c.iconUrl,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(AySizes.iconXxxl)

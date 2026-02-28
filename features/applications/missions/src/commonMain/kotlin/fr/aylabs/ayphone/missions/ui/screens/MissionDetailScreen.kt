@@ -89,7 +89,7 @@ fun MissionDetailScreen(
                     ) {
                         Company.fromLabel(mission.company)?.let { company ->
                             SafeImage(
-                                resourcePath = company.iconPath,
+                                url = company.iconUrl,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(AySizes.iconM)

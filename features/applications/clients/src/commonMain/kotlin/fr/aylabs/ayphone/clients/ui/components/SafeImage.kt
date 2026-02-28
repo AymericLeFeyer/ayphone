@@ -3,18 +3,17 @@ package fr.aylabs.ayphone.clients.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import ayphone.features.applications.resume.generated.resources.Res
 import coil3.compose.AsyncImage
 
 @Composable
 fun SafeImage(
-    resourcePath: String,
+    url: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
 ) {
     AsyncImage(
-        model = Res.getUri(resourcePath),
+        model = url,
         contentDescription = contentDescription,
         modifier = modifier,
         contentScale = contentScale,
