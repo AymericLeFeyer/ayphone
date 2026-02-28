@@ -25,9 +25,6 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Fetch static data files
-        run: bash scripts/update-profile.sh
-
       - name: Build WasmJS production bundle
         run: ./gradlew composeApp:wasmJsBrowserProductionWebpack
 

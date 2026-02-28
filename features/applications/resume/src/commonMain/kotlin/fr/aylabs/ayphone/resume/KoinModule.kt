@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val RESUME_MODULE = module {
     // Data
-    single { ResumeRemoteDatasource() }
+    single { ResumeRemoteDatasource(client = get()) }
     single { ResumeLocalDatasource(settings = get()) }
     single<ResumeRepository> { ResumeRepositoryImpl(remoteDatasource = get(), localDatasource = get()) }
 

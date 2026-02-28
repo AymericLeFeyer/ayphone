@@ -1,16 +1,13 @@
 package fr.aylabs.ayphone.resume.data.datasources
 
-import ayphone.features.applications.resume.generated.resources.Res
 import fr.aylabs.ayphone.resume.data.dtos.ResumeDto
-import kotlinx.serialization.json.Json
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 
-class ResumeRemoteDatasource {
+class ResumeRemoteDatasource(private val client: HttpClient) {
 
-    @OptIn(ExperimentalResourceApi::class)
     suspend fun getResumeData(): ResumeDto {
-        val rawJson = Res.readBytes("files/profile.json").decodeToString()
-        val jsonParser = Json { ignoreUnknownKeys = true }
-        return jsonParser.decodeFromString(ResumeDto.serializer(), rawJson)
+        return client.get("https://api.aymeric.lefeyer.fr/api/profile").body()
     }
 }

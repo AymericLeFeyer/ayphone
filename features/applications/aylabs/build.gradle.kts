@@ -53,6 +53,7 @@ kotlin {
                 implementation(libs.coil.compose)
                 implementation(libs.coil.network.ktor)
                 implementation(compose.components.resources)
+                implementation(libs.multiplatform.settings)
             }
         }
 

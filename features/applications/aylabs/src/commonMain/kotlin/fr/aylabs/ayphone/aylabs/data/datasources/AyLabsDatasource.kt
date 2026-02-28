@@ -1,21 +1,18 @@
 package fr.aylabs.ayphone.aylabs.data.datasources
 
-import ayphone.features.applications.aylabs.generated.resources.Res
+import fr.aylabs.ayphone.aylabs.AyLabsConfig
 import fr.aylabs.ayphone.aylabs.data.dtos.AyLabsStatsDto
-import kotlinx.serialization.json.Json
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 
 fun proxyImageUrl(url: String?): String? = url
 
-class AyLabsDatasource {
+class AyLabsDatasource(private val client: HttpClient) {
 
-    private val json = Json { ignoreUnknownKeys = true }
-
-    @OptIn(ExperimentalResourceApi::class)
     suspend fun getStats(): AyLabsStatsDto? {
         return runCatching {
-            val rawJson = Res.readBytes("files/youtube-stats.json").decodeToString()
-            json.decodeFromString(AyLabsStatsDto.serializer(), rawJson)
+            client.get(AyLabsConfig.YOUTUBE_STATS_URL).body<AyLabsStatsDto>()
         }.getOrNull()
     }
 }
