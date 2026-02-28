@@ -27,7 +27,7 @@ class Client() {
         }
         install(Logging) {
             logger = AyLogger()
-            level = LogLevel.ALL
+            level = if (isDebug) LogLevel.ALL else LogLevel.NONE
         }
     }
 }
