@@ -42,7 +42,6 @@ import com.woowla.compose.icon.collections.remix.remix.arrows.ArrowUpSLine
 import fr.aylabs.ayphone.missions.ui.states.MissionsFilterState
 import fr.aylabs.ayphone.resume.domain.models.Company
 import fr.aylabs.ayphone.resume.domain.models.Skill
-import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.design_system.AyCorners
 import fr.aylabs.design_system.AySizes
 import fr.aylabs.design_system.AySpacings
@@ -79,14 +78,14 @@ fun MissionFilterSheet(
 
             if (allSkills.isNotEmpty()) {
                 var skillsExpanded by remember { mutableStateOf(false) }
-                val skillsByCategory: List<Pair<SkillCategory, List<String>>> =
+                val skillsByCategory: List<Pair<String, List<String>>> =
                     remember(allSkills) {
                         allSkills
                             .groupBy { name ->
-                                Skill.fromLabel(name)?.category ?: SkillCategory.TOOLS
+                                Skill.fromLabel(name)?.category ?: ""
                             }
                             .entries
-                            .sortedBy { it.key.ordinal }
+                            .sortedBy { it.key }
                             .map { (category, skills) -> category to skills }
                     }
 
@@ -100,7 +99,7 @@ fun MissionFilterSheet(
                     Column(verticalArrangement = Arrangement.spacedBy(AySpacings.s)) {
                         skillsByCategory.forEach { (category, skills) ->
                             Text(
-                                text = category.label,
+                                text = category,
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )

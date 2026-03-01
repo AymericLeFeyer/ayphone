@@ -56,7 +56,7 @@ fun SkillDetailScreen(
                         style = MaterialTheme.typography.headlineSmall,
                     )
                     Text(
-                        text = skill.category.label,
+                        text = skill.category,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import fr.aylabs.ayphone.resume.domain.models.Resume
 import fr.aylabs.ayphone.resume.domain.models.ResumeSkill
-import fr.aylabs.ayphone.resume.domain.models.SkillCategory
 import fr.aylabs.ayphone.stack.ui.components.SkillChip
 import fr.aylabs.design_system.AySizes
 import fr.aylabs.design_system.AySpacings
@@ -26,12 +25,12 @@ fun StackReadyScreen(
     grouping: StackGrouping,
     onSkillClick: (String) -> Unit,
 ) {
-    val skillsByCategory: List<Pair<SkillCategory, List<ResumeSkill>>> =
+    val skillsByCategory: List<Pair<String, List<ResumeSkill>>> =
         remember(resume.skills) {
             resume.skills
                 .groupBy { it.skill.category }
                 .entries
-                .sortedBy { it.key.ordinal }
+                .sortedBy { it.key }
                 .map { (category, items) -> category to items.sortedByDescending { it.score } }
         }
 
@@ -69,11 +68,11 @@ fun StackReadyScreen(
             StackGrouping.CATEGORY -> {
                 skillsByCategory.forEach { (category, skills) ->
                     item(
-                        key = "header_${category.name}",
+                        key = "header_$category",
                         span = { GridItemSpan(maxLineSpan) },
                     ) {
                         Text(
-                            text = category.label,
+                            text = category,
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = AySpacings.m, bottom = AySpacings.xs),

@@ -37,7 +37,7 @@ sealed interface SearchResult {
     data class TechSkill(val skill: Skill) : SearchResult {
         override val icon: ImageVector = Remix.Development.CodeSSlashLine
         override val displayTitle: String = skill.label
-        override val displaySubtitle: String = "Compétence · ${skill.category.label}"
+        override val displaySubtitle: String = "Compétence · ${skill.category}"
         override val backgroundColor: Color = AyApp.STACK.color
     }
 
