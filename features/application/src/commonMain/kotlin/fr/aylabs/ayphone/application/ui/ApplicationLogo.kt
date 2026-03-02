@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,34 +54,32 @@ fun ApplicationLogo(
     }
 
     val cornerShape = RoundedCornerShape(AyCorners.l)
-    val iconModifier = if (showTitle) {
+    val iconSize = if (showTitle) {
         Modifier.size(AySizes.appIcon)
     } else {
         Modifier.fillMaxWidth().aspectRatio(1f)
-    }.clip(cornerShape)
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.graphicsLayer {
-            scaleX = scale.value
-            scaleY = scale.value
-        }
+        modifier = modifier.clickable { onClick() },
     ) {
-        Surface(
-            modifier = Modifier
-                .clickable { onClick() }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = iconSize
+                .graphicsLayer {
+                    scaleX = scale.value
+                    scaleY = scale.value
+                }
+                .clip(cornerShape)
+                .background(app.color),
         ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = iconModifier.background(app.color),
-            ) {
-                Icon(
-                    imageVector = app.logo,
-                    contentDescription = app.title,
-                    tint = Color.White,
-                    modifier = Modifier.fillMaxWidth(0.55f).aspectRatio(1f),
-                )
-            }
+            Icon(
+                imageVector = app.logo,
+                contentDescription = app.title,
+                tint = Color.White,
+                modifier = Modifier.fillMaxWidth(0.55f).aspectRatio(1f),
+            )
         }
 
         if (showTitle) {
