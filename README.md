@@ -230,7 +230,7 @@ ayphone/
 │       ├── commonMain/        App.kt, MainNavHost.kt, di/
 │       ├── androidMain/       MainActivity.kt
 │       └── webMain/
-│           ├── kotlin/        main.kt, WasmSvgFetcher.kt
+│           ├── kotlin/        main.kt
 │           ├── resources/     index.html, styles.css
 │           └── docker/        Dockerfile, nginx.conf
 ├── core/
