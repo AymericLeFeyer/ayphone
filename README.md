@@ -343,6 +343,6 @@ See [LICENSE](LICENSE) for full terms.
 
 <div align="center">
 
-Made with ❤️ by [Aymeric Le Feyer](https://github.com/AymericLeFeyer)
+Made with ❤️ by [Aymeric Le Feyer](https://github.com/AymericLeFeyer) (and Claude)
 
 </div>
