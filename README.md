@@ -25,17 +25,19 @@ The project targets both **Android** (native APK) and **Web** (WebAssembly via W
 
 ## Screenshots
 
-> _Screenshots coming soon._
-
-| Home Screen | Missions | Stack | Clients |
-|---|---|---|---|
-| _(placeholder)_ | _(placeholder)_ | _(placeholder)_ | _(placeholder)_ |
-
-| AyShop | AyLabs | Hobbies | Settings |
-|---|---|---|---|
-| _(placeholder)_ | _(placeholder)_ | _(placeholder)_ | _(placeholder)_ |
-
----
+<table>
+    <tr>
+    <td><img src="https://github.com/user-attachments/assets/200c9c53-ad2c-4e31-805a-c90550a685ab" alt="Screen 6" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/e5f52d5b-1dc5-4532-a57a-425656a3ed47" alt="Screen 5" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/11ed4651-b3f4-42c5-b80a-a7ec7d4f9216" alt="Screen 4" width="100%"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/74ef9454-2c0c-4931-8d20-e44fae9f635f" alt="Screen 3" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/8cfca121-dd50-4ab1-b71e-97dd58f69a34" alt="Screen 2" width="100%"></td>
+    <td><img src="https://github.com/user-attachments/assets/6d03484f-8d61-4953-9542-abc0a6edfb6d" alt="Screen 1" width="100%"></td>
+  </tr>
+  
+</table>
 
 ## Features
 
